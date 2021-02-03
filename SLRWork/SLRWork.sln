@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLRDataEntryV1", "..\..\SLRSoftwareV1\Solution1\SLRDataEntryV1\SLRDataEntryV1.csproj", "{AE9BC496-BFDB-4340-B7E9-AB1E72C97E67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLRDataEntryV1", "SLRDataEntryV1\SLRDataEntryV1.csproj", "{AE9BC496-BFDB-4340-B7E9-AB1E72C97E67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
