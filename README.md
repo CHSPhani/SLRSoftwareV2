@@ -5,7 +5,7 @@ The main motive behind saving this project Git is to save my work and data.
 
 The steps 1 and 2 in using this code
 
-1. MySql Database need to be created with name "slrv1". Creating Database essentially means that creating Tables and priliminary data.a .txt file called SLRDatabase.txt in this folder has SQL commands to do this. 
+1. MySql Database need to be created with name "slrv1". Creating Database essentially means that creating Tables and priliminary data. The file DBNotes.txt in this folder has instructions and SQL commands to do this. 
 
 2. After creating the Database building and running this project enables to enter review data. 
 
