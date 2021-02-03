@@ -71,6 +71,12 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 cmd6.ExecuteNonQuery();
                 System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
 
+                string rq7 = string.Format("INSERT INTO notes (pID, paperNotes) VALUES ({0},'{1}');",
+                                                   nextID, rModel.PNotes.Notes);
+                MySqlCommand cmd7 = new MySqlCommand(rq7.ToString(), conn);
+                cmd7.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
                 return true;
                 
             }

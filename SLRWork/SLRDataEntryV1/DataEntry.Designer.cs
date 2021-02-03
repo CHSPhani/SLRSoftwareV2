@@ -123,6 +123,11 @@
             this.label38 = new System.Windows.Forms.Label();
             this.tbScalability = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button18 = new System.Windows.Forms.Button();
+            this.label40 = new System.Windows.Forms.Label();
+            this.tbNotes = new System.Windows.Forms.RichTextBox();
             this.btnNewEntry = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -135,6 +140,7 @@
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbDataController
@@ -146,6 +152,7 @@
             this.tbDataController.Controls.Add(this.tabPage5);
             this.tbDataController.Controls.Add(this.tabPage6);
             this.tbDataController.Controls.Add(this.tabPage7);
+            this.tbDataController.Controls.Add(this.tabPage8);
             this.tbDataController.Location = new System.Drawing.Point(12, 42);
             this.tbDataController.Name = "tbDataController";
             this.tbDataController.SelectedIndex = 0;
@@ -1039,7 +1046,7 @@
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Size = new System.Drawing.Size(1416, 562);
             this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "RQ7: Business Oriented Features";
+            this.tabPage7.Text = "RQ6: Business Oriented Features";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // button16
@@ -1118,6 +1125,59 @@
             this.label39.TabIndex = 41;
             this.label39.Text = "Scalability";
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.button1);
+            this.tabPage8.Controls.Add(this.button18);
+            this.tabPage8.Controls.Add(this.label40);
+            this.tabPage8.Controls.Add(this.tbNotes);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Notes for Paper";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(997, 397);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 41);
+            this.button1.TabIndex = 47;
+            this.button1.Text = "Next >>";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button18
+            // 
+            this.button18.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button18.Location = new System.Drawing.Point(854, 397);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(120, 41);
+            this.button18.TabIndex = 48;
+            this.button18.Text = "<< Previous";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.Location = new System.Drawing.Point(189, 56);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(58, 25);
+            this.label40.TabIndex = 42;
+            this.label40.Text = "Notes";
+            // 
+            // tbNotes
+            // 
+            this.tbNotes.Location = new System.Drawing.Point(253, 56);
+            this.tbNotes.Name = "tbNotes";
+            this.tbNotes.Size = new System.Drawing.Size(865, 317);
+            this.tbNotes.TabIndex = 0;
+            this.tbNotes.Text = "";
+            // 
             // btnNewEntry
             // 
             this.btnNewEntry.Location = new System.Drawing.Point(12, 6);
@@ -1188,6 +1248,8 @@
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1293,5 +1355,10 @@
         private System.Windows.Forms.TextBox tbPDate;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.RichTextBox tbNotes;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button18;
     }
 }

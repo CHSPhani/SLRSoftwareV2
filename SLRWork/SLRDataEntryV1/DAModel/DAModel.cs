@@ -26,6 +26,8 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
             public Rq6 ResearchQuestion6 { get; set; }
 
+            public PaperNotes PNotes { get; set; }
+
             public bool Complete { get; set; }
 
             public bool Saved { get; set; }
@@ -38,6 +40,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
                 ResearchQuestion4 = new Rq4();
                 ResearchQuestion5 = new Rq5();
                 ResearchQuestion6 = new Rq6();
+                PNotes = new PaperNotes();
                 Complete = false;
                 Saved = false;
             }
@@ -57,6 +60,15 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             }
         }
 
+        public class PaperNotes
+        {
+            public string Notes { get; set; }
+
+            public PaperNotes()
+            {
+                Notes = string.Empty;
+            }
+        }
         public class CommonSection
         {
             public string PaperName { get; set; }

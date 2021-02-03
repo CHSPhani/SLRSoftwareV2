@@ -302,12 +302,31 @@ namespace UoB.SLR.SLRDataEntryV1
 
             if (!businessFeature)
                 MessageBox.Show("Enter Business features");
-
+            else
+                tbDataController.SelectedTab = tbDataController.TabPages[7];
         }
         //RQ6 Prev
         private void button15_Click(object sender, EventArgs e)
         {
             tbDataController.SelectedTab = tbDataController.TabPages[5];
+        }
+        //Notes Next
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            bool pnotes = true;
+            if (!string.IsNullOrEmpty(tbNotes.Text))
+                rModel.PNotes.Notes = tbNotes.Text.Trim();
+            else
+                pnotes = false;
+
+            if(!pnotes)
+                MessageBox.Show("Enter Notes for Paper");
+            
+        }
+        //Notes Prev
+        private void button18_Click(object sender, EventArgs e)
+        {
+            tbDataController.SelectedTab = tbDataController.TabPages[6];
         }
 
         ReviewModel rModel;
@@ -502,6 +521,12 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbRWLatency.Text = string.Empty;
             else
                 tbRWLatency.Text = rModel.ResearchQuestion6.RWLAtency;
+
+            //Tab8
+            if (string.IsNullOrEmpty(rModel.PNotes.Notes))
+                tbNotes.Text = string.Empty;
+            else
+                tbNotes.Text = rModel.PNotes.Notes;
         }
 
         //Save Data
@@ -559,6 +584,9 @@ namespace UoB.SLR.SLRDataEntryV1
             tbScalability.Text = string.Empty;
             tbConsistency.Text = string.Empty;
             tbRWLatency.Text = string.Empty;
+            tbNotes.Text = string.Empty;
         }
+
+       
     }
 }

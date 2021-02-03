@@ -1,0 +1,213 @@
+Note: please ignore // they are comments to understand
+
+Open MySQL Command Line client. Enter Password: xxxxx
+
+Commands:
+1. show databases; -> to get all databases
+2. CREATE DATABASE slrv1; -> to create slrv1 database.
+3. use slrv1; -> to use slrv1 datanase
+4. show tables; -> To see all tables;
+5. SELECT database(); -> to check what is current database
+
+The reference for creating the database is the Excel sheet. Excel sheet col names
+
+1.// Common
+//	S No
+//	Paper Name
+//	Citation
+//	Date of Publication
+//	BibTex	
+
+CREATE TABLE `slrv1`.`CommonParams` (
+ `pID` INT NOT NULL,
+ `pTitle` VARCHAR(150) NOT NULL,
+ `pCitation` VARCHAR(100) NOT NULL,
+ `pPublicationDate` VARCHAR(100) NOT NULL,
+ `pBitex` VARCHAR(1500) NOT NULL,
+ PRIMARY KEY (`pID`));
+
+2. //RQ1 :-> Why Blockchain is used
+//	Application Area
+//	Sub-Area
+//	Reason	
+
+//DB Version of RQ1
+
+CREATE TABLE `slrv1`.`ApplicationArea` (
+ `aaID` INT NOT NULL,
+ `applicationArea` VARCHAR(1000) NOT NULL,
+ `aaNotes` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`aaID`));
+
+//sub area
+//I have not created a list of Sub Areas as of now.
+//Want to see what kind of subareas emerge and then create a master list.
+
+CREATE TABLE `slrv1`.`SubArea` (
+ `saID` INT NOT NULL,
+ `aaID` INT NOT NULL,
+ `subArea` VARCHAR(1000) NOT NULL,
+ `saNotes` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`saID`,`aaID`),
+CONSTRAINT `saComp`
+    FOREIGN KEY (`aaID`)
+    REFERENCES `slrv1`.`ApplicationArea` (`aaID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+//Research Question1
+
+CREATE TABLE `slrv1`.`rq1` (
+ `pID` INT NOT NULL,
+ `aaID` INT NOT NULL,
+ `sareaName` VARCHAR(1000) NOT NULL,
+ `rq1Reason` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq1Comp1`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `rq1Comp2`
+    FOREIGN KEY (`aaID`)
+    REFERENCES `slrv1`.`ApplicationArea` (`aaID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+3. //RQ2: Effect on System Architecture									
+//	What S/W architecture
+//	Blockchain choice
+//	Consensus
+//	Network
+//	Participation
+//	BFT..	
+//	GAS
+//	Kind of solution
+//	Architecture
+
+CREATE TABLE `slrv1`.`rq2` (
+ `pID` INT NOT NULL,
+ `swArchType` VARCHAR(1000) NOT NULL,
+ `blockchainchoice` VARCHAR(1000) NOT NULL,
+ `consensus` VARCHAR(1000) NOT NULL,
+ `network` VARCHAR(1000) NOT NULL,
+ `participation` VARCHAR(1000) NOT NULL,
+ `bft` VARCHAR(1000) NOT NULL,
+ `gas` VARCHAR(1000) NOT NULL,
+ `bcSolution` VARCHAR(1000) NOT NULL,
+ `newArchitecture` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq2Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+4.// RQ3: Data in Blochcian		
+//	Data Format
+//	Data Store
+
+CREATE TABLE `slrv1`.`rq3` (
+ `pID` INT NOT NULL,
+ `bcDataFormat` VARCHAR(1000) NOT NULL,
+ `dataStore` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq3Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+5.// RQ4: -> Data Related Features									
+//	Data Model
+//	Data Integrity
+//	Data Access
+//	Data Indexing
+//	Relations in Data
+//	Data Sharding
+//	Data Provenance
+//	Data Ownership
+//	Data Lineage/Locality
+//	Ownership towards
+//	Data Authorization
+
+CREATE TABLE `slrv1`.`rq4` (
+ `pID` INT NOT NULL,
+ `datamodel` VARCHAR(1000) NOT NULL,
+ `dataintegrity` VARCHAR(1000) NOT NULL,
+ `dataaccess` VARCHAR(1000) NOT NULL,
+ `dataindexing` VARCHAR(1000) NOT NULL,
+ `datarelations` VARCHAR(1000) NOT NULL,
+ `datasharding` VARCHAR(1000) NOT NULL,
+ `dataprovenance` VARCHAR(1000) NOT NULL,
+ `datalineage` VARCHAR(1000) NOT NULL,
+ `dataownership` VARCHAR(1000) NOT NULL,
+ `ownershiptowards` VARCHAR(1000) NOT NULL,
+ `dataauthorization` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq4Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+6.// RDistirbuted Systems Aspect			
+//	Network Type
+//	Replication
+//	Network Topology
+
+CREATE TABLE `slrv1`.`rq5` (
+ `pID` INT NOT NULL,
+ `dsNetworkType` VARCHAR(1000) NOT NULL,
+ `dsReplication` VARCHAR(1000) NOT NULL,
+ `dsTopology` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq5Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+7.// Business Features		
+//	Scalability
+//	Consistency
+// 	R/W Latency
+
+CREATE TABLE `slrv1`.`rq6` (
+ `pID` INT NOT NULL,
+ `bsScalability` VARCHAR(1000) NOT NULL,
+ `bsConsistency` VARCHAR(1000) NOT NULL,
+ `bsRWLatency` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq6Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+8. // Notes fror each Paper
+CREATE TABLE `slrv1`.`notes` (
+ `pID` INT NOT NULL,
+ `paperNotes` VARCHAR(5000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `ntComp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+//Inserting master list of Application areas
+insert into ApplicationArea values(1,'Multimedia','Images, Videos content');
+insert into ApplicationArea values(2,'Metadata','Data about another data like Files, media');
+insert into ApplicationArea values(3,'IoT','Internet of Things');
+insert into ApplicationArea values(4,'Energy','Power systems, Microgrid, LVDN, P2P');
+insert into ApplicationArea values(5,'Technology Review','Redefine some aspects if Blockchain');
+insert into ApplicationArea values(6,'CPS','Cyber Physical Systems');
+insert into ApplicationArea values(7,'Supply Chain','Goods supply chain');
+insert into ApplicationArea values(8,'Vehicular Network','Movement of different vehicles.');
+insert into ApplicationArea values(9,'Log Management','Managing Logs generated from different systems');
+insert into ApplicationArea values(10,'Health Record Management','EMR and PHD record management');
+insert into ApplicationArea values(11,'Marketting','Marketting networks and data');
+insert into ApplicationArea values(12,'Key Management','Public private key Management and Certification Authorities');
+insert into ApplicationArea values(13,'Social Network','Social network software and data');
