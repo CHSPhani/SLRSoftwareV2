@@ -1,4 +1,4 @@
-Note: please ignore // they are comments to understand
+Note: please ignore lines starting with // they are comments to understand
 
 Open MySQL Command Line client. Enter Password: xxxxx
 
