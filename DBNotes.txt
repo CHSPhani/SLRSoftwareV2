@@ -1,4 +1,4 @@
-Note: please ignore lines starting with // they are comments to understand
+Note: please ignore // they are comments to understand
 
 Open MySQL Command Line client. Enter Password: xxxxx
 
@@ -181,6 +181,17 @@ CREATE TABLE `slrv1`.`rq6` (
  `bsRWLatency` VARCHAR(1000) NOT NULL,
  PRIMARY KEY (`pID`),
  CONSTRAINT `rq6Comp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+8. // Notes fror each Paper
+CREATE TABLE `slrv1`.`notes` (
+ `pID` INT NOT NULL,
+ `paperNotes` VARCHAR(5000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `ntComp`
     FOREIGN KEY (`pID`)
     REFERENCES `slrv1`.`commonparams` (`pID`)
     ON DELETE NO ACTION
