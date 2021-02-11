@@ -16,7 +16,7 @@ namespace UoB.SLR.SLRDataEntryV1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataEntry());
+            Application.Run(new MainForm());
         }
     }
 }

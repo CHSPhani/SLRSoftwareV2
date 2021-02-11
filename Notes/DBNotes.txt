@@ -196,6 +196,58 @@ CREATE TABLE `slrv1`.`notes` (
     REFERENCES `slrv1`.`commonparams` (`pID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+9.
+CREATE TABLE `slrv1`.`SearchStringDetails` (
+ `ssID` VARCHAR(100) NOT NULL,
+ `sstring` VARCHAR(5000) NOT NULL,
+ `csvFileName` VARCHAR(100) NOT NULL,
+ PRIMARY KEY (`ssID`));
+
+10. //commented  PRIMARY KEY (`ssID`),
+
+CREATE TABLE `slrv1`.`BulkPaperDetails` (
+ `ssID` VARCHAR(100) NOT NULL,
+ `DocumentTitle` VARCHAR(1000) NOT NULL,
+ `Authors` VARCHAR(1000) NOT NULL,
+ `DateAddedToXplore` VARCHAR(1000) NOT NULL,
+ `PublicationYear` VARCHAR(1000) NOT NULL,
+ `Abstract` VARCHAR(7000) NOT NULL,
+ `PDFLink` VARCHAR(1000) NOT NULL,
+ `AuthorKeywords` VARCHAR(1000) NOT NULL,
+ `IEEETerms` VARCHAR(1000) NOT NULL,
+ `Publisher` VARCHAR(1000) NOT NULL,
+ `DocumentIdentifier` VARCHAR(1000) NOT NULL,
+ `Explored` VARCHAR(5) NOT NULL,
+ CONSTRAINT `ssComp`
+    FOREIGN KEY (`ssID`)
+    REFERENCES `slrv1`.`SearchStringDetails` (`ssID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+11. // Rejected Paper details
+CREATE TABLE `slrv1`.`notes` (
+ `pID` INT NOT NULL,
+ `paperNotes` VARCHAR(5000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `ntComp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+//Insert Search String details
+
+insert into searchstringdetails values('SS1','(Blockchain OR Distributed Ledger) AND (Data Store OR Data storage) and Grid','SS1-1-2017-2021'); 
+
+insert into searchstringdetails values('SS2','(Blockchain OR Distributed Ledger) AND (Data Store OR Data storage) AND "Smart Grid"','SS2-1-2017-2021');
+
+insert into searchstringdetails values('SS3','(Blockchain OR Distributed Ledger) AND (Data Store OR Data storage) and Distribution Network','SS3-1-2017-2021');
+
+insert into searchstringdetails values('SS4','(Blockchain OR Distributed Ledger) AND (Data Store OR Data storage) and Power Network','SS4-1-2017-2021');
+
+
 
 //Inserting master list of Application areas
 insert into ApplicationArea values(1,'Multimedia','Images, Videos content');

@@ -58,6 +58,30 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
                     }
                 }
             }
+
+            public void ClearModel()
+            {
+                cSection = null;
+                ResearchQuestion1 = null;
+                ResearchQuestion2 = null;
+                ResearchQuestion3 = null;
+                ResearchQuestion4 = null;
+                ResearchQuestion5 = null;
+                ResearchQuestion6 = null;
+                PNotes = null;
+
+                cSection = new CommonSection();
+                ResearchQuestion1 = new Rq1();
+                ResearchQuestion2 = new Rq2();
+                ResearchQuestion3 = new Rq3();
+                ResearchQuestion4 = new Rq4();
+                ResearchQuestion5 = new Rq5();
+                ResearchQuestion6 = new Rq6();
+                PNotes = new PaperNotes();
+
+                Complete = false;
+                Saved = false;
+            }
         }
 
         public class PaperNotes
@@ -79,9 +103,13 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
             public string Bibtex { get; set; }
 
+            public int Version { get; set; }
+
+            public string Accepted { get; set; }
             public CommonSection()
             {
-                PaperName = Citation = PublicationDate = Bibtex = string.Empty;
+                PaperName = Citation = PublicationDate = Bibtex = Accepted = string.Empty;
+                Version = 2;
             }
         }
 

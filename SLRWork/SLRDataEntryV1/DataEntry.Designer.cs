@@ -30,6 +30,7 @@
         {
             this.tbDataController = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label41 = new System.Windows.Forms.Label();
             this.tbPDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -128,10 +129,10 @@
             this.button18 = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
             this.tbNotes = new System.Windows.Forms.RichTextBox();
-            this.btnNewEntry = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.cmdDecision = new System.Windows.Forms.ComboBox();
             this.tbDataController.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -153,14 +154,16 @@
             this.tbDataController.Controls.Add(this.tabPage6);
             this.tbDataController.Controls.Add(this.tabPage7);
             this.tbDataController.Controls.Add(this.tabPage8);
-            this.tbDataController.Location = new System.Drawing.Point(12, 42);
+            this.tbDataController.Location = new System.Drawing.Point(12, 12);
             this.tbDataController.Name = "tbDataController";
             this.tbDataController.SelectedIndex = 0;
-            this.tbDataController.Size = new System.Drawing.Size(1424, 588);
+            this.tbDataController.Size = new System.Drawing.Size(1424, 618);
             this.tbDataController.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmdDecision);
+            this.tabPage1.Controls.Add(this.label41);
             this.tabPage1.Controls.Add(this.tbPDate);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
@@ -173,10 +176,20 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage1.Size = new System.Drawing.Size(1416, 592);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Common Data";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(160, 413);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(86, 25);
+            this.label41.TabIndex = 14;
+            this.label41.Text = "Accepted";
             // 
             // tbPDate
             // 
@@ -229,7 +242,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(788, 418);
+            this.button4.Location = new System.Drawing.Point(788, 460);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(120, 41);
             this.button4.TabIndex = 8;
@@ -277,7 +290,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage2.Size = new System.Drawing.Size(1416, 592);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "RQ1 : Why Blockchain";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -405,7 +418,7 @@
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage3.Size = new System.Drawing.Size(1416, 592);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "RQ2: Blockchain & Architecture";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -623,7 +636,7 @@
             this.tabPage4.Controls.Add(this.label19);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage4.Size = new System.Drawing.Size(1416, 592);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "RQ3: Type of Data";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -714,7 +727,7 @@
             this.tabPage5.Controls.Add(this.label23);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage5.Size = new System.Drawing.Size(1416, 592);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "RQ4: Data Features";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -951,7 +964,7 @@
             this.tabPage6.Controls.Add(this.label35);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage6.Size = new System.Drawing.Size(1416, 592);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "RQ5: Distributed System Perspective";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1044,7 +1057,7 @@
             this.tabPage7.Controls.Add(this.label39);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage7.Size = new System.Drawing.Size(1416, 592);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "RQ6: Business Oriented Features";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1133,7 +1146,7 @@
             this.tabPage8.Controls.Add(this.tbNotes);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(1416, 562);
+            this.tabPage8.Size = new System.Drawing.Size(1416, 592);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Notes for Paper";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1172,41 +1185,22 @@
             // 
             // tbNotes
             // 
+            this.tbNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNotes.Location = new System.Drawing.Point(253, 56);
             this.tbNotes.Name = "tbNotes";
             this.tbNotes.Size = new System.Drawing.Size(865, 317);
             this.tbNotes.TabIndex = 0;
             this.tbNotes.Text = "";
             // 
-            // btnNewEntry
-            // 
-            this.btnNewEntry.Location = new System.Drawing.Point(12, 6);
-            this.btnNewEntry.Name = "btnNewEntry";
-            this.btnNewEntry.Size = new System.Drawing.Size(154, 30);
-            this.btnNewEntry.TabIndex = 1;
-            this.btnNewEntry.Text = "New Entry";
-            this.btnNewEntry.UseVisualStyleBackColor = true;
-            this.btnNewEntry.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1184, 648);
+            this.button2.Location = new System.Drawing.Point(1174, 645);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 30);
             this.button2.TabIndex = 2;
             this.button2.Text = "Save Data";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(1311, 648);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(121, 30);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Exit";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button17
             // 
@@ -1218,21 +1212,43 @@
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1311, 645);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(121, 30);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Return";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // cmdDecision
+            // 
+            this.cmdDecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdDecision.FormattingEnabled = true;
+            this.cmdDecision.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.cmdDecision.Location = new System.Drawing.Point(293, 413);
+            this.cmdDecision.Name = "cmdDecision";
+            this.cmdDecision.Size = new System.Drawing.Size(260, 28);
+            this.cmdDecision.TabIndex = 8;
+            // 
             // DataEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1448, 687);
-            this.Controls.Add(this.button17);
             this.Controls.Add(this.button3);
+            this.Controls.Add(this.button17);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.btnNewEntry);
             this.Controls.Add(this.tbDataController);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DataEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SLR Data Entry";
+            this.Load += new System.EventHandler(this.DataEntry_Load);
             this.tbDataController.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1259,14 +1275,12 @@
         private System.Windows.Forms.TabControl tbDataController;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button btnNewEntry;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.RichTextBox tbBibtex;
         private System.Windows.Forms.TextBox tbCitaton;
@@ -1360,5 +1374,8 @@
         private System.Windows.Forms.RichTextBox tbNotes;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.ComboBox cmdDecision;
     }
 }

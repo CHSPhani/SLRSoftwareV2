@@ -21,14 +21,18 @@ namespace UoB.SLR.SLRDataEntryV1
             InitializeComponent();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
         //Common next
         private void button4_Click(object sender, EventArgs e)
         {
+            //Check whether citation exists or not 
+            if (GetDataLayer.CheckCitationExists(tbCitaton.Text.Trim(), conn))
+            {
+                MessageBox.Show("Paper details already exists");
+                ClearFields();
+                return;
+            }
+
             bool cSecComplete = true;
 
             if (!string.IsNullOrEmpty(tbPaperName.Text))
@@ -51,10 +55,17 @@ namespace UoB.SLR.SLRDataEntryV1
             else
                 cSecComplete = false;
 
+            if (!string.IsNullOrEmpty(cmdDecision.SelectedItem.ToString()))
+                rModel.cSection.Accepted = cmdDecision.SelectedItem.ToString().Trim();
+            else
+                cSecComplete = false;
+
             if (!cSecComplete)
                 MessageBox.Show("Enter Common Section Details");
             else
+            {
                 tbDataController.SelectedTab = tbDataController.TabPages[1];
+            }
         }
 
         //RQ1 Next
@@ -78,7 +89,16 @@ namespace UoB.SLR.SLRDataEntryV1
             if (!whyBC)
                 MessageBox.Show("Enter Answers for Questions");
             else
-                tbDataController.SelectedTab = tbDataController.TabPages[2];
+            {
+                if (cmdDecision.SelectedItem.ToString().Equals("No"))
+                {
+                    tbDataController.SelectedTab = tbDataController.TabPages[7];
+                }
+                else
+                {
+                    tbDataController.SelectedTab = tbDataController.TabPages[2];
+                }
+            }
         }
 
         //RQ1 Prev
@@ -335,8 +355,72 @@ namespace UoB.SLR.SLRDataEntryV1
         //New Entry
         private void button1_Click(object sender, EventArgs e)
         {
+            //Loading Moved to a function
+        }
+
+        //Save Data
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (SaveData.SaveDetails(rModel, conn))
+            {
+                rModel.Saved = true;
+                MessageBox.Show("Saved Sucessfully");
+                ClearFields();
+            }
+            else
+                MessageBox.Show("Save Failed");
+        }
+
+        //Clear Data fields
+        private void button17_Click(object sender, EventArgs e)
+        {
+            ClearFields();
+        }
+
+        void ClearFields()
+        {
+            tbPaperName.Text = string.Empty;
+            tbCitaton.Text = string.Empty;
+            tbPDate.Text = string.Empty;
+            tbBibtex.Text = string.Empty;
+            cmbAArea.SelectedItem = string.Empty;
+            tbASubarea.Text = string.Empty;
+            tbReason.Text = string.Empty;
+            tbSoftArch.Text = string.Empty;
+            tbBcChoice.Text = string.Empty;
+            tbConsensus.Text = string.Empty;
+            tbNetwork.Text = string.Empty;
+            tbParticipation.Text = string.Empty;
+            tbBFT.Text = string.Empty;
+            tbGas.Text = string.Empty;
+            tbBcOffering.Text = string.Empty;
+            tbNetwork.Text = string.Empty;
+            tbDataformat.Text = string.Empty;
+            tbPhyStorage.Text = string.Empty;
+            tbDataModel.Text = string.Empty;
+            tbDataIntegrity.Text = string.Empty;
+            tbDataAccess.Text = string.Empty;
+            tbDataIndex.Text = string.Empty;
+            tbDataRels.Text = string.Empty;
+            tbDataSharding.Text = string.Empty;
+            tbDataProve.Text = string.Empty;
+            tbDataOwner.Text = string.Empty;
+            tbDataLineage.Text = string.Empty;
+            tbOwnerTowards.Text = string.Empty;
+            tbDataAuth.Text = string.Empty;
+            tbNetType.Text = string.Empty;
+            tbReplication.Text = string.Empty;
+            tbNetTop.Text = string.Empty;
+            tbScalability.Text = string.Empty;
+            tbConsistency.Text = string.Empty;
+            tbRWLatency.Text = string.Empty;
+            tbNotes.Text = string.Empty;
+        }
+
+        void LoadDataFields()
+        {
             rModel = ReviewModel.Instance;
-            
+            rModel.Saved = false;
             //Setting UI State
             //Tab1
             if (string.IsNullOrEmpty(rModel.cSection.PaperName))
@@ -365,7 +449,7 @@ namespace UoB.SLR.SLRDataEntryV1
             {
                 cmbAArea.Items.Add(s);
             }
-            
+
 
             if (string.IsNullOrEmpty(rModel.ResearchQuestion1.SAreaName))
                 tbASubarea.Text = string.Empty;
@@ -386,7 +470,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbBcChoice.Text = string.Empty;
             else
                 tbBcChoice.Text = rModel.ResearchQuestion2.BlockchainChoice;
-            
+
             if (string.IsNullOrEmpty(rModel.ResearchQuestion2.Consensus))
                 tbConsensus.Text = string.Empty;
             else
@@ -457,7 +541,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbDataRels.Text = string.Empty;
             else
                 tbDataRels.Text = rModel.ResearchQuestion4.DataRelations;
-            
+
             if (string.IsNullOrEmpty(rModel.ResearchQuestion4.DataSharding))
                 tbDataSharding.Text = string.Empty;
             else
@@ -472,7 +556,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbDataOwner.Text = string.Empty;
             else
                 tbDataOwner.Text = rModel.ResearchQuestion4.DataOwnership;
-            
+
             if (string.IsNullOrEmpty(rModel.ResearchQuestion4.DataLineage))
                 tbDataLineage.Text = string.Empty;
             else
@@ -489,7 +573,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbDataAuth.Text = rModel.ResearchQuestion4.DataAuthorization;
 
             //Tab6
-            
+
             if (string.IsNullOrEmpty(rModel.ResearchQuestion5.NetworkType))
                 tbNetType.Text = string.Empty;
             else
@@ -506,7 +590,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbNetTop.Text = rModel.ResearchQuestion5.Topology;
 
             //Tab7
-            
+
             if (string.IsNullOrEmpty(rModel.ResearchQuestion6.Scalability))
                 tbScalability.Text = string.Empty;
             else
@@ -529,64 +613,25 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbNotes.Text = rModel.PNotes.Notes;
         }
 
-        //Save Data
-        private void button2_Click(object sender, EventArgs e)
+        private void DataEntry_Load(object sender, EventArgs e)
         {
-            if (SaveData.SaveDetails(rModel, conn))
+            LoadDataFields();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!rModel.Saved)
             {
-                MessageBox.Show("Saved Sucessfully");
-                ClearFields();
+                DialogResult dR = MessageBox.Show("Data Not saved..Click OK to Close", "Data Saved", MessageBoxButtons.OKCancel);
+                if (dR == DialogResult.OK)
+                {
+                    this.Close();
+                }
             }
             else
-                MessageBox.Show("Save Failed");
+            {
+                this.Close();
+            }
         }
-
-        //Clear Data fields
-        private void button17_Click(object sender, EventArgs e)
-        {
-            ClearFields();
-        }
-
-        void ClearFields()
-        {
-            tbPaperName.Text = string.Empty;
-            tbCitaton.Text = string.Empty;
-            tbPDate.Text = string.Empty;
-            tbBibtex.Text = string.Empty;
-            cmbAArea.SelectedItem = string.Empty;
-            tbASubarea.Text = string.Empty;
-            tbReason.Text = string.Empty;
-            tbSoftArch.Text = string.Empty;
-            tbBcChoice.Text = string.Empty;
-            tbConsensus.Text = string.Empty;
-            tbNetwork.Text = string.Empty;
-            tbParticipation.Text = string.Empty;
-            tbBFT.Text = string.Empty;
-            tbGas.Text = string.Empty;
-            tbBcOffering.Text = string.Empty;
-            tbNetwork.Text = string.Empty;
-            tbDataformat.Text = string.Empty;
-            tbPhyStorage.Text = string.Empty;
-            tbDataModel.Text = string.Empty;
-            tbDataIntegrity.Text = string.Empty;
-            tbDataAccess.Text = string.Empty;
-            tbDataIndex.Text = string.Empty;
-            tbDataRels.Text = string.Empty;
-            tbDataSharding.Text = string.Empty;
-            tbDataProve.Text = string.Empty;
-            tbDataOwner.Text = string.Empty;
-            tbDataLineage.Text = string.Empty;
-            tbOwnerTowards.Text = string.Empty;
-            tbDataAuth.Text = string.Empty;
-            tbNetType.Text = string.Empty;
-            tbReplication.Text = string.Empty;
-            tbNetTop.Text = string.Empty;
-            tbScalability.Text = string.Empty;
-            tbConsistency.Text = string.Empty;
-            tbRWLatency.Text = string.Empty;
-            tbNotes.Text = string.Empty;
-        }
-
-       
     }
 }
