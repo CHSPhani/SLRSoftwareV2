@@ -55,11 +55,6 @@ namespace UoB.SLR.SLRDataEntryV1
             else
                 cSecComplete = false;
 
-            if (!string.IsNullOrEmpty(cmdDecision.SelectedItem.ToString()))
-                rModel.cSection.Accepted = cmdDecision.SelectedItem.ToString().Trim();
-            else
-                cSecComplete = false;
-
             if (!cSecComplete)
                 MessageBox.Show("Enter Common Section Details");
             else
@@ -83,6 +78,11 @@ namespace UoB.SLR.SLRDataEntryV1
 
             if (!string.IsNullOrEmpty(tbReason.Text))
                 rModel.ResearchQuestion1.Rq1Reason = tbReason.Text;
+            else
+                whyBC = false;
+
+            if (!string.IsNullOrEmpty(cmdDecision.SelectedItem.ToString()))
+                rModel.cSection.Accepted = cmdDecision.SelectedItem.ToString().Trim();
             else
                 whyBC = false;
 

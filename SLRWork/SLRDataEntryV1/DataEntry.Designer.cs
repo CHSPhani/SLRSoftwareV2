@@ -30,7 +30,6 @@
         {
             this.tbDataController = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label41 = new System.Windows.Forms.Label();
             this.tbPDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -133,6 +132,7 @@
             this.button17 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.cmdDecision = new System.Windows.Forms.ComboBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.tbDataController.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -162,8 +162,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cmdDecision);
-            this.tabPage1.Controls.Add(this.label41);
             this.tabPage1.Controls.Add(this.tbPDate);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
@@ -180,16 +178,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Common Data";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(160, 413);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(86, 25);
-            this.label41.TabIndex = 14;
-            this.label41.Text = "Accepted";
             // 
             // tbPDate
             // 
@@ -242,7 +230,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(788, 460);
+            this.button4.Location = new System.Drawing.Point(788, 430);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(120, 41);
             this.button4.TabIndex = 8;
@@ -277,6 +265,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cmdDecision);
+            this.tabPage2.Controls.Add(this.label41);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.button6);
@@ -1229,10 +1219,20 @@
             this.cmdDecision.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.cmdDecision.Location = new System.Drawing.Point(293, 413);
+            this.cmdDecision.Location = new System.Drawing.Point(339, 315);
             this.cmdDecision.Name = "cmdDecision";
             this.cmdDecision.Size = new System.Drawing.Size(260, 28);
-            this.cmdDecision.TabIndex = 8;
+            this.cmdDecision.TabIndex = 19;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(224, 318);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(86, 25);
+            this.label41.TabIndex = 20;
+            this.label41.Text = "Accepted";
             // 
             // DataEntry
             // 
@@ -1375,7 +1375,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label41;
         private System.Windows.Forms.ComboBox cmdDecision;
+        private System.Windows.Forms.Label label41;
     }
 }
