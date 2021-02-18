@@ -101,6 +101,12 @@
     <Compile Include="DAModel\ModelConverter.cs" />
     <Compile Include="DataAccess\DBAccess.cs" />
     <Compile Include="DataAccess\GetDataLayer.cs" />
+    <Compile Include="DataEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataEdit.Designer.cs">
+      <DependentUpon>DataEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataEdit.resx">
+      <DependentUpon>DataEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataEntry.resx">
       <DependentUpon>DataEntry.cs</DependentUpon>
     </EmbeddedResource>

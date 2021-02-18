@@ -130,6 +130,33 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
     public class GetDataLayer
     {
+        public static List<EditPaperDetails> GetAllPaperDetails(MySqlConnection conn)
+        {
+            List<EditPaperDetails> epDetails = new List<EditPaperDetails>();
+            try
+            {
+                string sql = string.Format("select pID, pTitle from commonparams;");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()) &&
+                        !string.IsNullOrEmpty(rdr[1].ToString()))
+                    {
+                        EditPaperDetails epDetail = new EditPaperDetails();
+                        epDetail.PId = long.Parse(rdr[0].ToString());
+                        epDetail.PName = rdr[1].ToString();
+                        epDetails.Add(epDetail);
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting paper details. Details are {0}", ex.Message));
+            }
+            return epDetails;
+        }
         public static bool CheckCitationExists(string citation, MySqlConnection conn)
         {
             try

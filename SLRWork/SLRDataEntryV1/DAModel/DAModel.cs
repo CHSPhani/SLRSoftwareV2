@@ -8,6 +8,18 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 {
     public class DAModel
     {
+        public class EditPaperDetails
+        {
+            public long PId { get; set; }
+
+            public string PName { get; set; }
+
+            public EditPaperDetails()
+            {
+                PId = 0;
+                PName = string.Empty;
+            }
+        }
         public class ReviewModel
         {
             private static ReviewModel instance = null;

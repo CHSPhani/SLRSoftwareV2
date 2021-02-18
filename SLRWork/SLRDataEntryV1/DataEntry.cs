@@ -16,12 +16,20 @@ namespace UoB.SLR.SLRDataEntryV1
 {
     public partial class DataEntry : Form
     {
+        ReviewModel rModel;
+        MySqlConnection conn = null;
+
         public DataEntry()
         {
             InitializeComponent();
+            conn = ConnectToDb.Instance.conn;
         }
 
-
+        public DataEntry(ReviewModel rM) : this()
+        {
+            this.rModel = rM;
+        }
+        
         //Common next
         private void button4_Click(object sender, EventArgs e)
         {
@@ -349,9 +357,6 @@ namespace UoB.SLR.SLRDataEntryV1
             tbDataController.SelectedTab = tbDataController.TabPages[6];
         }
 
-        ReviewModel rModel;
-        MySqlConnection conn = ConnectToDb.Instance.conn;
-
         //New Entry
         private void button1_Click(object sender, EventArgs e)
         {
@@ -417,10 +422,17 @@ namespace UoB.SLR.SLRDataEntryV1
             tbNotes.Text = string.Empty;
         }
 
-        void LoadDataFields()
+        void LoadDataFields(ReviewModel rM)
         {
-            rModel = ReviewModel.Instance;
-            rModel.Saved = false;
+            if (rM == null)
+            {
+                rModel = ReviewModel.Instance;
+                rModel.Saved = false;
+            }
+            else
+            {
+                //else -> we use Edit Data. 
+            }
             //Setting UI State
             //Tab1
             if (string.IsNullOrEmpty(rModel.cSection.PaperName))
@@ -615,7 +627,7 @@ namespace UoB.SLR.SLRDataEntryV1
 
         private void DataEntry_Load(object sender, EventArgs e)
         {
-            LoadDataFields();
+            LoadDataFields(rModel);
         }
 
         private void button3_Click(object sender, EventArgs e)

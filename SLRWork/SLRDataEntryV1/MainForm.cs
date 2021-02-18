@@ -88,5 +88,16 @@ namespace UoB.SLR.SLRDataEntryV1
         {
 
         }
+
+        /// <summary>
+        /// Edit Data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DataEdit dEdit = new DataEdit(conn);
+            dEdit.ShowDialog();
+        }
     }
 }
