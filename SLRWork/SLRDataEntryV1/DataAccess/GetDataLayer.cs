@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using static UoB.SLR.SLRDataEntryV1.DAModel.DAModel;
+using UoB.SLR.SLRDataEntryV1.DAModel;
 
 namespace UoB.SLR.SLRDataEntryV1.DataAccess
 {
@@ -130,9 +130,35 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
     public class GetDataLayer
     {
-        public static List<EditPaperDetails> GetAllPaperDetails(MySqlConnection conn)
+        public static ReviewModel GetReviewModel(long pId, MySqlConnection conn)
         {
-            List<EditPaperDetails> epDetails = new List<EditPaperDetails>();
+            ReviewModel rModel = ReviewModel.Instance;
+            try
+            {
+                string sql = string.Format("select * from commonparams where pID ={0};",pId);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.cSection.PaperID = pId;
+                    rModel.cSection.PaperName = rdr[1].ToString();
+                    rModel.cSection.Citation = rdr[2].ToString();
+                    rModel.cSection.PublicationDate = rdr[3].ToString();
+                    rModel.cSection.Bibtex = rdr[4].ToString();
+                    rModel.cSection.Version = Int32.Parse(rdr[5].ToString());
+                    rModel.cSection.Accepted = rdr[6].ToString();
+                }
+                rdr.Close();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return rModel;
+        }
+        public static Dictionary<string,long> GetAllPaperDetails(MySqlConnection conn)
+        {
+            Dictionary<string, long> epDetails = new Dictionary<string, long>();
             try
             {
                 string sql = string.Format("select pID, pTitle from commonparams;");
@@ -143,10 +169,8 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     if (!string.IsNullOrEmpty(rdr[0].ToString()) &&
                         !string.IsNullOrEmpty(rdr[1].ToString()))
                     {
-                        EditPaperDetails epDetail = new EditPaperDetails();
-                        epDetail.PId = long.Parse(rdr[0].ToString());
-                        epDetail.PName = rdr[1].ToString();
-                        epDetails.Add(epDetail);
+
+                        epDetails[rdr[1].ToString()] = long.Parse(rdr[0].ToString());
                     }
                 }
                 rdr.Close();

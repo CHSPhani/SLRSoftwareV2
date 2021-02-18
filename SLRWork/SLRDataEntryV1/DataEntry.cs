@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UoB.SLR.SLRDataEntryV1.DAModel;
 using UoB.SLR.SLRDataEntryV1.DataAccess;
-using static UoB.SLR.SLRDataEntryV1.DAModel.DAModel;
+using UoB.SLR.SLRDataEntryV1.DAModel;
 
 namespace UoB.SLR.SLRDataEntryV1
 {
