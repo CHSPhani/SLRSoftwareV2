@@ -96,7 +96,13 @@ namespace UoB.SLR.SLRDataEntryV1
         /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
-            DataEdit dEdit = new DataEdit(conn);
+            DataEdit dEdit = new DataEdit(conn, false);
+            dEdit.ShowDialog();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DataEdit dEdit = new DataEdit(conn, true);
             dEdit.ShowDialog();
         }
     }

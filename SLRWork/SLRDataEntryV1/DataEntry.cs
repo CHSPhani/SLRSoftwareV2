@@ -18,29 +18,34 @@ namespace UoB.SLR.SLRDataEntryV1
     {
         ReviewModel rModel;
         MySqlConnection conn = null;
+        bool Modify = false;
 
         public DataEntry()
         {
             InitializeComponent();
             conn = ConnectToDb.Instance.conn;
+            Modify = false;
         }
 
-        public DataEntry(ReviewModel rM) : this()
+        public DataEntry(ReviewModel rM, bool modify) : this()
         {
             this.rModel = rM;
+            Modify = modify;
         }
         
         //Common next
         private void button4_Click(object sender, EventArgs e)
         {
-            //Check whether citation exists or not 
-            if (GetDataLayer.CheckCitationExists(tbCitaton.Text.Trim(), conn))
+            if (!this.Modify)
             {
-                MessageBox.Show("Paper details already exists");
-                ClearFields();
-                return;
+                //Check whether citation exists or not 
+                if (GetDataLayer.CheckCitationExists(tbCitaton.Text.Trim(), conn))
+                {
+                    MessageBox.Show("Paper details already exists");
+                    ClearFields();
+                    return;
+                }
             }
-
             bool cSecComplete = true;
 
             if (!string.IsNullOrEmpty(tbPaperName.Text))
@@ -75,6 +80,7 @@ namespace UoB.SLR.SLRDataEntryV1
         private void button5_Click(object sender, EventArgs e)
         {
             bool whyBC = true;
+            
             if (!string.IsNullOrEmpty(cmbAArea.SelectedItem.ToString()))
             {
                 rModel.ResearchQuestion1.AaID = GetDataLayer.GetAreaID(cmbAArea.SelectedItem.ToString(), conn);
@@ -366,14 +372,30 @@ namespace UoB.SLR.SLRDataEntryV1
         //Save Data
         private void button2_Click(object sender, EventArgs e)
         {
-            if (SaveData.SaveDetails(rModel, conn))
+            if (Modify)
             {
-                rModel.Saved = true;
-                MessageBox.Show("Saved Sucessfully");
-                ClearFields();
+                if(SaveData.UpdateDetails(rModel,conn))
+                {
+                    rModel.Saved = true;
+                    MessageBox.Show("Update Sucessfully");
+                    ClearFields();
+                }
+                else
+                {
+                    MessageBox.Show("Update Failed");
+                }
             }
             else
-                MessageBox.Show("Save Failed");
+            {
+                if (SaveData.SaveDetails(rModel, conn))
+                {
+                    rModel.Saved = true;
+                    MessageBox.Show("Saved Sucessfully");
+                    ClearFields();
+                }
+                else
+                    MessageBox.Show("Save Failed");
+            }
         }
 
         //Clear Data fields
@@ -456,10 +478,19 @@ namespace UoB.SLR.SLRDataEntryV1
 
             //Tab2
             //Load Data
-            List<string> aa = GetDataLayer.GetAllAAreas(conn);
-            foreach (string s in aa)
+            if (this.Modify)
             {
-                cmbAArea.Items.Add(s);
+                int aaid = rModel.ResearchQuestion1.AaID;
+                cmbAArea.Items.Add(GetDataLayer.GETAAreaName(aaid, conn));
+                cmbAArea.SelectedIndex = 0;
+            }
+            else
+            {
+                List<string> aa = GetDataLayer.GetAllAAreas(conn);
+                foreach (string s in aa)
+                {
+                    cmbAArea.Items.Add(s);
+                }
             }
 
 
@@ -472,7 +503,18 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbReason.Text = string.Empty;
             else
                 tbReason.Text = rModel.ResearchQuestion1.Rq1Reason;
-
+            if(Modify)
+            {
+                if(rModel.cSection.Accepted=="Yes")
+                {
+                    cmdDecision.SelectedIndex = 0;
+                }
+                else
+                {
+                    cmdDecision.SelectedIndex = 1;
+                }
+            }
+            
             //Tab3
             if (string.IsNullOrEmpty(rModel.ResearchQuestion2.SwArchitecture))
                 tbSoftArch.Text = string.Empty;
@@ -514,9 +556,9 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbBcOffering.Text = rModel.ResearchQuestion2.BlockchainOffering;
 
             if (string.IsNullOrEmpty(rModel.ResearchQuestion2.NewSwArchitecture))
-                tbNetwork.Text = string.Empty;
+                tbNewArch.Text = string.Empty;
             else
-                tbNetwork.Text = rModel.ResearchQuestion2.NewSwArchitecture;
+                tbNewArch.Text = rModel.ResearchQuestion2.NewSwArchitecture;
 
             //Tab4
             if (string.IsNullOrEmpty(rModel.ResearchQuestion3.DataFormat))

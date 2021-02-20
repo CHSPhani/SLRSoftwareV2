@@ -36,6 +36,165 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return false;
         }
+
+        public static bool DeleteDetails(long pID, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            myTrans = conn.BeginTransaction();
+            try
+            {
+                string rq7 = string.Format("DELETE FROM notes WHERE pID ={0};", pID);
+                MySqlCommand cmd7 = new MySqlCommand(rq7.ToString(), conn);
+                cmd7.Transaction = myTrans;
+                cmd7.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                
+                string rq6 = string.Format("DELETE FROM rq6 WHERE pID ={0};", pID);
+                MySqlCommand cmd6 = new MySqlCommand(rq6.ToString(), conn);
+                cmd6.Transaction = myTrans;
+                cmd6.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq5 = string.Format("DELETE FROM rq5 WHERE pID ={0};", pID);
+                MySqlCommand cmd5 = new MySqlCommand(rq5.ToString(), conn);
+                cmd5.Transaction = myTrans;
+                cmd5.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq4 = string.Format("DELETE FROM rq4 WHERE pID ={0};", pID);
+                MySqlCommand cmd4 = new MySqlCommand(rq4.ToString(), conn);
+                cmd4.Transaction = myTrans;
+                cmd4.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq3 = string.Format("DELETE FROM rq3 WHERE pID ={0};", pID);
+                MySqlCommand cmd3 = new MySqlCommand(rq3.ToString(), conn);
+                cmd3.Transaction = myTrans;
+                cmd3.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq2 = string.Format("DELETE FROM rq2 WHERE pID ={0};", pID);
+                MySqlCommand cmd2 = new MySqlCommand(rq2.ToString(), conn);
+                cmd2.Transaction = myTrans;
+                cmd2.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq1 = string.Format("DELETE FROM rq1 WHERE pID ={0};", pID);
+                MySqlCommand cmd1 = new MySqlCommand(rq1.ToString(), conn);
+                cmd1.Transaction = myTrans;
+                cmd1.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string cSection = string.Format("DELETE FROM commonparams WHERE pID ={0};", pID);
+                MySqlCommand cmd = new MySqlCommand(cSection.ToString(), conn);
+                cmd.Transaction = myTrans;
+                cmd.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                myTrans.Commit();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while Delete data. Details are {0}", ex.Message));
+            }
+            return false;
+        }
+
+        public static bool UpdateDetails(ReviewModel rModel, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            if (rModel == null)
+            {
+                return false;
+            }
+
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            try
+            {
+                string cSection = string.Format("UPDATE commonparams SET pID ={0}, pTitle ='{1}', pCitation='{2}', pPublicationDate='{3}', pBitex ='{4}', pVersion='{5}', pAccepted='{6}' WHERE pID = {0};",
+                                                    rModel.cSection.PaperID, rModel.cSection.PaperName,
+                                                    rModel.cSection.Citation, rModel.cSection.PublicationDate, rModel.cSection.Bibtex, rModel.cSection.Version, rModel.cSection.Accepted);
+                MySqlCommand cmd = new MySqlCommand(cSection.ToString(), conn);
+                cmd.Transaction = myTrans;
+                cmd.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                string rq1 = string.Format("UPDATE rq1 SET aaID  = {1}, sareaName  = '{2}', rq1Reason = '{3}' WHERE pID={0};", rModel.cSection.PaperID, rModel.ResearchQuestion1.AaID,
+                                                   rModel.ResearchQuestion1.SAreaName, rModel.ResearchQuestion1.Rq1Reason);
+                MySqlCommand cmd1 = new MySqlCommand(rq1.ToString(), conn);
+                cmd1.Transaction = myTrans;
+                cmd1.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                if (rModel.cSection.Accepted.Trim().Equals("Yes"))
+                {
+                    string rq2 = string.Format("UPDATE rq2 SET swArchType = '{1}', blockchainchoice = '{2}', consensus = '{3}', network = '{4}', participation= '{5}', bft = '{6}', gas = '{7}', bcSolution = '{8}', newArchitecture = '{9}'" +
+                                                                    " WHERE pID = {0};",
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion2.SwArchitecture, rModel.ResearchQuestion2.BlockchainChoice, rModel.ResearchQuestion2.Consensus, 
+                                                       rModel.ResearchQuestion2.Network, rModel.ResearchQuestion2.Participation,
+                                                       rModel.ResearchQuestion2.Bft, rModel.ResearchQuestion2.Gas, rModel.ResearchQuestion2.BlockchainOffering, rModel.ResearchQuestion2.NewSwArchitecture);
+                    MySqlCommand cmd2 = new MySqlCommand(rq2.ToString(), conn);
+                    cmd2.Transaction = myTrans;
+                    cmd2.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                    string rq3 = string.Format("UPDATE rq3 SET bcDataFormat = '{1}', dataStore = '{2}' WHERE pID = {0};",
+                                                        rModel.cSection.PaperID, rModel.ResearchQuestion3.DataFormat, rModel.ResearchQuestion3.DataStore);
+                    MySqlCommand cmd3 = new MySqlCommand(rq3.ToString(), conn);
+                    cmd3.Transaction = myTrans;
+                    cmd3.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+
+                    string rq4 = string.Format("UPDATE rq4  SET datamodel = '{1}', dataintegrity = '{2}', dataaccess = '{3}', dataindexing = '{4}', datarelations = '{5}', datasharding = '{6}', dataprovenance = '{7}', datalineage = '{8}', dataownership = '{9}', ownershiptowards = '{10}', dataauthorization = '{11}' " +
+                                               "WHERE pID = {0};",
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion4.DataModel, rModel.ResearchQuestion4.DataIntegrity, rModel.ResearchQuestion4.DataAccess, rModel.ResearchQuestion4.DataIndex, rModel.ResearchQuestion4.DataRelations,
+                                                       rModel.ResearchQuestion4.DataSharding, rModel.ResearchQuestion4.DataProvenance, rModel.ResearchQuestion4.DataLineage, rModel.ResearchQuestion4.DataOwnership, rModel.ResearchQuestion4.OwnerShipTowards,
+                                                       rModel.ResearchQuestion4.DataAuthorization);
+                    MySqlCommand cmd4 = new MySqlCommand(rq4.ToString(), conn);
+                    cmd4.Transaction = myTrans;
+                    cmd4.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                    string rq5 = string.Format("UPDATE rq5 SET dsNetworkType='{1}' , dsReplication='{2}', dsTopology='{3}' WHERE pID ={0};",
+                                                        rModel.cSection.PaperID, rModel.ResearchQuestion5.NetworkType, rModel.ResearchQuestion5.Replication, rModel.ResearchQuestion5.Topology);
+                    MySqlCommand cmd5 = new MySqlCommand(rq5.ToString(), conn);
+                    cmd5.Transaction = myTrans;
+                    cmd5.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                    string rq6 = string.Format("UPDATE rq6 SET bsScalability ='{1}', bsConsistency ='{2}', bsRWLatency ='{3}' WHERE pID={0};",
+                                                        rModel.cSection.PaperID, rModel.ResearchQuestion6.Scalability, rModel.ResearchQuestion6.Consistency, rModel.ResearchQuestion6.RWLAtency);
+                    MySqlCommand cmd6 = new MySqlCommand(rq6.ToString(), conn);
+                    cmd6.Transaction = myTrans;
+                    cmd6.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                }
+
+                string rq7 = string.Format("UPDATE notes SET paperNotes='{1}' WHERE pID={0};", rModel.cSection.PaperID, rModel.PNotes.Notes);
+                MySqlCommand cmd7 = new MySqlCommand(rq7.ToString(), conn);
+                cmd7.Transaction = myTrans;
+                cmd7.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                myTrans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while updating data. Details are {0}", ex.Message));
+            }
+
+            return false;
+        }
+            
+
+
         public static bool SaveDetails(ReviewModel rModel, MySqlConnection conn)
         {
             MySqlTransaction myTrans;
@@ -149,6 +308,115 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     rModel.cSection.Accepted = rdr[6].ToString();
                 }
                 rdr.Close();
+
+                //Rq1
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq1 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion1.AaID = Int32.Parse(rdr[1].ToString());
+                    rModel.ResearchQuestion1.SAreaName = rdr[2].ToString();
+                    rModel.ResearchQuestion1.Rq1Reason = rdr[3].ToString();
+                }
+                rdr.Close();
+
+                //Rq2
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq2 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion2.SwArchitecture = rdr[1].ToString();
+                    rModel.ResearchQuestion2.BlockchainChoice = rdr[2].ToString();
+                    rModel.ResearchQuestion2.Consensus = rdr[3].ToString();
+                    rModel.ResearchQuestion2.Network = rdr[4].ToString();
+                    rModel.ResearchQuestion2.Participation = rdr[5].ToString();
+                    rModel.ResearchQuestion2.Bft = rdr[6].ToString();
+                    rModel.ResearchQuestion2.Gas = rdr[7].ToString();
+                    rModel.ResearchQuestion2.BlockchainOffering = rdr[8].ToString();
+                    rModel.ResearchQuestion2.NewSwArchitecture = rdr[9].ToString();
+                }
+                rdr.Close();
+
+                //Rq3
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq3 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion3.DataFormat = rdr[1].ToString();
+                    rModel.ResearchQuestion3.DataStore = rdr[2].ToString();
+                }
+                rdr.Close();
+
+                //Rq4
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq4 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion4.DataModel = rdr[1].ToString();
+                    rModel.ResearchQuestion4.DataIntegrity = rdr[2].ToString();
+                    rModel.ResearchQuestion4.DataAccess = rdr[3].ToString();
+                    rModel.ResearchQuestion4.DataIndex = rdr[4].ToString();
+                    rModel.ResearchQuestion4.DataRelations= rdr[5].ToString();
+                    rModel.ResearchQuestion4.DataSharding = rdr[6].ToString();
+                    rModel.ResearchQuestion4.DataProvenance = rdr[7].ToString();
+                    rModel.ResearchQuestion4.DataLineage = rdr[8].ToString();
+                    rModel.ResearchQuestion4.DataOwnership = rdr[9].ToString();
+                    rModel.ResearchQuestion4.OwnerShipTowards = rdr[10].ToString();
+                    rModel.ResearchQuestion4.DataAuthorization = rdr[11].ToString();
+                }
+                rdr.Close();
+
+                //Rq5
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq5 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion5.NetworkType = rdr[1].ToString();
+                    rModel.ResearchQuestion5.Replication = rdr[2].ToString();
+                    rModel.ResearchQuestion5.Topology = rdr[3].ToString();
+                }
+                rdr.Close();
+
+                //Rq6
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from rq6 where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.ResearchQuestion6.Scalability = rdr[1].ToString();
+                    rModel.ResearchQuestion6.Consistency = rdr[2].ToString();
+                    rModel.ResearchQuestion6.RWLAtency = rdr[3].ToString();
+                }
+                rdr.Close();
+
+                //notes
+                sql = string.Empty;
+                cmd = null;
+                sql = string.Format("select * from notes where pID ={0};", pId);
+                cmd = new MySqlCommand(sql, conn);
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rModel.PNotes.Notes = rdr[1].ToString();
+                }
+                rdr.Close();
             }
             catch(Exception ex)
             {
@@ -156,6 +424,32 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return rModel;
         }
+
+        public static string GETAAreaName(int aaid, MySqlConnection conn)
+        {
+            string aaName = string.Empty;
+            try
+            {
+                string sql = string.Format("select applicationArea from applicationarea where aaID ={0};",aaid);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+
+                        aaName = rdr[0].ToString();
+                    }
+                }
+                rdr.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting application area name. Details are {0}", ex.Message));
+            }
+            return aaName;
+        }
+
         public static Dictionary<string,long> GetAllPaperDetails(MySqlConnection conn)
         {
             Dictionary<string, long> epDetails = new Dictionary<string, long>();

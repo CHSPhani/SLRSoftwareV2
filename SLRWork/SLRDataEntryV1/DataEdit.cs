@@ -17,16 +17,29 @@ namespace UoB.SLR.SLRDataEntryV1
     {
         MySqlConnection conn;
         Dictionary<string, long> eDetails;
+        bool deleteData;
         
         public DataEdit()
         {
             InitializeComponent();
+            deleteData = false;
             eDetails = new Dictionary<string, long>();
         }
 
-        public DataEdit(MySqlConnection sq) : this()
+        public DataEdit(MySqlConnection sq, bool delt) : this()
         {
             this.conn = sq;
+            this.deleteData = delt;
+            if(deleteData)
+            {
+                btnExtract.Visible = false;
+                btnDelete.Visible = true;
+            }
+            else
+            {
+                btnExtract.Visible = true;
+                btnDelete.Visible = false;
+            }
             eDetails = GetDataLayer.GetAllPaperDetails(conn);
         }
 
@@ -35,12 +48,19 @@ namespace UoB.SLR.SLRDataEntryV1
             this.Close();
         }
 
+        /// <summary>
+        /// Extract Data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             //Get data from Data using PaperID and Paper Title. 
             string pTitle = cbPName.SelectedItem.ToString();
             long pId = eDetails[pTitle];
-            GetDataLayer.GetReviewModel(pId, conn);
+            ReviewModel rModel = GetDataLayer.GetReviewModel(pId, conn);
+            DataEntry deForm = new DataEntry(rModel, true);
+            deForm.ShowDialog();
         }
 
         private void GetReviewModel()
@@ -53,6 +73,27 @@ namespace UoB.SLR.SLRDataEntryV1
             foreach (string s in eDetails.Keys)
             {
                 cbPName.Items.Add(s);
+            }
+        }
+
+        /// <summary>
+        /// Delete DAta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string pTitle = cbPName.SelectedItem.ToString();
+            long pId = eDetails[pTitle];
+            bool delTrue = SaveData.DeleteDetails(pId,conn);
+            if(delTrue)
+            {
+                MessageBox.Show("Delete Sucess");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Delete Falies");
             }
         }
     }
