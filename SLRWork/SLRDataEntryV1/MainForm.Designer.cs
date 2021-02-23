@@ -84,13 +84,12 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(637, 362);
+            this.button4.Location = new System.Drawing.Point(296, 274);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(162, 40);
             this.button4.TabIndex = 4;
             this.button4.Text = "Extract Data";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5

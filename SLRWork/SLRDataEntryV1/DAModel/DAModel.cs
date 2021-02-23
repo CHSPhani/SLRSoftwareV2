@@ -6,6 +6,98 @@ using System.Threading.Tasks;
 
 namespace UoB.SLR.SLRDataEntryV1.DAModel
 {
+
+    public class ExcelModel
+    {
+        public string Param1 { get; set; }
+
+        public string Param2 { get; set; }
+        
+        public string Param3 { get; set; }
+
+        public string Param4 { get; set; }
+
+        public string Param5 { get; set; }
+
+        public string Param6 { get; set; }
+
+        public string Param7 { get; set; }
+
+        public string Param8 { get; set; }
+
+        public string Param9 { get; set; }
+
+        public string Param10 { get; set; }
+
+        public string Param11 { get; set; }
+
+        public string Param12 { get; set; }
+
+        public string Param13 { get; set; }
+
+        public string Param14 { get; set; }
+
+        public string Param15 { get; set; }
+
+        public string Param16 { get; set; }
+
+        public string Param17 { get; set; }
+
+        public string Param18 { get; set; }
+
+        public string Param19 { get; set; }
+
+        public string Param20 { get; set; }
+
+        public string Param21 { get; set; }
+
+        public string Param22 { get; set; }
+
+        public string Param23 { get; set; }
+
+        public string Param24 { get; set; }
+
+        public string Param25 { get; set; }
+
+        public string Param26 { get; set; }
+
+        public string Param27 { get; set; }
+
+        public string Param28 { get; set; }
+
+        public string Param29 { get; set; }
+
+        public string Param30 { get; set; }
+
+        public string Param31 { get; set; }
+
+        public string Param32 { get; set; }
+
+        public string Param33 { get; set; }
+
+        public string Param34 { get; set; }
+
+        public string Param35 { get; set; }
+
+        public string Param36 { get; set; }
+
+        public string Param37 { get; set; }
+
+        public ExcelModel()
+        {
+            Param1 = Param2 = Param3 = Param4 = Param5 =  Param6 = Param7 = Param8 = Param9 =  Param10 = string.Empty;
+            Param11 = Param12 = Param13 = Param14 = Param15 = Param16 = Param17 = Param18 = Param19 = Param20 = Param21 = Param22 = Param23 = string.Empty;
+            Param24 = Param25 = Param26 = Param27 = Param28 = Param29 = Param30 = Param31 = Param32 = Param33 = Param34 = Param35 = Param36 = Param37 = string.Empty;
+        }
+
+        public override string ToString()
+        {
+            return Param1 + "^" + Param2 + "^" + Param3 + "^" + Param4 + "^" + Param5 + "^" + Param6 + "^" + Param7 + "^" + Param8 + "^" + Param9 + "^" + Param10 
+                    + "^" + Param11 + "^" + Param12 + "^" + Param13 + "^" + Param14 + "^" + Param15 + "^" + Param16 + "^" + Param17 + "^" + Param18 + "^" + Param19 + "^" + Param20 +
+                    "^" + Param21 + "^" + Param22 + "^" + Param23 + "^" + Param24 + "^" + Param25 + "^" + Param26 + "^" + Param27 + "^" + Param28 + "^" + Param29 + "^" + Param30 + "^" +
+                    Param31 + "^" + Param32 + "^" + Param33 + "^" + Param34 + "^" + Param35 + "^" + Param36 + "^" + Param37;
+        }
+    }
     public class ReviewModel
     {
         private static ReviewModel instance = null;
@@ -81,7 +173,6 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Saved = false;
         }
     }
-
     public class PaperNotes
     {
         public string Notes { get; set; }
@@ -236,3 +327,29 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
     }
 }
+
+#region CommentetCode
+/*
+ * 
+            PaperID = 0;
+            PaperName = Citation = PublicationDate = Bibtex = AAName = SAreaName = Rq1Reason = string.Empty;
+            SwArchitecture = string.Empty;
+            BlockchainChoice = string.Empty;
+            Consensus = string.Empty;
+            Network = string.Empty;
+            Participation = string.Empty;
+            Bft = string.Empty;
+            Gas = string.Empty;
+            BlockchainOffering = string.Empty;
+            NewSwArchitecture = string.Empty;
+            DataFormat = string.Empty;
+            DataStore = string.Empty;
+            DataModel = DataIntegrity = DataAccess = DataIndex = DataRelations = DataSharding = DataProvenance = DataLineage = DataOwnership = OwnerShipTowards = DataAuthorization = string.Empty;
+            NetworkType = string.Empty;
+            Replication = string.Empty;
+            Topology = string.Empty;
+            Scalability = string.Empty;
+            Consistency = string.Empty;
+            RWLAtency = string.Empty;
+ * */
+#endregion

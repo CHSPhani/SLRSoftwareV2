@@ -86,7 +86,8 @@ namespace UoB.SLR.SLRDataEntryV1
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-
+            DataExtractionForm deForm = new DataExtractionForm(conn);
+            deForm.ShowDialog();
         }
 
         /// <summary>
