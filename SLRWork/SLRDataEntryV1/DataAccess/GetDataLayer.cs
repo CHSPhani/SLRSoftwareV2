@@ -287,6 +287,28 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
     public class GetDataLayer
     {
+        public static List<string> GetAllCitations(MySqlConnection conn)
+        {
+            List<string> citations = new List<string>();
+            try
+            {
+                string sql = string.Format("select pCitation from commonparams;");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr1 = cmd.ExecuteReader();
+                while (rdr1.Read())
+                {
+                    string cName = rdr1[0].ToString();
+                    int l = cName.Length - 6;
+                    citations.Add(cName.Substring(5, l));
+                }
+                rdr1.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting citation names. Details are {0}", ex.Message));
+            }
+            return citations;
+        }
         /// <summary>
         /// Label Row
         /// </summary>
@@ -333,6 +355,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             eModel.Param37 = "Notes";
             return eModel;
         }
+
         public static List<ExcelModel> GetDataForExcel(int version, string accepted, MySqlConnection conn)
         {
             List<ExcelModel> exModel = new List<ExcelModel>();
@@ -343,7 +366,16 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 string sql = string.Empty;
 
                 if (version == 0)
-                    sql = string.Format("SELECT pID FROM commonparams WHERE and pAccepted='{0}';", accepted);                
+                {
+                    if (accepted.Trim().ToLower().Equals("all"))
+                    {
+                        sql = string.Format("SELECT pID FROM commonparams;");
+                    }
+                    else
+                    {
+                        sql = string.Format("SELECT pID FROM commonparams WHERE and pAccepted='{0}';", accepted);
+                    }
+                }
                 else
                     sql = string.Format("SELECT pID FROM commonparams WHERE pVersion = {0} and pAccepted='{1}';", version, accepted);
 
@@ -503,6 +535,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return exModel;
         }
+
         public static ReviewModel GetReviewModel(long pId, MySqlConnection conn)
         {
             ReviewModel rModel = ReviewModel.Instance;

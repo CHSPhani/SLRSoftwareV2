@@ -75,7 +75,8 @@
             this.cmbAccepted.FormattingEnabled = true;
             this.cmbAccepted.Items.AddRange(new object[] {
             "Yes",
-            "No"});
+            "No",
+            "All"});
             this.cmbAccepted.Location = new System.Drawing.Point(187, 91);
             this.cmbAccepted.Name = "cmbAccepted";
             this.cmbAccepted.Size = new System.Drawing.Size(212, 33);

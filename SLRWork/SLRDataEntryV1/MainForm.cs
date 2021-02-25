@@ -106,5 +106,6 @@ namespace UoB.SLR.SLRDataEntryV1
             DataEdit dEdit = new DataEdit(conn, true);
             dEdit.ShowDialog();
         }
+
     }
 }
