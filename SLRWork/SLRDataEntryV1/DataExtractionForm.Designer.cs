@@ -34,6 +34,7 @@
             this.cmbAccepted = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.cmdCitation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -104,12 +105,24 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // cmdCitation
+            // 
+            this.cmdCitation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCitation.Location = new System.Drawing.Point(12, 182);
+            this.cmdCitation.Name = "cmdCitation";
+            this.cmdCitation.Size = new System.Drawing.Size(141, 36);
+            this.cmdCitation.TabIndex = 6;
+            this.cmdCitation.Text = "Get Citations";
+            this.cmdCitation.UseVisualStyleBackColor = true;
+            this.cmdCitation.Click += new System.EventHandler(this.cmdCitation_Click);
+            // 
             // DataExtractionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 235);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdCitation);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmbAccepted);
@@ -131,5 +144,6 @@
         private System.Windows.Forms.ComboBox cmbAccepted;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cmdCitation;
     }
 }

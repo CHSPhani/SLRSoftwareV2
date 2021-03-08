@@ -7,6 +7,31 @@ using System.Threading.Tasks;
 namespace UoB.SLR.SLRDataEntryV1.DAModel
 {
 
+    public class CitationModel
+    {
+        public string Param1 { get; set; }
+
+        public string Param2 { get; set; }
+
+        public string Param3 { get; set; }
+
+        public CitationModel()
+        {
+            Param1 = Param2 = Param3 = string.Empty;
+        }
+
+        public CitationModel(string sn, string cit, string br)
+        {
+            this.Param1 = sn;
+            this.Param2 = cit;
+            this.Param3 = br;
+        }
+
+        public override string ToString()
+        {
+            return Param1 + "^" + Param2 + "^" + Param3;
+        }
+    }
     public class ExcelModel
     {
         public string Param1 { get; set; }

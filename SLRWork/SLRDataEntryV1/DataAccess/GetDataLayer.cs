@@ -356,6 +356,35 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return eModel;
         }
 
+        public static List<CitationModel> GetCitationDetails(string accepted, MySqlConnection conn)
+        {
+            List<CitationModel> cModels = new List<CitationModel>();
+            cModels.Add(new CitationModel("Number", "Citation", "BixTex Ref"));
+            try
+            {
+                string sql = string.Empty;
+                if (accepted.Trim().ToLower().Equals("all"))
+                {
+                    sql = string.Format("SELECT pID, pCitation, pBitex FROM commonparams;");
+                }
+                else
+                {
+                    sql = string.Format("SELECT pID, pCitation, pBitex FROM commonparams WHERE and pAccepted='{0}';", accepted);
+                }
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+                    cModels.Add(new CitationModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString()));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting Citation Model. Details are {0}", ex.Message));
+            }
+            return cModels;
+        }
+
         public static List<ExcelModel> GetDataForExcel(int version, string accepted, MySqlConnection conn)
         {
             List<ExcelModel> exModel = new List<ExcelModel>();
