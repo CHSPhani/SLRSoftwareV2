@@ -385,6 +385,35 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return cModels;
         }
 
+        public static List<SearchResultModel> GetSearchResult(int version, string accepted, MySqlConnection conn)
+        {
+            List<SearchResultModel> cModels = new List<SearchResultModel>();
+            cModels.Add(new SearchResultModel("PId", "Title", "Citation", "BixTex Ref","Notes"));
+            try
+            {
+                string sql = string.Empty;
+                if (accepted.Trim().ToLower().Equals("all"))
+                {
+                    sql = string.Format("SELECT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID;");
+                }
+                else
+                {
+                    sql = string.Format("SELECT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID AND t1.pAccepted='{0}';", accepted);
+                }
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    cModels.Add(new SearchResultModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(), rdr[4].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting Citation Model. Details are {0}", ex.Message));
+            }
+            return cModels;
+        }
+
         public static List<ExcelModel> GetDataForExcel(int version, string accepted, MySqlConnection conn)
         {
             List<ExcelModel> exModel = new List<ExcelModel>();
@@ -751,6 +780,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return epDetails;
         }
+
         public static bool CheckCitationExists(string citation, MySqlConnection conn)
         {
             try
@@ -778,6 +808,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return false;
         }
+
         public static Dictionary<string,string> GetSSIds(MySqlConnection conn)
         {
             Dictionary<string, string> ssIds = new Dictionary<string, string>();

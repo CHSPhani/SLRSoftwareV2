@@ -7,6 +7,38 @@ using System.Threading.Tasks;
 namespace UoB.SLR.SLRDataEntryV1.DAModel
 {
 
+    public class SearchResultModel
+    {
+        public string Param1 { get; set; }
+
+        public string Param2 { get; set; }
+
+        public string Param3 { get; set; }
+
+        public string Param4 { get; set; }
+
+        public string Param5 { get; set; }
+
+        public SearchResultModel()
+        {
+            Param1 = Param2 = Param3 = Param4 = Param5 = string.Empty;
+        }
+
+        public SearchResultModel(string pd, string tle, string cit, string br, string nts)
+        {
+            this.Param1 = pd;
+            this.Param2 = tle;
+            this.Param3 = cit;
+            this.Param4 = br;
+            this.Param5 = nts;
+        }
+
+        public override string ToString()
+        {
+            return Param1 + "^" + Param2 + "^" + Param3+ "^" + Param4+ "^" + Param5;
+        }
+    }
+
     public class CitationModel
     {
         public string Param1 { get; set; }
