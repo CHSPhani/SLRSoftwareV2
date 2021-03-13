@@ -235,7 +235,33 @@ CREATE TABLE `slrv1`.`notes` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+12. //Purpose
 
+CREATE TABLE `slrv1`.`Purpose` (
+ `puID` INT NOT NULL,
+ `puName` VARCHAR(150) NOT NULL,
+ `puNotes` VARCHAR(500) NOT NULL,
+ PRIMARY KEY (`puID`));
+
+
+
+//Alter Common Purpose
+ALTER TABLE commonparams
+ADD puID INT;
+
+ALTER TABLE commonparams
+ADD FOREIGN KEY (puID) REFERENCES Purpose(puID);
+
+ALTER TABLE commonparams
+ADD CONSTRAINT FK_Purpose
+FOREIGN KEY (puID) REFERENCES Purpose(puID);
+
+//Insert Purpose
+
+insert into purpose values(1,'SLR','Literature work');
+insert into purpose values(2,'ICSE','International Conference on Software Engineering');
+insert into purpose values(3,'PODC','Principles of Distributed Computing');
+insert into purpose values(4,'VLDB','Very Large Databases');
 
 //Insert Search String details
 

@@ -40,6 +40,8 @@
             this.tbCitaton = new System.Windows.Forms.TextBox();
             this.tbPaperName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cmdDecision = new System.Windows.Forms.ComboBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -131,8 +133,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.cmdDecision = new System.Windows.Forms.ComboBox();
-            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.cmbPurpose = new System.Windows.Forms.ComboBox();
             this.tbDataController.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -162,6 +164,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmbPurpose);
+            this.tabPage1.Controls.Add(this.label42);
             this.tabPage1.Controls.Add(this.tbPDate);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
@@ -230,7 +234,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(788, 430);
+            this.button4.Location = new System.Drawing.Point(788, 468);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(120, 41);
             this.button4.TabIndex = 8;
@@ -284,6 +288,28 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "RQ1 : Why Blockchain";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cmdDecision
+            // 
+            this.cmdDecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdDecision.FormattingEnabled = true;
+            this.cmdDecision.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.cmdDecision.Location = new System.Drawing.Point(339, 315);
+            this.cmdDecision.Name = "cmdDecision";
+            this.cmdDecision.Size = new System.Drawing.Size(260, 28);
+            this.cmdDecision.TabIndex = 19;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(224, 318);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(86, 25);
+            this.label41.TabIndex = 20;
+            this.label41.Text = "Accepted";
             // 
             // label9
             // 
@@ -1212,27 +1238,24 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // cmdDecision
+            // label42
             // 
-            this.cmdDecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdDecision.FormattingEnabled = true;
-            this.cmdDecision.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.cmdDecision.Location = new System.Drawing.Point(339, 315);
-            this.cmdDecision.Name = "cmdDecision";
-            this.cmdDecision.Size = new System.Drawing.Size(260, 28);
-            this.cmdDecision.TabIndex = 19;
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(168, 421);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(78, 25);
+            this.label42.TabIndex = 14;
+            this.label42.Text = "Purpose";
             // 
-            // label41
+            // cmbPurpose
             // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(224, 318);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(86, 25);
-            this.label41.TabIndex = 20;
-            this.label41.Text = "Accepted";
+            this.cmbPurpose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPurpose.FormattingEnabled = true;
+            this.cmbPurpose.Location = new System.Drawing.Point(293, 421);
+            this.cmbPurpose.Name = "cmbPurpose";
+            this.cmbPurpose.Size = new System.Drawing.Size(279, 32);
+            this.cmbPurpose.TabIndex = 15;
             // 
             // DataEntry
             // 
@@ -1377,5 +1400,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox cmdDecision;
         private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox cmbPurpose;
     }
 }

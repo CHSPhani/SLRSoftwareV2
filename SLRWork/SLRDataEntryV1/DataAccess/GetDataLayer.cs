@@ -209,8 +209,8 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             nextID++;
             try
             {
-                string cSection = string.Format("INSERT INTO commonparams (pID, pTitle, pCitation, pPublicationDate, pBitex, pVersion, pAccepted) VALUES ({0},'{1}','{2}','{3}','{4}',{5},'{6}');", nextID, rModel.cSection.PaperName,
-                                                    rModel.cSection.Citation, rModel.cSection.PublicationDate, rModel.cSection.Bibtex, rModel.cSection.Version, rModel.cSection.Accepted);
+                string cSection = string.Format("INSERT INTO commonparams (pID, pTitle, pCitation, pPublicationDate, pBitex, pVersion, pAccepted, puID) VALUES ({0},'{1}','{2}','{3}','{4}',{5},'{6}',{7});", nextID, rModel.cSection.PaperName,
+                                                    rModel.cSection.Citation, rModel.cSection.PublicationDate, rModel.cSection.Bibtex, rModel.cSection.Version, rModel.cSection.Accepted,rModel.cSection.Purpose);
                 MySqlCommand cmd = new MySqlCommand(cSection.ToString(), conn);
                 cmd.Transaction = myTrans;
                 cmd.ExecuteNonQuery();
@@ -394,11 +394,11 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 string sql = string.Empty;
                 if (accepted.Trim().ToLower().Equals("all"))
                 {
-                    sql = string.Format("SELECT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID;");
+                    sql = string.Format("SELECT DISTINCT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID;");
                 }
                 else
                 {
-                    sql = string.Format("SELECT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID AND t1.pAccepted='{0}';", accepted);
+                    sql = string.Format("SELECT DISTINCT t1.pID,t1.pTitle,t1.pCitation,t1.pBitex,t2.paperNotes FROM commonparams t1, notes t2 WHERE t1.pId=t2.pID AND t1.pAccepted='{0}';", accepted);
                 }
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -611,6 +611,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     rModel.cSection.Bibtex = rdr[4].ToString();
                     rModel.cSection.Version = Int32.Parse(rdr[5].ToString());
                     rModel.cSection.Accepted = rdr[6].ToString();
+                    rModel.cSection.Purpose = Int32.Parse(rdr[7].ToString());
                 }
                 rdr.Close();
 
@@ -753,6 +754,55 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 Console.WriteLine(string.Format("Exception while getting application area name. Details are {0}", ex.Message));
             }
             return aaName;
+        }
+
+        public static string GETPurposeName(int pid, MySqlConnection conn)
+        {
+            string pName = string.Empty;
+            try
+            {
+                string sql = string.Format("SELECT puName FROM purpose where puID ={0};", pid);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+
+                        pName = rdr[0].ToString();
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting application area name. Details are {0}", ex.Message));
+            }
+            return pName;
+        }
+
+        public static List<string> GetAllPurpose(MySqlConnection conn)
+        {
+            List<String> puposes = new List<string>();
+            try
+            {
+                string sql = string.Format("SELECT puName FROM purpose");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        puposes.Add(rdr[0].ToString());
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
+            }
+            return puposes;
         }
 
         public static Dictionary<string,long> GetAllPaperDetails(MySqlConnection conn)
@@ -910,6 +960,30 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
             }
             return areaCode;
+        }
+
+        public static int GetPurposeID(string purposeName, MySqlConnection conn)
+        {
+            int pCode = -1;
+            try
+            {
+                string sql = string.Format("SELECT puID FROM purpose where puName='{0}'", purposeName);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read())
+                {
+                    if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                    {
+                        pCode = Int32.Parse(rdr[0].ToString());
+                    }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
+            }
+            return pCode;
         }
     }
 }

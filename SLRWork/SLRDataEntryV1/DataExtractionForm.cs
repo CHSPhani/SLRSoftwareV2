@@ -239,19 +239,32 @@ namespace UoB.SLR.SLRDataEntryV1
         {
             int version = 0;
             string accepted = "all";
-            string txtSearch = string.Empty;
+            List<string> txtSearch = new List<string>();
             if (!string.IsNullOrEmpty(tbSearch.Text))
             {
-                txtSearch = tbSearch.Text;
+                txtSearch.Add(tbSearch.Text.ToLower());
+                if (tbSearch.Text.Contains(" "))
+                {
+                    string[] substrings =  tbSearch.Text.Split(' ');
+                    foreach(string s in substrings)
+                    {
+                        txtSearch.Add(s.ToLower());
+                    }
+                }
+
                 List<SearchResultModel> exModelClass = GetDataLayer.GetSearchResult(version, accepted, conn);
                 List<SearchResultModel> sMClass = new List<SearchResultModel>();
                 foreach (SearchResultModel sm in exModelClass)
                 {
                     //2 and 5
-                    if (sm.Param2.Contains(txtSearch) || sm.Param5.Contains(txtSearch))
+                    foreach(string s in txtSearch)
                     {
-                        sMClass.Add(sm);
+                        if (sm.Param2.ToLower().Contains(s) || sm.Param5.ToLower().Contains(s))
+                        {
+                            sMClass.Add(sm);
+                        }
                     }
+                    
                 }
                 if (sMClass.Count > 0)
                 {
@@ -259,7 +272,7 @@ namespace UoB.SLR.SLRDataEntryV1
                     FolderBrowserDialog fbDialog = new FolderBrowserDialog();
                     fbDialog.ShowDialog();
                     string folderPath = fbDialog.SelectedPath;
-                    string filename = string.Format("Search-{0}.xlsx", txtSearch);
+                    string filename = string.Format("Search-{0}.xlsx", tbSearch.Text);
                     List<string> existingfiles = Directory.GetFiles(folderPath, filename, SearchOption.AllDirectories).ToList<string>();
                     foreach (string fileDet in existingfiles)
                     {

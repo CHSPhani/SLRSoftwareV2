@@ -252,12 +252,15 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
         public int Version { get; set; }
 
+        public int Purpose { get; set; }
+
         public string Accepted { get; set; }
         public CommonSection()
         {
             PaperID = -1;
             PaperName = Citation = PublicationDate = Bibtex = Accepted = string.Empty;
             Version = 2;
+            Purpose = -1;
         }
     }
 

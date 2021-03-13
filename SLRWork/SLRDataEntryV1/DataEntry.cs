@@ -68,6 +68,11 @@ namespace UoB.SLR.SLRDataEntryV1
             else
                 cSecComplete = false;
 
+            if(!string.IsNullOrEmpty(cmbPurpose.SelectedItem.ToString()))
+            {
+                rModel.cSection.Purpose = GetDataLayer.GetPurposeID(cmbPurpose.SelectedItem.ToString(), conn);
+            }
+            
             if (!cSecComplete)
                 MessageBox.Show("Enter Common Section Details");
             else
@@ -475,6 +480,21 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbBibtex.Text = string.Empty;
             else
                 tbBibtex.Text = rModel.cSection.Bibtex;
+
+            if (this.Modify)
+            {
+                int puid = rModel.cSection.Purpose;
+                cmbPurpose.Items.Add(GetDataLayer.GETPurposeName(puid, conn));
+                cmbPurpose.SelectedIndex = 0;
+            }
+            else
+            {
+                List<string> aa = GetDataLayer.GetAllPurpose(conn);
+                foreach (string s in aa)
+                {
+                    cmbPurpose.Items.Add(s);
+                }
+            }
 
             //Tab2
             //Load Data
