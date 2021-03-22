@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UglyToad.PdfPig;
+using UglyToad.PdfPig.Content;
 using UoB.SLR.SLRDataEntryV1.CSVReader;
 using UoB.SLR.SLRDataEntryV1.DAModel;
 using UoB.SLR.SLRDataEntryV1.DataAccess;
@@ -107,5 +109,32 @@ namespace UoB.SLR.SLRDataEntryV1
             dEdit.ShowDialog();
         }
 
+        //Read PDFs
+        private void btnReadPdf_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
+            fbDialog.ShowDialog();
+            string folderPath = fbDialog.SelectedPath;
+            List<string> existingfiles = Directory.GetFiles(folderPath, "*.pdf", SearchOption.AllDirectories).ToList<string>();
+            foreach (string fileDet in existingfiles)
+            {
+                using (PdfDocument document = PdfDocument.Open(fileDet))
+                {
+                    foreach (Page page in document.GetPages())
+                    {
+                        foreach(MarkedContentElement mcElement in page.GetMarkedContents())
+                        {
+                            string mtext = mcElement.ActualText;
+                        }
+                        string pageText = page.Text;
+
+                        foreach (Word word in page.GetWords())
+                        {
+                            Console.WriteLine(word.Text);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

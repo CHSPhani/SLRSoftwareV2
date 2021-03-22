@@ -78,6 +78,9 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,6 +92,27 @@
     <Reference Include="System.Xml" />
     <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.23\lib\net452\Ubiety.Dns.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Core, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.DocumentLayoutAnalysis, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.DocumentLayoutAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Fonts, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Package, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.Package.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Tokenization, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.Tokenization.dll</HintPath>
+    </Reference>
+    <Reference Include="UglyToad.PdfPig.Tokens, Version=0.1.4.0, Culture=neutral, PublicKeyToken=605d367334e74123, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPig.0.1.4\lib\net461\UglyToad.PdfPig.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.23\lib\net452\Zstandard.Net.dll</HintPath>

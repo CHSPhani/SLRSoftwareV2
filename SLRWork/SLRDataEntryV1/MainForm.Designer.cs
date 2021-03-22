@@ -36,6 +36,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnReadPdf = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -62,12 +63,13 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(296, 329);
+            this.button2.Location = new System.Drawing.Point(637, 362);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(162, 40);
             this.button2.TabIndex = 2;
             this.button2.Text = "Bulk Load";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
@@ -126,12 +128,24 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnReadPdf
+            // 
+            this.btnReadPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReadPdf.Location = new System.Drawing.Point(296, 329);
+            this.btnReadPdf.Name = "btnReadPdf";
+            this.btnReadPdf.Size = new System.Drawing.Size(162, 40);
+            this.btnReadPdf.TabIndex = 8;
+            this.btnReadPdf.Text = "Read PDFs";
+            this.btnReadPdf.UseVisualStyleBackColor = true;
+            this.btnReadPdf.Click += new System.EventHandler(this.btnReadPdf_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.btnReadPdf);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
@@ -158,5 +172,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnReadPdf;
     }
 }
