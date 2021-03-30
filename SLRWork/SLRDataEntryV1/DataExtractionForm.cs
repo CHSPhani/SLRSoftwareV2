@@ -159,7 +159,72 @@ namespace UoB.SLR.SLRDataEntryV1
             }
             return false;
         }
-        
+
+        private void btnSpQry_Click(object sender, EventArgs e)
+        {
+            //Get Folder Path
+            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
+            fbDialog.ShowDialog();
+            string folderPath = fbDialog.SelectedPath;
+
+            List<string> existingfiles = Directory.GetFiles(folderPath, "splquery.xlsx", SearchOption.AllDirectories).ToList<string>();
+            foreach (string fileDet in existingfiles)
+            {
+                System.IO.FileInfo fInfo = new FileInfo(fileDet);
+                fInfo.Delete();
+            }
+
+            //Do the extraction work
+            List<IDQueryModel> idqModel = new List<IDQueryModel>();
+            idqModel = GetDataLayer.GetIDQueryDetails(conn);
+
+            //Create Excel
+            Microsoft.Office.Interop.Excel.Application excelApp = null;
+            Workbook excelWorkBook = null;
+            try
+            {
+                PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(IDQueryModel));
+                excelApp = new Microsoft.Office.Interop.Excel.Application();
+                excelWorkBook = excelApp.Workbooks.Add();
+                _Worksheet xlWorksheet = excelWorkBook.Sheets[1];
+                Range xlRange = xlWorksheet.UsedRange;
+
+                //Add a new worksheet to workbook with the Datatable name
+                Worksheet sheet = excelWorkBook.Sheets.Add();
+                sheet.Name = "ID-PIS-AAID Details";
+
+                List<string> captions = idqModel[0].ToString().Split('^').ToList<string>();
+                for (int i = 1; i <= properties.Count; i++)
+                {
+                    sheet.Cells[1, i] = captions[i - 1];
+                }
+
+                int counter = 0;
+                for (int i = 1; i < idqModel.Count; i++)
+                {
+                    List<string> values = idqModel[i].ToString().Split('^').ToList<string>();
+                    for (int j = 1; j <= properties.Count; j++)
+                    {
+                        sheet.Cells[i + 1, j].Value = values[counter];
+                        counter++;
+                    }
+                    counter = 0;
+                }
+                sheet.SaveAs(folderPath + "\\splquery.xlsx");
+
+                excelWorkBook.Close();
+                excelApp.Quit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("There is a problem while creating Excel sheet. The reason is {0}", ex.Message));
+                Console.WriteLine("There is a problem in creating and saving Excel sheet. the Reason is {0}", ex.Message);
+                excelWorkBook.Close();
+                excelApp.Quit();
+            }
+            MessageBox.Show("ID details are exported");
+        }
+
         /// <summary>
         /// Get all citations. 
         /// </summary>
@@ -302,5 +367,7 @@ namespace UoB.SLR.SLRDataEntryV1
         {
             this.Close();
         }
+
+       
     }
 }

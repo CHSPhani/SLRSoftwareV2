@@ -356,6 +356,31 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return eModel;
         }
 
+        public static List<IDQueryModel> GetIDQueryDetails(MySqlConnection conn)
+        {
+            List<IDQueryModel> idQueries = new List<IDQueryModel>();
+            idQueries.Add(new IDQueryModel("PID", "AAId", "ApplicationArea", "SubArea", "PaperTitle", "Notes"));
+            try
+            {
+                string sql = string.Empty;
+                sql = string.Format("SELECT rq1.pID, applicationarea.aaId, applicationarea.applicationArea, rq1.sareaName,commonparams.pTitle, notes.paperNotes " +
+                                    "FROM commonparams, applicationarea, rq1, notes " +
+                                    "WHERE rq1.aaID= applicationarea.aaID AND rq1.pID= commonparams.pID AND rq1.pID = notes.pID;");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    idQueries.Add(new IDQueryModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(),
+                                                       rdr[4].ToString(), rdr[5].ToString()));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting ID Model. Details are {0}", ex.Message));
+            }
+            return idQueries;
+        }
+
         public static List<CitationModel> GetCitationDetails(string accepted, MySqlConnection conn)
         {
             List<CitationModel> cModels = new List<CitationModel>();

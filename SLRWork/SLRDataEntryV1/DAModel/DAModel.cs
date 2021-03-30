@@ -7,6 +7,48 @@ using System.Threading.Tasks;
 namespace UoB.SLR.SLRDataEntryV1.DAModel
 {
 
+    /// <summary>
+    /// This is a data class for the below query: 
+    /// select 
+    ///     rq1.pID, commonparams.pTitle, applicationarea.aaId, applicationarea.applicationArea, rq1.sareaName, notes.paperNotes 
+    /// from 
+    ///     commonparams, applicationarea, rq1, notes   
+    /// where 
+    ///     rq1.aaID= applicationarea.aaID and rq1.pID= commonparams.pID and rq1.pID = notes.pID;
+    /// </summary>
+    public class IDQueryModel
+    {
+        public string Param1 { get; set; }
+
+        public string Param2 { get; set; }
+
+        public string Param3 { get; set; }
+
+        public string Param4 { get; set; }
+
+        public string Param5 { get; set; }
+
+        public string Param6 { get; set; }
+
+        public IDQueryModel()
+        {
+            Param1 = Param2 = Param3 = Param4 = Param5 = Param6 = string.Empty;
+        }
+
+        public IDQueryModel(string pid, string pTi, string aaid, string aarea, string sarea, string notes) : this()
+        {
+            Param1 = pid;
+            Param2 = pTi;
+            Param3 = aaid;
+            Param4 = aarea;
+            Param5 = sarea;
+            Param6 = notes;
+        }
+        public override string ToString()
+        {
+            return Param1 + "^" + Param2 + "^" + Param3 + "^" + Param4 + "^" + Param5 + "^" + Param6;
+        }
+    }
     public class SearchResultModel
     {
         public string Param1 { get; set; }
