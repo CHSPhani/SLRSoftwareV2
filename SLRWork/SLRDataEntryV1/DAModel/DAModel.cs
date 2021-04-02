@@ -30,23 +30,26 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
         public string Param6 { get; set; }
 
+        public string Param7 { get; set; }
+
         public IDQueryModel()
         {
-            Param1 = Param2 = Param3 = Param4 = Param5 = Param6 = string.Empty;
+            Param1 = Param2 = Param3 = Param4 = Param5 = Param6 = Param7= string.Empty;
         }
 
-        public IDQueryModel(string pid, string pTi, string aaid, string aarea, string sarea, string notes) : this()
+        public IDQueryModel(string pid, string pTi, string cita,string aaid, string aarea, string sarea, string notes) : this()
         {
             Param1 = pid;
             Param2 = pTi;
-            Param3 = aaid;
-            Param4 = aarea;
-            Param5 = sarea;
-            Param6 = notes;
+            Param3 = cita;
+            Param4 = aaid;
+            Param5 = aarea;
+            Param6 = sarea;
+            Param7 = notes;
         }
         public override string ToString()
         {
-            return Param1 + "^" + Param2 + "^" + Param3 + "^" + Param4 + "^" + Param5 + "^" + Param6;
+            return Param1 + "^" + Param2 + "^" + Param3 + "^" + Param4 + "^" + Param5 + "^" + Param6 + "^" + Param7;
         }
     }
     public class SearchResultModel

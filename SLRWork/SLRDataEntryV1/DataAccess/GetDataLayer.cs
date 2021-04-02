@@ -359,11 +359,11 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
         public static List<IDQueryModel> GetIDQueryDetails(MySqlConnection conn)
         {
             List<IDQueryModel> idQueries = new List<IDQueryModel>();
-            idQueries.Add(new IDQueryModel("PID", "AAId", "ApplicationArea", "SubArea", "PaperTitle", "Notes"));
+            idQueries.Add(new IDQueryModel("PID", "AAId", "Citation",  "ApplicationArea", "SubArea", "PaperTitle", "Notes"));
             try
             {
                 string sql = string.Empty;
-                sql = string.Format("SELECT rq1.pID, applicationarea.aaId, applicationarea.applicationArea, rq1.sareaName,commonparams.pTitle, notes.paperNotes " +
+                sql = string.Format("SELECT rq1.pID, applicationarea.aaId, commonparams.pCitation, applicationarea.applicationArea, rq1.sareaName,commonparams.pTitle, notes.paperNotes " +
                                     "FROM commonparams, applicationarea, rq1, notes " +
                                     "WHERE rq1.aaID= applicationarea.aaID AND rq1.pID= commonparams.pID AND rq1.pID = notes.pID;");
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -371,7 +371,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 while (rdr.Read())
                 {
                     idQueries.Add(new IDQueryModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(),
-                                                       rdr[4].ToString(), rdr[5].ToString()));
+                                                       rdr[4].ToString(), rdr[5].ToString(), rdr[6].ToString()));
                 }
             }
             catch(Exception ex)
