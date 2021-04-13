@@ -102,6 +102,59 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return false;
         }
 
+        public static bool UpdateAAID(List<AAIDModel> aaidModels, MySqlConnection conn)
+        {
+            int rowsupdated = 0;
+            MySqlTransaction myTrans;
+            if (aaidModels == null)
+            {
+                return false;
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            try
+            {
+                foreach(AAIDModel aaidModel in aaidModels)
+                {
+                    int aaid = GetDataLayer.GetAreaID(aaidModel.AAName, conn);
+                    string sAreaNAme = string.Empty;
+                    string sql = string.Format("SELECT sareaName FROM rq1 where pID={0}", aaidModel.PID);
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.Read())
+                    {
+                        if (!string.IsNullOrEmpty(rdr[0].ToString()))
+                        {
+                            sAreaNAme = rdr[0].ToString();
+                        }
+                    }
+                    sql = string.Empty;
+                    cmd = null;
+                    rdr.Close();
+                    if(sAreaNAme.Equals(aaidModel.SAreaName))
+                    {
+                        sql = string.Format("UPDATE rq1 set aaID = {0} where pID={1}", aaid, aaidModel.PID);
+                        cmd = new MySqlCommand(sql, conn);
+                        cmd.Transaction = myTrans;
+                        cmd.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                myTrans.Commit();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while updating AAID data. Details are {0}", ex.Message));
+            }
+            return false;
+        }
+
         public static bool UpdateDetails(ReviewModel rModel, MySqlConnection conn)
         {
             MySqlTransaction myTrans;
@@ -193,6 +246,40 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return false;
         }
         
+        public static bool SaveRq2NData(List<Rq2N> rq2Ns, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            if (rq2Ns == null || rq2Ns.Count == 0)
+            {
+                return false;
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            MySqlCommand cmd = null;
+            try
+            {
+                foreach(Rq2N rq2n in rq2Ns)
+                {
+                    string cSection = string.Format("INSERT INTO rq2n (pID,pCitation, swArchType, blockchainchoice, consensus, network, gas, bcSolution, newArchitecture) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}');", 
+                                                        rq2n.Pid, rq2n.Citation,
+                                                        rq2n.SwArchitecture, rq2n.BlockchainChoice, rq2n.Consensus, rq2n.Network, rq2n.Gas, rq2n.BlockchainOffering, rq2n.NewSwArchitecture);
+                    cmd = new MySqlCommand(cSection.ToString(), conn);
+                    cmd.Transaction = myTrans;
+                    cmd.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    cmd = null;
+                }
+                myTrans.Commit();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while inserting RQ2 Normalized data. Details are {0}", ex.Message));
+            }
+            return false; 
+        }
+
         public static bool SaveDetails(ReviewModel rModel, MySqlConnection conn)
         {
             MySqlTransaction myTrans;
@@ -381,6 +468,28 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return idQueries;
         }
 
+        public static List<Rq2NModel> GetRq2NormData(MySqlConnection conn)
+        {
+            List<Rq2NModel> rq2NData = new List<Rq2NModel>();
+            rq2NData.Add(new Rq2NModel("PID", "Citation", "SWArchType", "BlockchainChoice", "Consensus", "Network", "Gas", "BcSolution", "NewArchitecture"));
+            try
+            {
+                string sql = sql = string.Format("SELECT * FROM rq2n;"); ;
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    rq2NData.Add(new Rq2NModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(), rdr[4].ToString(),
+                                                    rdr[5].ToString(), rdr[6].ToString(), rdr[7].ToString(), rdr[8].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting Citation Model. Details are {0}", ex.Message));
+            }
+            return rq2NData;
+        }
+
         public static List<CitationModel> GetCitationDetails(string accepted, MySqlConnection conn)
         {
             List<CitationModel> cModels = new List<CitationModel>();
@@ -456,7 +565,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     }
                     else
                     {
-                        sql = string.Format("SELECT pID FROM commonparams WHERE and pAccepted='{0}';", accepted);
+                        sql = string.Format("SELECT pID FROM commonparams WHERE pAccepted='{0}';", accepted);
                     }
                 }
                 else
@@ -1009,6 +1118,45 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
             }
             return pCode;
+        }
+
+        public static List<Rq2O> GetOriginalRq2(MySqlConnection conn)
+        {
+            List<Rq2O> oriRq2 = new List<Rq2O>();
+            //Rq2
+            try
+            {
+                string sql = string.Empty;
+                MySqlCommand cmd = null;
+                sql = string.Format("SELECT rq2.pID, commonparams.pCitation, rq2.swArchType, rq2.blockchainchoice, rq2.consensus, rq2.network, rq2.participation, rq2.bft, rq2.gas, rq2.bcSolution, rq2.newArchitecture " +
+                                        "FROM commonparams,rq2 WHERE commonparams.pID=rq2.pID AND commonparams.pAccepted='yes';");
+                cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Rq2O reQues2 = new Rq2O();
+                    reQues2.Pid = long.Parse(rdr[0].ToString());
+                    reQues2.Citation = rdr[1].ToString();
+                    reQues2.SwArchitecture = rdr[2].ToString();
+                    reQues2.BlockchainChoice = rdr[3].ToString();
+                    reQues2.Consensus = rdr[4].ToString();
+                    reQues2.Network = rdr[5].ToString();
+                    reQues2.Participation = rdr[6].ToString();
+                    reQues2.Bft = rdr[7].ToString();
+                    reQues2.Gas = rdr[8].ToString();
+                    reQues2.BlockchainOffering = rdr[9].ToString();
+                    reQues2.NewSwArchitecture = rdr[10].ToString();
+                    oriRq2.Add(reQues2);
+                }
+                rdr.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(string.Format("exception while getting Rq2O data. Reason is {0}",ex.Message));
+            }
+
+            return oriRq2;
+
         }
 
         public static List<ExcelModel> GetDataForAAExcel(int aAreaId, string accepted, MySqlConnection conn)

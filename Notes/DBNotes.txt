@@ -103,6 +103,25 @@ CREATE TABLE `slrv1`.`rq2` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+//Normalized Version for Analytics
+
+CREATE TABLE `slrv1`.`rq2N` (
+ `pID` INT NOT NULL,
+ `pCitation` VARCHAR(100) NOT NULL,
+ `swArchType` VARCHAR(1000) NOT NULL,
+ `blockchainchoice` VARCHAR(1000) NOT NULL,
+ `consensus` VARCHAR(1000) NOT NULL,
+ `network` VARCHAR(1000) NOT NULL,
+ `gas` VARCHAR(1000) NOT NULL,
+ `bcSolution` VARCHAR(1000) NOT NULL,
+ `newArchitecture` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq2nComp`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 4.// RQ3: Data in Blochcian		
 //	Data Format
 //	Data Store

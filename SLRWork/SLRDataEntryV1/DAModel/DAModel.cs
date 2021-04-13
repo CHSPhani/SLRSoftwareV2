@@ -308,6 +308,58 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Purpose = -1;
         }
     }
+    
+    public class Rq2NModel
+    {
+        public string Pid { get; set; }
+
+        public string Citation { get; set; }
+
+        public string SwArchitecture { get; set; }
+
+        public string BlockchainChoice { get; set; }
+
+        public string Consensus { get; set; }
+
+        public string Network { get; set; }
+
+        public string Gas { get; set; }
+
+        public string BlockchainOffering { get; set; }
+
+        public string NewSwArchitecture { get; set; }
+
+        public Rq2NModel()
+        {
+            Pid = string.Empty;
+            Citation = string.Empty;
+            SwArchitecture = string.Empty;
+            BlockchainChoice = string.Empty;
+            Consensus = string.Empty;
+            Network = string.Empty;
+            Gas = string.Empty;
+            BlockchainOffering = string.Empty;
+            NewSwArchitecture = string.Empty;
+        }
+
+        public Rq2NModel(string pd, string ci, string sty, string bcc, string cns, string ntw, string gas, string bco, string nsaw)
+        {
+            this.Pid = pd;
+            this.Citation = ci;
+            this.SwArchitecture = sty;
+            this.BlockchainChoice = bcc;
+            this.Consensus = cns;
+            this.Network = ntw;
+            this.Gas = gas;
+            this.BlockchainOffering = bco;
+            this.NewSwArchitecture = nsaw;
+        }
+
+        public override string ToString()
+        {
+            return Pid + "^" + Citation + "^" + SwArchitecture + "^" + BlockchainChoice + "^" + Consensus + "^" + Network + "^" + Gas + "^" + BlockchainOffering + "^" + NewSwArchitecture;
+        }
+    }
 
     public class Rq1
     {
@@ -353,6 +405,78 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Network = string.Empty;
             Participation = string.Empty;
             Bft = string.Empty;
+            Gas = string.Empty;
+            BlockchainOffering = string.Empty;
+            NewSwArchitecture = string.Empty;
+        }
+    }
+
+    public class Rq2O
+    {
+        public long Pid { get; set; }
+
+        public string Citation { get; set; }
+
+        public string SwArchitecture { get; set; }
+
+        public string BlockchainChoice { get; set; }
+
+        public string Consensus { get; set; }
+
+        public string Network { get; set; }
+
+        public string Participation { get; set; }
+
+        public string Bft { get; set; }
+
+        public string Gas { get; set; }
+
+        public string BlockchainOffering { get; set; }
+
+        public string NewSwArchitecture { get; set; }
+
+        public Rq2O()
+        {
+            Pid = 0;
+            SwArchitecture = string.Empty;
+            BlockchainChoice = string.Empty;
+            Consensus = string.Empty;
+            Network = string.Empty;
+            Participation = string.Empty;
+            Bft = string.Empty;
+            Gas = string.Empty;
+            BlockchainOffering = string.Empty;
+            NewSwArchitecture = string.Empty;
+        }
+    }
+    public class Rq2N
+    {
+        public long Pid { get; set; }
+
+        public string Citation { get; set; }
+
+        public string SwArchitecture { get; set; }
+
+        public string BlockchainChoice { get; set; }
+
+        public string Consensus { get; set; }
+
+        public string Network { get; set; }
+
+        public string Gas { get; set; }
+
+        public string BlockchainOffering { get; set; }
+
+        public string NewSwArchitecture { get; set; }
+
+        public Rq2N()
+        {
+            Pid = 0;
+            Citation = string.Empty;
+            SwArchitecture = string.Empty;
+            BlockchainChoice = string.Empty;
+            Consensus = string.Empty;
+            Network = string.Empty;
             Gas = string.Empty;
             BlockchainOffering = string.Empty;
             NewSwArchitecture = string.Empty;
@@ -430,6 +554,26 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             RWLAtency = string.Empty;
         }
 
+    }
+
+    public class AAIDModel
+    {
+        public int PID { get; set; }
+        public string AAName { get; set; }
+        public string SAreaName { get; set; }
+
+        public AAIDModel()
+        {
+            PID = 0;
+            AAName = SAreaName = string.Empty;
+        }
+
+        public AAIDModel(int pID, string aaName, string saName)
+        {
+            PID = pID;
+            AAName = aaName;
+            SAreaName = saName;
+        }
     }
 }
 

@@ -37,6 +37,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnReadPdf = new System.Windows.Forms.Button();
+            this.btnNormalize = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -139,12 +141,38 @@
             this.btnReadPdf.UseVisualStyleBackColor = true;
             this.btnReadPdf.Click += new System.EventHandler(this.btnReadPdf_Click);
             // 
+            // btnNormalize
+            // 
+            this.btnNormalize.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNormalize.Location = new System.Drawing.Point(637, 303);
+            this.btnNormalize.Name = "btnNormalize";
+            this.btnNormalize.Size = new System.Drawing.Size(162, 40);
+            this.btnNormalize.TabIndex = 9;
+            this.btnNormalize.Text = "Normalize Data";
+            this.btnNormalize.UseVisualStyleBackColor = true;
+            this.btnNormalize.Visible = false;
+            this.btnNormalize.Click += new System.EventHandler(this.btnNormalize_Click);
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(637, 243);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(162, 40);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Restore AAID";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.btnNormalize);
             this.Controls.Add(this.btnReadPdf);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.button6);
@@ -173,5 +201,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnReadPdf;
+        private System.Windows.Forms.Button btnNormalize;
+        private System.Windows.Forms.Button button7;
     }
 }

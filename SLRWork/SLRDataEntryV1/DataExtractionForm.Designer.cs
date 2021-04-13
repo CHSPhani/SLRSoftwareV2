@@ -44,6 +44,7 @@
             this.btnAA = new System.Windows.Forms.Button();
             this.cmbAAc = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnND = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -218,12 +219,24 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Accepted";
             // 
+            // btnND
+            // 
+            this.btnND.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnND.Location = new System.Drawing.Point(177, 22);
+            this.btnND.Name = "btnND";
+            this.btnND.Size = new System.Drawing.Size(190, 36);
+            this.btnND.TabIndex = 16;
+            this.btnND.Text = "Get Normalized Data";
+            this.btnND.UseVisualStyleBackColor = true;
+            this.btnND.Click += new System.EventHandler(this.btnND_Click);
+            // 
             // DataExtractionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 532);
             this.ControlBox = false;
+            this.Controls.Add(this.btnND);
             this.Controls.Add(this.cmbAAc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnAA);
@@ -266,5 +279,6 @@
         private System.Windows.Forms.Button btnAA;
         private System.Windows.Forms.ComboBox cmbAAc;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnND;
     }
 }

@@ -14,6 +14,8 @@ using UglyToad.PdfPig.Content;
 using UoB.SLR.SLRDataEntryV1.CSVReader;
 using UoB.SLR.SLRDataEntryV1.DAModel;
 using UoB.SLR.SLRDataEntryV1.DataAccess;
+using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace UoB.SLR.SLRDataEntryV1
 {
@@ -136,5 +138,52 @@ namespace UoB.SLR.SLRDataEntryV1
                 }
             }
         }
+
+        /// <summary>
+        /// HEre data is normalized for analytics
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNormalize_Click(object sender, EventArgs e)
+        {
+            Rq2OriginalToNormalizedConverter Rq2Converter = new Rq2OriginalToNormalizedConverter(conn);
+            Rq2Converter.Normalize();
+            if (Rq2Converter.SaveNormalized())
+                MessageBox.Show("Rq2 Data normalized properly");
+
+        }
+
+        //Restore AAID
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //List<AAIDModel> aaidModels = new List<AAIDModel>();
+
+            //Excel._Application oApp = new Excel.Application();
+            //oApp.Visible = true;
+
+            //Excel.Workbook oWorkbook = oApp.Workbooks.Open(@"C:\WorkRelated\ApplicationArea-backup.xlsx");
+            //Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Paper Citation Details"];
+
+            //int colNo = oWorksheet.UsedRange.Columns.Count;
+            //int rowNo = oWorksheet.UsedRange.Rows.Count;
+
+            //// read the value into an array.
+            //object[,] array = oWorksheet.UsedRange.Value;
+
+            //for (int i = 2; i <= rowNo; i++)
+            //{
+            //    AAIDModel aaidModel = new AAIDModel();
+
+            //    aaidModel.PID = Int32.Parse(array[i, 1].ToString());
+            //    aaidModel.AAName = array[i, 2].ToString();
+            //    aaidModel.SAreaName = array[i, 3].ToString();
+
+            //    aaidModels.Add(aaidModel);
+            //}
+
+            //if (SaveData.UpdateAAID(aaidModels, conn))
+            //    MessageBox.Show("update all yes rows");
+        }
+        
     }
 }
