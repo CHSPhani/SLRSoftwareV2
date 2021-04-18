@@ -55,6 +55,16 @@ CONSTRAINT `saComp`
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+//Sub Area new
+//I think sub areas need not be linked to areas in a constant way 
+//hence new table is created. 
+
+CREATE TABLE `slrv1`.`SubAreaRev` (
+ `saID` INT NOT NULL,
+ `subArea` VARCHAR(1000) NOT NULL,
+ `saNotes` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`saID`));
+
 //Research Question1
 
 CREATE TABLE `slrv1`.`rq1` (
@@ -73,6 +83,53 @@ CONSTRAINT `rq1Comp2`
     REFERENCES `slrv1`.`ApplicationArea` (`aaID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+//Revised Tale
+CREATE TABLE `slrv1`.`rq1_r` (
+ `pID` INT NOT NULL,
+ `aaID` INT NOT NULL,
+ `saID` INT NOT NULL,
+ `rq1Reason` VARCHAR(1000) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq1Comp1r`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `rq1Comp2r`
+    FOREIGN KEY (`aaID`)
+    REFERENCES `slrv1`.`ApplicationArea` (`aaID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+CONSTRAINT `rq1sa2r`
+    FOREIGN KEY (`saID`)
+    REFERENCES `slrv1`.`subarearev` (`saID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `slrv1`.`rq1n` (
+ `pID` INT NOT NULL,
+ `pCitation` VARCHAR(100) NOT NULL,
+ `AreaName` VARCHAR(100) NOT NULL,
+ `SubAreaName` VARCHAR(100) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq1nComp1r`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `slrv1`.`rq1Reason` (
+ `pID` INT NOT NULL,
+ `Reason` VARCHAR(1500) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq1reaComp1r`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 
 3. //RQ2: Effect on System Architecture									
 //	What S/W architecture
@@ -116,7 +173,7 @@ CREATE TABLE `slrv1`.`rq2N` (
  `bcSolution` VARCHAR(1000) NOT NULL,
  `newArchitecture` VARCHAR(1000) NOT NULL,
  PRIMARY KEY (`pID`),
- CONSTRAINT `rq2nComp`
+ CONSTRAINT `rq2nComp1`
     FOREIGN KEY (`pID`)
     REFERENCES `slrv1`.`commonparams` (`pID`)
     ON DELETE NO ACTION
@@ -308,3 +365,117 @@ insert into ApplicationArea values(10,'Health Record Management','EMR and PHD re
 insert into ApplicationArea values(11,'Marketting','Marketting networks and data');
 insert into ApplicationArea values(12,'Key Management','Public private key Management and Certification Authorities');
 insert into ApplicationArea values(13,'Social Network','Social network software and data');
+
+//subareas identified
+insert into SubArea values(1,1,'Media','Media is sub-area for MultiMedia area');
+insert into SubArea values(2,2,'File','');
+insert into SubArea values(3,2,'Image','');
+insert into SubArea values(4,2,'Cloud','');
+insert into SubArea values(5,2,'Networking','');
+insert into SubArea values(6,2,'Blockchain','');
+insert into SubArea values(7,2,'Data','');
+insert into SubArea values(8,2,'Education','');
+insert into SubArea values(9,2,'Networking','');
+insert into SubArea values(10,2,'Personal','');
+insert into SubArea values(11,2,'Service details','');
+insert into SubArea values(12,2,'Health','');
+insert into SubArea values(13,2,'Trading','');
+insert into SubArea values(14,2,'Others','');
+insert into SubArea values(15,3,'Data Storage','');
+insert into SubArea values(16,3,'Data','');
+insert into SubArea values(17,3,'Smart City','');
+insert into SubArea values(18,3,'Authentication','');
+insert into SubArea values(19,3,'Blockchain','');
+insert into SubArea values(20,3,'Caching','');
+insert into SubArea values(21,3,'Architecture','');
+insert into SubArea values(22,3,'Others','');
+insert into SubArea values(23,4,'Grid','');
+insert into SubArea values(24,4,'Trade','');
+insert into SubArea values(25,4,'Power Plant','');
+insert into SubArea values(26,4,'SG Use cases','');
+insert into SubArea values(27,4,'Cyber Security','');
+insert into SubArea values(28,4,'Others','');
+insert into SubArea values(29,5,'Blockchain','');
+insert into SubArea values(30,5,'Data','');
+insert into SubArea values(31,5,'Data Storage','');
+insert into SubArea values(32,5,'Scalability','');
+insert into SubArea values(33,5,'Consensus','');
+insert into SubArea values(34,5,'Database','');
+insert into SubArea values(35,5,'Network','');
+insert into SubArea values(36,5,'Process','');
+insert into SubArea values(37,5,'Technology','');
+insert into SubArea values(38,5,'Cloud','');
+insert into SubArea values(39,5,'Vision','');
+insert into SubArea values(40,5,'Blockchain Replication','');
+insert into SubArea values(41,5,'Blockchain Sharding','');
+insert into SubArea values(42,5,'Caching','');
+insert into SubArea values(43,5,'Edge Computing','');
+insert into SubArea values(44,5,'P2P Trade','');
+insert into SubArea values(45,5,'Miner Selection','');
+insert into SubArea values(46,5,'Communication Protocol','');
+insert into SubArea values(47,5,'Client Server Architecure Patent','');
+insert into SubArea values(48,6,'Workflow','');
+insert into SubArea values(49,6,'Data','');
+insert into SubArea values(50,6,'Trusted Communication','');
+insert into SubArea values(51,7,'Data','');
+insert into SubArea values(52,7,'Contract Management','');
+insert into SubArea values(53,8,'Data','');
+insert into SubArea values(54,8,'Trade','');
+insert into SubArea values(55,8,'Battery','');
+insert into SubArea values(56,8,'Others','');
+insert into SubArea values(57,9,'Formated log','');
+insert into SubArea values(58,9,'Data','');
+insert into SubArea values(59,10,'Health','');
+insert into SubArea values(60,10,'Data','');
+insert into SubArea values(61,10,'Other','');
+insert into SubArea values(62,11,'Public Distribution System','');
+insert into SubArea values(63,12,'Certificates','');
+insert into SubArea values(64,12,'Key Infrastructure','');
+insert into SubArea values(65,12,'PKI Certificate','');
+insert into SubArea values(66,13,'File','');
+insert into SubArea values(67,14,'Blockchain','');
+insert into SubArea values(68,14,'Consensus','');
+insert into SubArea values(69,14,'Other','');
+
+
+insert into subarearev values(1,"Architecture", "");           
+insert into subarearev values(2,"Authentication", "");         
+insert into subarearev values(3,"Battery", "");                
+insert into subarearev values(4,"Blockchain", "");             
+insert into subarearev values(5,"Blockchain Replication", ""); 
+insert into subarearev values(6,"Blockchain Sharding", "");    
+insert into subarearev values(7,"Caching", "");                
+insert into subarearev values(8,"Certificates", "");           
+insert into subarearev values(9,"Cloud", "");                  
+insert into subarearev values(10,"Communication", "");
+insert into subarearev values(11,"Consensus", "");              
+insert into subarearev values(12,"Contract Management", "");    
+insert into subarearev values(13,"Cyber Security", "");         
+insert into subarearev values(14,"Data", "");                   
+insert into subarearev values(15,"Data Storage", "");           
+insert into subarearev values(16,"Database", "");               
+insert into subarearev values(17,"Edge Computing", "");         
+insert into subarearev values(18,"Education", "");              
+insert into subarearev values(19,"File", "");                   
+insert into subarearev values(20,"Formated log", "");           
+insert into subarearev values(21,"Grid", "");                   
+insert into subarearev values(22,"Health", "");                 
+insert into subarearev values(23,"Image", "");                  
+insert into subarearev values(24,"Key Infrastructure", "");     
+insert into subarearev values(25,"Media", "");                  
+insert into subarearev values(26,"Miner Selection", "");        
+insert into subarearev values(27,"Network", "");                
+insert into subarearev values(28,"Others", "");                 
+insert into subarearev values(29,"P2P Trade", "");              
+insert into subarearev values(30,"Personal", "");               
+insert into subarearev values(31,"PKI Certificate", "");        
+insert into subarearev values(32,"Power Plant", "");            
+insert into subarearev values(33,"Process", "");                
+insert into subarearev values(34,"Public Distribution System", "");   
+insert into subarearev values(35,"Scalability", "");            
+insert into subarearev values(36,"SG Use cases", "");           
+insert into subarearev values(37,"Smart City", "");      
+insert into subarearev values(38,"Technology", "");             
+insert into subarearev values(39,"Trade", "");                  
+insert into subarearev values(40,"Vision", "");                
+insert into subarearev values(41,"Workflow", "");

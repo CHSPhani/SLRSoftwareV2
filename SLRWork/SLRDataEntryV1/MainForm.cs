@@ -146,6 +146,18 @@ namespace UoB.SLR.SLRDataEntryV1
         /// <param name="e"></param>
         private void btnNormalize_Click(object sender, EventArgs e)
         {
+            #region Rq1 REvised Data and hence used only once.
+            //Rq1Revisited rq1Rev = new Rq1Revisited(conn);
+            //rq1Rev.ReviewRq1();
+            //rq1Rev.SaveReviewedData();
+            #endregion
+
+            #region Rq1 Normalize Data used once
+            //Rq1OriginalToNormalizeConverter Rq1Converter = new Rq1OriginalToNormalizeConverter(conn);
+            //Rq1Converter.Normalize();
+            //Rq1Converter.SaveNormalized();
+            #endregion
+
             Rq2OriginalToNormalizedConverter Rq2Converter = new Rq2OriginalToNormalizedConverter(conn);
             Rq2Converter.Normalize();
             if (Rq2Converter.SaveNormalized())
@@ -161,8 +173,8 @@ namespace UoB.SLR.SLRDataEntryV1
             //Excel._Application oApp = new Excel.Application();
             //oApp.Visible = true;
 
-            //Excel.Workbook oWorkbook = oApp.Workbooks.Open(@"C:\WorkRelated\ApplicationArea-backup.xlsx");
-            //Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Paper Citation Details"];
+            //Excel.Workbook oWorkbook = oApp.Workbooks.Open(@"C:\WorkRelated\ApplicationArea_No_Backup.xlsx");
+            //Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Sheet1"];
 
             //int colNo = oWorksheet.UsedRange.Columns.Count;
             //int rowNo = oWorksheet.UsedRange.Rows.Count;

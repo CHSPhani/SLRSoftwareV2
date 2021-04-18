@@ -90,8 +90,10 @@ namespace UoB.SLR.SLRDataEntryV1
             {
                 rModel.ResearchQuestion1.AaID = GetDataLayer.GetAreaID(cmbAArea.SelectedItem.ToString(), conn);
             }
-            if (!string.IsNullOrEmpty(tbASubarea.Text))
-                rModel.ResearchQuestion1.SAreaName = tbASubarea.Text;
+
+           
+            if (!string.IsNullOrEmpty(cmbSubArea.SelectedItem.ToString()))
+                rModel.ResearchQuestion1.SaID = GetDataLayer.GetSubAreaID(cmbSubArea.SelectedItem.ToString(),conn);
             else
                 whyBC = false;
 
@@ -416,7 +418,7 @@ namespace UoB.SLR.SLRDataEntryV1
             tbPDate.Text = string.Empty;
             tbBibtex.Text = string.Empty;
             cmbAArea.SelectedItem = string.Empty;
-            tbASubarea.Text = string.Empty;
+            cmbSubArea.SelectedItem= string.Empty;
             tbReason.Text = string.Empty;
             tbSoftArch.Text = string.Empty;
             tbBcChoice.Text = string.Empty;
@@ -484,8 +486,20 @@ namespace UoB.SLR.SLRDataEntryV1
             if (this.Modify)
             {
                 int puid = rModel.cSection.Purpose;
-                cmbPurpose.Items.Add(GetDataLayer.GETPurposeName(puid, conn));
-                cmbPurpose.SelectedIndex = 0;
+                string editp = GetDataLayer.GETPurposeName(puid, conn);
+                int i = 0;
+                bool found = false;
+                List<string> pupose = GetDataLayer.GetAllPurpose(conn);
+                foreach(string s in pupose)
+                {
+                    cmbPurpose.Items.Add(s);
+
+                    if ((!s.Equals(editp)) & !found)
+                        i++;
+                    else
+                        found = true;
+                }
+                cmbPurpose.SelectedIndex = i;
             }
             else
             {
@@ -501,8 +515,20 @@ namespace UoB.SLR.SLRDataEntryV1
             if (this.Modify)
             {
                 int aaid = rModel.ResearchQuestion1.AaID;
-                cmbAArea.Items.Add(GetDataLayer.GETAAreaName(aaid, conn));
-                cmbAArea.SelectedIndex = 0;
+                string edaname = GetDataLayer.GETAAreaName(aaid, conn);
+                int i = 0;
+                bool found = false;
+                List<string> areas = GetDataLayer.GetAllAAreas(conn);
+                foreach(string s in areas)
+                {
+                    cmbAArea.Items.Add(s);
+                    if ((!s.Equals(edaname)) & !found)
+                        i++;
+                    else
+                        found = true;
+                }
+                
+                cmbAArea.SelectedIndex = i;
             }
             else
             {
@@ -512,12 +538,33 @@ namespace UoB.SLR.SLRDataEntryV1
                     cmbAArea.Items.Add(s);
                 }
             }
+            if(this.Modify)
+            {
+                int said = rModel.ResearchQuestion1.SaID;
+                string saname = GetDataLayer.GETSubAreaName(said, conn);
+                int i = 0;
+                bool found = false;
+                List<string> sareas11 = GetDataLayer.GetAllSubAreas(conn);
+                foreach(string s in sareas11)
+                {
+                    cmbSubArea.Items.Add(s);
 
-
-            if (string.IsNullOrEmpty(rModel.ResearchQuestion1.SAreaName))
-                tbASubarea.Text = string.Empty;
+                    if ((!s.Equals(saname)) & !found)
+                        i++;
+                    else
+                        found = true;
+                }
+                
+                cmbSubArea.SelectedIndex = i;
+            }
             else
-                tbASubarea.Text = rModel.ResearchQuestion1.SAreaName;
+            {
+                List<string> aa = GetDataLayer.GetAllSubAreas(conn);
+                foreach (string s in aa)
+                {
+                    cmbSubArea.Items.Add(s);
+                }
+            }
 
             if (string.IsNullOrEmpty(rModel.ResearchQuestion1.Rq1Reason))
                 tbReason.Text = string.Empty;

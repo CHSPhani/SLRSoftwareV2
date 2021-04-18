@@ -37,7 +37,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
                 //Review Question2
                 rModel.ResearchQuestion1.AaID = GetDataLayer.GetAreaID(pValues[5], conn);
-                rModel.ResearchQuestion1.SAreaName = pValues[6];
+                rModel.ResearchQuestion1.SaID = GetDataLayer.GetSubAreaID(pValues[6], conn);
                 rModel.ResearchQuestion1.Rq1Reason = string.Empty;
 
                 //Review Question2
@@ -126,6 +126,136 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         }
     }
 
+
+    public class Rq1Revisited
+    {
+        List<Rq1A> ActualRq1 { get; set; }
+
+        List<Rq1R> RevisedRq1 { get; set; }
+
+        MySqlConnection conn;
+
+        public Rq1Revisited()
+        {
+            ActualRq1 = new List<Rq1A>();
+            RevisedRq1 = new List<Rq1R>();
+        }
+
+        public Rq1Revisited(MySqlConnection con):this()
+        {
+            this.conn = con;
+            LoadOriginal();
+        }
+
+        void LoadOriginal()
+        {
+            ActualRq1 = GetDataLayer.GetActualRq1(conn);
+        }
+        public void ReviewRq1()
+        {
+            foreach(Rq1A rq1A in ActualRq1)
+            {
+                Rq1R rq1R = new Rq1R();
+
+                rq1R.pID = rq1A.pID;
+                rq1R.AaID= rq1A.AaID;
+
+                rq1R.SaID = GetDataLayer.GetSubAreaID(DataValueNoramalizer.GetSuitableStringForRq1SuAr(rq1A.SAreaName), conn);
+
+                rq1R.Rq1Reason = rq1A.Rq1Reason;
+
+                RevisedRq1.Add(rq1R);
+            }
+        }
+        public bool SaveReviewedData()
+        {
+            if (SaveData.SaveRq1RData(RevisedRq1, conn))
+                return true;
+            return false;
+        }
+    }
+    public class Rq1OriginalToNormalizeConverter
+    {
+        List<Rq1O> OriginalRq1 { get; set; }
+
+        List<Rq1N> Normalized { get; set; }
+
+        List<Reason> Reasons {get;set;}
+
+        MySqlConnection conn;
+
+        public Rq1OriginalToNormalizeConverter()
+        {
+            OriginalRq1 = new List<Rq1O>();
+            Normalized = new List<Rq1N>();
+            Reasons = new List<Reason>();
+        }
+
+        public Rq1OriginalToNormalizeConverter(MySqlConnection con) :this()
+        {
+            this.conn = con;
+            LoadOriginal();
+        }
+
+        void LoadOriginal()
+        {
+            OriginalRq1 = GetDataLayer.GetOriginalRq1(conn);
+        }
+
+        public bool SaveNormalized()
+        {
+            if (SaveData.SaveRq1NData(Normalized, conn))
+                if(SaveData.SaveReasons(Reasons,conn))
+                return true;
+            return false;
+        }
+
+        public void Normalize()
+        {
+            foreach(Rq1O rq1o in this.OriginalRq1)
+            {
+                Rq1N rq1n = new Rq1N();
+
+                rq1n.Pid = rq1o.pID;
+
+                string tempValue = string.Empty;
+                tempValue = GetDataLayer.GETAAreaName(rq1o.AaID, conn);
+
+                if (!string.IsNullOrEmpty(tempValue))
+                {
+                    rq1n.AreaName = tempValue;
+                }
+                else
+                {
+
+                }
+
+                rq1n.Citation = rq1o.Citation;
+
+                tempValue = string.Empty;
+                tempValue = GetDataLayer.GETSubAreaName(rq1o.SaID,conn);
+
+                if (!string.IsNullOrEmpty(tempValue))
+                {
+                    rq1n.SAreaName = tempValue;
+                }
+                else
+                {
+
+                }
+                tempValue = string.Empty;
+
+                Normalized.Add(rq1n);
+
+                Reason rea = new Reason();
+
+                rea.Pid = rq1o.pID;
+                rea.Rq1Reason = rq1o.Rq1Reason;
+
+                Reasons.Add(rea);
+            }
+        }
+    }
 
     public class Rq2OriginalToNormalizedConverter
     {
@@ -251,6 +381,316 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
 
     class DataValueNoramalizer
     {
+
+        public static string GetSuitableStringForRq1SuAr(string existingvalue)
+        {
+            string newValue = string.Empty;
+            if (existingvalue.Trim().ToLower().Equals(("Media").ToLower()))
+            {
+                newValue = "Media";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("File").ToLower()) ||
+                        existingvalue.Trim().ToLower().Equals(("File Synchronization").ToLower()) ||
+                        existingvalue.Trim().ToLower().Equals(("File").ToLower()))
+            {
+                newValue = "File";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Image").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Image Processing").ToLower()))
+            {
+                newValue = "Image";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Cloud").ToLower()) ||
+                     existingvalue.Trim().ToLower().Equals(("Cloud").ToLower()))
+            {
+                newValue = "Cloud";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Blockchain Attack").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Blockchain").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("New Blockchain").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Consensus Protocol").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("IoT and Blockchain").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Trust").ToLower()))
+            {
+                newValue = "Blockchain";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Education").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Education Certificates").ToLower()))
+            {
+                newValue = "Education";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Personal").ToLower()))
+            {
+                newValue = "Personal";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Health").ToLower()) || existingvalue.Trim().ToLower().Equals(("Health").ToLower()))
+            {
+                newValue = "Health";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Transmission").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Security").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Infrstructure").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("IoD Data Security").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Blockchain - Data Storage").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Storage").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Loss").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Satellite Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("EHR Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("EMR").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Personal Health Data").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Distribution").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data - Identity").ToLower()))
+            {
+                newValue = "Data";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Smart City").ToLower()))
+            {
+                newValue = "Smart City";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Authentication").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Device Authentication").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Data Access Control").ToLower()))
+            {
+                newValue = "Authentication";
+            }
+
+            else if (existingvalue.Trim().ToLower().Equals(("Caching").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Cahcing and Storage").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Caching").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Data Cache").ToLower()))
+            {
+                newValue = "Caching";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Edge computing").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Architecture").ToLower()))
+            {
+                newValue = "Architecture";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Smart Grid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("SmartGrid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Power Grid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("MicroGrid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Microgrid Cybersecurity").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Microgrid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("AC-DC Microgrid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Smartgrid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Smart Grid").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Smartgrid - Cybersecutiry").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Cyber Security").ToLower()))
+            {
+                newValue = "Grid";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Energy Trade").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("P2P and Cyber Security").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("P2P Trading").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Trading").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("P2P Trade").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("P2P").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("P2P Energy").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Energy Transaction").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Trading").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("P2P Trading").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("P2P network").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("P2P Trade").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("EV Trade").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Trading").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Finance").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Finance Wallet").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Finance Data Saving").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Economic Effectiveness").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("PLATFORM FINANCING").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Digital Currency").ToLower()))
+            {
+                newValue = "Trade";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Power Plant").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Power Terminal").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Electricity Consumption").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Data").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Intrusion Detection").ToLower()) || 
+              existingvalue.Trim().ToLower().Equals(("VPP P2P").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Power distribution").ToLower()))
+            {
+                newValue = "Power Plant";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Demand Response Network").ToLower()))
+            {
+                newValue = "SG Use cases";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Demand Response Management").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Demand Response").ToLower()))
+            {
+                newValue = "Cyber Security";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain - Data Storage").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Blockchain Storage").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Blockchain -  Storage and Mining").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Data Storage").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Blockchain Storage").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("IoT Data Storage").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("IoT Blockchain").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Data Storage").ToLower()))
+            {
+                newValue = "Data Storage";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Scalability").ToLower()))
+            {
+                newValue = "Scalability";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain Consensus").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Consensus").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Consensus Algorithms").ToLower()) ||
+                    existingvalue.Trim().ToLower().Equals(("Consensus").ToLower()))
+            {
+                newValue = "Consensus";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Distributed Database").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Cassandra").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Database").ToLower()))
+            {
+                newValue = "Database";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain Network").ToLower()) ||
+             existingvalue.Trim().ToLower().Equals(("Networking").ToLower()) || //existingvalue.Trim().ToLower().Equals(("Networking").ToLower())
+             existingvalue.Trim().ToLower().Equals(("Network").ToLower()))
+            {
+                newValue = "Network";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Process").ToLower()))
+            {
+                newValue = "Process";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Technology").ToLower()))
+            {
+                newValue = "Technology";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Vision").ToLower()))
+            {
+                newValue = "Vision";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain Replication").ToLower()))
+            {
+                newValue = "Blockchain Replication";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Blockchain Sharding").ToLower()))
+            {
+                newValue = "Blockchain Sharding";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Edge Computing").ToLower()))
+            {
+                newValue = "Edge Computing";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("P2P Trade").ToLower()))
+            {
+                newValue = "P2P Trade";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Miner Selection").ToLower()))
+            {
+                newValue = "Miner Selection";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Communication Protocol").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Trusted Communication").ToLower()))
+            {
+                newValue = "Communication";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Workflow").ToLower()))
+            {
+                newValue = "Workflow";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Contract Management").ToLower()))
+            {
+                newValue = "Contract Management";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Battery").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Batermy Management").ToLower()))
+            {
+                newValue = "Battery";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Authentication").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Internet of Vehicles").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Network Topology").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Privacy").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Car pooling").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Grouping Peers").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Security").ToLower()) ||
+               existingvalue.Trim().ToLower().Equals(("Messages").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Mobile D2D").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Smart City").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Water Network Distribution").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Food Delivery").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Botnets").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Agriculture").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Energy Monitoring").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("IEEE Standard").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Report").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Document").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Certificates").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Cyber Attack").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("CDN").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Service details").ToLower()) || 
+                existingvalue.Trim().ToLower().Equals(("Intrusion Detection").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Marien").ToLower()) || //wrong
+                existingvalue.Trim().ToLower().Equals(("Marine").ToLower()) || 
+                existingvalue.Trim().ToLower().Equals(("Work Ticket").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Swarm Robotics").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("GPD").ToLower()) || //Wrong
+                existingvalue.Trim().ToLower().Equals(("GPS").ToLower()) || 
+                existingvalue.Trim().ToLower().Equals(("Aadhar Card").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Wireless Battery Management").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Land Records").ToLower()) ||
+                existingvalue.Trim().ToLower().Equals(("Others").ToLower())||
+                existingvalue.Trim().ToLower().Equals(("Energy Trade").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Data Security").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Survey").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Technology").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Privacy").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Sensor management").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Record Management").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("EHR Sharing").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Other").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("SLR Blockchain").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Book on SCADA").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("SOA").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Driver Profile").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Service Ecosystem").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Client Server Architecure Patent").ToLower()) ||
+              existingvalue.Trim().ToLower().Equals(("Yes. Block structure is replaced by DAG in blockchain.").ToLower()))
+            {
+                newValue = "Others";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Formated log").ToLower()))
+            {
+                newValue = "Formated log";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Public Distribution System").ToLower()))
+            {
+                newValue = "Public Distribution System";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Certificates").ToLower()))
+            {
+                newValue = "Certificates";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("Key Infrastructure").ToLower()))
+            {
+                newValue = "Key Infrastructure";
+            }
+            else if (existingvalue.Trim().ToLower().Equals(("PKI Certificate").ToLower()))
+            {
+                newValue = "PKI Certificate";
+            }
+            else
+            {
+                newValue = "Others";
+            }
+            return newValue;
+        }
+
+        
         /// <summary>
         /// Software architecture data item
         /// </summary>
@@ -644,9 +1084,6 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             else if (existingValue.Trim().ToLower().Equals(("Existing.Edge").ToLower()) ||
                      existingValue.Trim().ToLower().Equals(("Kind of Edge architecture").ToLower()))
             { newValue = "Existing.Edge"; }
-            else if (existingValue.Trim().ToLower().Equals(("Other").ToLower()) ||
-                     existingValue.Trim().ToLower().Equals(("Yes. Block structure is replaced by DAG in blockchain.").ToLower()))
-            { newValue = "Other"; }
             else if (existingValue.Trim().ToLower().Equals(("No New Architecture").ToLower()) ||
                  existingValue.Trim().ToLower().Equals(("Not Applicable").ToLower()) ||
                  existingValue.Trim().ToLower().Equals(("NA").ToLower()) ||

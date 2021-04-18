@@ -30,6 +30,8 @@
         {
             this.tbDataController = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmbPurpose = new System.Windows.Forms.ComboBox();
+            this.label42 = new System.Windows.Forms.Label();
             this.tbPDate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,7 +49,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.tbReason = new System.Windows.Forms.RichTextBox();
-            this.tbASubarea = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -133,8 +134,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.label42 = new System.Windows.Forms.Label();
-            this.cmbPurpose = new System.Windows.Forms.ComboBox();
+            this.cmbSubArea = new System.Windows.Forms.ComboBox();
             this.tbDataController.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -182,6 +182,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Common Data";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cmbPurpose
+            // 
+            this.cmbPurpose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPurpose.FormattingEnabled = true;
+            this.cmbPurpose.Location = new System.Drawing.Point(293, 421);
+            this.cmbPurpose.Name = "cmbPurpose";
+            this.cmbPurpose.Size = new System.Drawing.Size(279, 32);
+            this.cmbPurpose.TabIndex = 15;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(168, 421);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(78, 25);
+            this.label42.TabIndex = 14;
+            this.label42.Text = "Purpose";
             // 
             // tbPDate
             // 
@@ -269,6 +288,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cmbSubArea);
             this.tabPage2.Controls.Add(this.cmdDecision);
             this.tabPage2.Controls.Add(this.label41);
             this.tabPage2.Controls.Add(this.label9);
@@ -276,7 +296,6 @@
             this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.tbReason);
-            this.tabPage2.Controls.Add(this.tbASubarea);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.label5);
@@ -361,14 +380,6 @@
             this.tbReason.TabIndex = 10;
             this.tbReason.Text = "";
             // 
-            // tbASubarea
-            // 
-            this.tbASubarea.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbASubarea.Location = new System.Drawing.Point(338, 79);
-            this.tbASubarea.Name = "tbASubarea";
-            this.tbASubarea.Size = new System.Drawing.Size(447, 32);
-            this.tbASubarea.TabIndex = 9;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -405,7 +416,7 @@
             this.cmbAArea.FormattingEnabled = true;
             this.cmbAArea.Location = new System.Drawing.Point(338, 21);
             this.cmbAArea.Name = "cmbAArea";
-            this.cmbAArea.Size = new System.Drawing.Size(266, 33);
+            this.cmbAArea.Size = new System.Drawing.Size(425, 33);
             this.cmbAArea.TabIndex = 8;
             // 
             // tabPage3
@@ -1238,24 +1249,14 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label42
+            // cmbSubArea
             // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(168, 421);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(78, 25);
-            this.label42.TabIndex = 14;
-            this.label42.Text = "Purpose";
-            // 
-            // cmbPurpose
-            // 
-            this.cmbPurpose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbPurpose.FormattingEnabled = true;
-            this.cmbPurpose.Location = new System.Drawing.Point(293, 421);
-            this.cmbPurpose.Name = "cmbPurpose";
-            this.cmbPurpose.Size = new System.Drawing.Size(279, 32);
-            this.cmbPurpose.TabIndex = 15;
+            this.cmbSubArea.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSubArea.FormattingEnabled = true;
+            this.cmbSubArea.Location = new System.Drawing.Point(339, 77);
+            this.cmbSubArea.Name = "cmbSubArea";
+            this.cmbSubArea.Size = new System.Drawing.Size(424, 33);
+            this.cmbSubArea.TabIndex = 21;
             // 
             // DataEntry
             // 
@@ -1316,7 +1317,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.RichTextBox tbReason;
-        private System.Windows.Forms.TextBox tbASubarea;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -1402,5 +1402,6 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.ComboBox cmbPurpose;
+        private System.Windows.Forms.ComboBox cmbSubArea;
     }
 }

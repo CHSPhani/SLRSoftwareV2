@@ -206,7 +206,8 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         private static readonly object padlock = new object();
 
         public CommonSection cSection { get; set; }
-        public Rq1 ResearchQuestion1 { get; set; }
+
+        public Rq1R ResearchQuestion1 { get; set; }
 
         public Rq2 ResearchQuestion2 { get; set; }
 
@@ -226,7 +227,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         ReviewModel()
         {
             cSection = new CommonSection();
-            ResearchQuestion1 = new Rq1();
+            ResearchQuestion1 = new Rq1R();
             ResearchQuestion2 = new Rq2();
             ResearchQuestion3 = new Rq3();
             ResearchQuestion4 = new Rq4();
@@ -263,7 +264,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             PNotes = null;
 
             cSection = new CommonSection();
-            ResearchQuestion1 = new Rq1();
+            ResearchQuestion1 = new Rq1R();
             ResearchQuestion2 = new Rq2();
             ResearchQuestion3 = new Rq3();
             ResearchQuestion4 = new Rq4();
@@ -377,6 +378,86 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         }
     }
 
+
+    public class Rq1R
+    {
+        public long pID { get; set; }
+        public int AaID { get; set; }
+        public int SaID { get; set; }
+        public string Rq1Reason { get; set; }
+        public Rq1R()
+        {
+            pID = 0;
+            AaID = 0;
+            SaID = 0;
+            Rq1Reason = string.Empty;
+        }
+    }
+    public class Rq1A
+    {
+        public long pID { get; set; }
+        public int AaID { get; set; }
+        public string SAreaName { get; set; }
+        public string Rq1Reason { get; set; }
+        public Rq1A()
+        {
+            pID = 0;
+            AaID = 0;
+            SAreaName = string.Empty;
+            Rq1Reason = string.Empty;
+        }
+    }
+
+    public class Rq1O
+    {
+        public long pID { get; set;}
+        public string Citation { get; set; }
+        public int AaID { get; set; }
+
+        public int SaID { get; set; }
+
+        public string Rq1Reason { get; set; }
+
+        public Rq1O()
+        {
+            pID = 0;
+            Citation = string.Empty;
+            AaID = 0;
+            SaID = 0;
+            Rq1Reason = string.Empty;
+        }
+    }
+
+    public class Rq1N
+    {
+        public long Pid { get; set; }
+
+        public string Citation { get; set; }
+
+        public string AreaName{ get; set; }
+
+        public string SAreaName { get; set; }
+
+        public Rq1N()
+        {
+            Pid = 0;
+            Citation = string.Empty;
+            AreaName = string.Empty;
+            SAreaName = string.Empty;
+        }
+    }
+
+    public class Reason
+    {
+        public long Pid { get; set; }
+        public string Rq1Reason { get; set; }
+        public Reason()
+        {
+            Pid = 0;
+            Rq1Reason = string.Empty;
+        }
+    }
+
     public class Rq2
     {
         public string SwArchitecture { get; set; }
@@ -449,6 +530,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             NewSwArchitecture = string.Empty;
         }
     }
+
     public class Rq2N
     {
         public long Pid { get; set; }
