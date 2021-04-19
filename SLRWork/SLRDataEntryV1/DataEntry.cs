@@ -572,7 +572,7 @@ namespace UoB.SLR.SLRDataEntryV1
                 tbReason.Text = rModel.ResearchQuestion1.Rq1Reason;
             if(Modify)
             {
-                if(rModel.cSection.Accepted=="Yes")
+                if(rModel.cSection.Accepted.ToLower().Equals(("Yes").ToLower()))
                 {
                     cmdDecision.SelectedIndex = 0;
                 }
