@@ -184,48 +184,168 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
                 if (rModel.cSection.Accepted.Trim().Equals("Yes"))
                 {
-                    string rq2 = string.Format("UPDATE rq2 SET swArchType = '{1}', blockchainchoice = '{2}', consensus = '{3}', network = '{4}', participation= '{5}', bft = '{6}', gas = '{7}', bcSolution = '{8}', newArchitecture = '{9}'" +
+                    int count = 0;
+                    string rq2_1 = string.Format("SELECT count(*) from rq2 where pID={0}", rModel.cSection.PaperID);
+                    MySqlCommand cmd2_1 = new MySqlCommand(rq2_1.ToString(), conn);
+                    MySqlDataReader rdr = cmd2_1.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        count = Int32.Parse(rdr[0].ToString());
+                    }
+                    rdr.Close();
+                    cmd2_1 = null;
+
+                    if (count != 0)
+                    {
+                        string rq2 = string.Format("UPDATE rq2 SET swArchType = '{1}', blockchainchoice = '{2}', consensus = '{3}', network = '{4}', participation= '{5}', bft = '{6}', gas = '{7}', bcSolution = '{8}', newArchitecture = '{9}'" +
                                                                     " WHERE pID = {0};",
-                                                       rModel.cSection.PaperID, rModel.ResearchQuestion2.SwArchitecture, rModel.ResearchQuestion2.BlockchainChoice, rModel.ResearchQuestion2.Consensus, 
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion2.SwArchitecture, rModel.ResearchQuestion2.BlockchainChoice, rModel.ResearchQuestion2.Consensus,
                                                        rModel.ResearchQuestion2.Network, rModel.ResearchQuestion2.Participation,
                                                        rModel.ResearchQuestion2.Bft, rModel.ResearchQuestion2.Gas, rModel.ResearchQuestion2.BlockchainOffering, rModel.ResearchQuestion2.NewSwArchitecture);
-                    MySqlCommand cmd2 = new MySqlCommand(rq2.ToString(), conn);
-                    cmd2.Transaction = myTrans;
-                    cmd2.ExecuteNonQuery();
-                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                        MySqlCommand cmd2 = new MySqlCommand(rq2.ToString(), conn);
+                        cmd2.Transaction = myTrans;
+                        cmd2.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else // no rows insert data
+                    {
+                        string rq2 = string.Format("INSERT INTO rq2 (pID, swArchType, blockchainchoice, consensus, network, participation, bft, gas, bcSolution, newArchitecture) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}');",
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion2.SwArchitecture, rModel.ResearchQuestion2.BlockchainChoice, rModel.ResearchQuestion2.Consensus,
+                                                       rModel.ResearchQuestion2.Network, rModel.ResearchQuestion2.Participation,
+                                                       rModel.ResearchQuestion2.Bft, rModel.ResearchQuestion2.Gas, rModel.ResearchQuestion2.BlockchainOffering, rModel.ResearchQuestion2.NewSwArchitecture);
+                        MySqlCommand cmd2 = new MySqlCommand(rq2.ToString(), conn);
+                        cmd2.Transaction = myTrans;
+                        cmd2.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
 
-                    string rq3 = string.Format("UPDATE rq3 SET bcDataFormat = '{1}', dataStore = '{2}' WHERE pID = {0};",
+
+                    int count1 = 0;
+                    string rq3_1 = string.Format("SELECT count(*) from rq3 where pID={0}", rModel.cSection.PaperID);
+                    MySqlCommand cmd3_1 = new MySqlCommand(rq3_1.ToString(), conn);
+                    MySqlDataReader rdr3 = cmd3_1.ExecuteReader();
+                    while (rdr3.Read())
+                    {
+                        count1 = Int32.Parse(rdr3[0].ToString());
+                    }
+                    rdr3.Close();
+                    cmd3_1 = null;
+
+                    if (count1 != 0)
+                    {
+                        string rq3 = string.Format("UPDATE rq3 SET bcDataFormat = '{1}', dataStore = '{2}' WHERE pID = {0};",
                                                         rModel.cSection.PaperID, rModel.ResearchQuestion3.DataFormat, rModel.ResearchQuestion3.DataStore);
-                    MySqlCommand cmd3 = new MySqlCommand(rq3.ToString(), conn);
-                    cmd3.Transaction = myTrans;
-                    cmd3.ExecuteNonQuery();
-                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                        MySqlCommand cmd3 = new MySqlCommand(rq3.ToString(), conn);
+                        cmd3.Transaction = myTrans;
+                        cmd3.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else
+                    {
+                        string rq3 = string.Format("INSERT INTO rq3 (pID, bcDataFormat, dataStore ) VALUES ({0},'{1}','{2}');",
+                                                        rModel.cSection.PaperID, rModel.ResearchQuestion3.DataFormat, rModel.ResearchQuestion3.DataStore);
+                        MySqlCommand cmd3 = new MySqlCommand(rq3.ToString(), conn);
+                        cmd3.Transaction = myTrans;
+                        cmd3.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
 
 
-                    string rq4 = string.Format("UPDATE rq4  SET datamodel = '{1}', dataintegrity = '{2}', dataaccess = '{3}', dataindexing = '{4}', datarelations = '{5}', datasharding = '{6}', dataprovenance = '{7}', datalineage = '{8}', dataownership = '{9}', ownershiptowards = '{10}', dataauthorization = '{11}' " +
-                                               "WHERE pID = {0};",
-                                                       rModel.cSection.PaperID, rModel.ResearchQuestion4.DataModel, rModel.ResearchQuestion4.DataIntegrity, rModel.ResearchQuestion4.DataAccess, rModel.ResearchQuestion4.DataIndex, rModel.ResearchQuestion4.DataRelations,
-                                                       rModel.ResearchQuestion4.DataSharding, rModel.ResearchQuestion4.DataProvenance, rModel.ResearchQuestion4.DataLineage, rModel.ResearchQuestion4.DataOwnership, rModel.ResearchQuestion4.OwnerShipTowards,
-                                                       rModel.ResearchQuestion4.DataAuthorization);
-                    MySqlCommand cmd4 = new MySqlCommand(rq4.ToString(), conn);
-                    cmd4.Transaction = myTrans;
-                    cmd4.ExecuteNonQuery();
-                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    int count2 = 0;
+                    string rq4_1 = string.Format("SELECT count(*) from rq4 where pID={0}", rModel.cSection.PaperID);
+                    MySqlCommand cmd4_1 = new MySqlCommand(rq4_1.ToString(), conn);
+                    MySqlDataReader rdr4 = cmd4_1.ExecuteReader();
+                    while (rdr4.Read())
+                    {
+                        count2 = Int32.Parse(rdr4[0].ToString());
+                    }
+                    rdr4.Close();
+                    cmd4_1 = null;
 
-                    string rq5 = string.Format("UPDATE rq5 SET dsNetworkType='{1}' , dsReplication='{2}', dsTopology='{3}' WHERE pID ={0};",
+                    if (count2 !=0)
+                    {
+                        string rq4 = string.Format("UPDATE rq4  SET datamodel = '{1}', dataintegrity = '{2}', dataaccess = '{3}', dataindexing = '{4}', datarelations = '{5}', datasharding = '{6}', dataprovenance = '{7}', datalineage = '{8}', dataownership = '{9}', ownershiptowards = '{10}', dataauthorization = '{11}' " +
+                                              "WHERE pID = {0};",
+                                                      rModel.cSection.PaperID, rModel.ResearchQuestion4.DataModel, rModel.ResearchQuestion4.DataIntegrity, rModel.ResearchQuestion4.DataAccess, rModel.ResearchQuestion4.DataIndex, rModel.ResearchQuestion4.DataRelations,
+                                                      rModel.ResearchQuestion4.DataSharding, rModel.ResearchQuestion4.DataProvenance, rModel.ResearchQuestion4.DataLineage, rModel.ResearchQuestion4.DataOwnership, rModel.ResearchQuestion4.OwnerShipTowards,
+                                                      rModel.ResearchQuestion4.DataAuthorization);
+                        MySqlCommand cmd4 = new MySqlCommand(rq4.ToString(), conn);
+                        cmd4.Transaction = myTrans;
+                        cmd4.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else // no rows insert
+                    {
+                        string rq4 = string.Format("INSERT INTO rq4 (pID,  datamodel, dataintegrity, dataaccess, dataindexing, datarelations, datasharding, dataprovenance, datalineage, dataownership, ownershiptowards, dataauthorization) " +
+                                                   "VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');",
+                                                      rModel.cSection.PaperID, rModel.ResearchQuestion4.DataModel, rModel.ResearchQuestion4.DataIntegrity, rModel.ResearchQuestion4.DataAccess, rModel.ResearchQuestion4.DataIndex, rModel.ResearchQuestion4.DataRelations,
+                                                      rModel.ResearchQuestion4.DataSharding, rModel.ResearchQuestion4.DataProvenance, rModel.ResearchQuestion4.DataLineage, rModel.ResearchQuestion4.DataOwnership, rModel.ResearchQuestion4.OwnerShipTowards,
+                                                      rModel.ResearchQuestion4.DataAuthorization);
+                        MySqlCommand cmd4 = new MySqlCommand(rq4.ToString(), conn);
+                        cmd4.Transaction = myTrans;
+                        cmd4.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+
+                    int count3 = 0;
+                    string rq5_1 = string.Format("SELECT count(*) from rq5 where pID={0}", rModel.cSection.PaperID);
+                    MySqlCommand cmd5_1 = new MySqlCommand(rq5_1.ToString(), conn);
+                    MySqlDataReader rdr5 = cmd5_1.ExecuteReader();
+                    while (rdr5.Read())
+                    {
+                        count3 = Int32.Parse(rdr5[0].ToString());
+                    }
+                    rdr5.Close();
+                    cmd5_1 = null;
+
+                    if (count3 != 0)
+                    {
+                        string rq5 = string.Format("UPDATE rq5 SET dsNetworkType='{1}' , dsReplication='{2}', dsTopology='{3}' WHERE pID ={0};",
                                                         rModel.cSection.PaperID, rModel.ResearchQuestion5.NetworkType, rModel.ResearchQuestion5.Replication, rModel.ResearchQuestion5.Topology);
-                    MySqlCommand cmd5 = new MySqlCommand(rq5.ToString(), conn);
-                    cmd5.Transaction = myTrans;
-                    cmd5.ExecuteNonQuery();
-                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                        MySqlCommand cmd5 = new MySqlCommand(rq5.ToString(), conn);
+                        cmd5.Transaction = myTrans;
+                        cmd5.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else
+                    {
+                        string rq5 = string.Format("INSERT INTO rq5 (pID,  dsNetworkType , dsReplication, dsTopology) VALUES ({0},'{1}','{2}','{3}');",
+                                                        rModel.cSection.PaperID, rModel.ResearchQuestion5.NetworkType, rModel.ResearchQuestion5.Replication, rModel.ResearchQuestion5.Topology);
+                        MySqlCommand cmd5 = new MySqlCommand(rq5.ToString(), conn);
+                        cmd5.Transaction = myTrans;
+                        cmd5.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
 
-                    string rq6 = string.Format("UPDATE rq6 SET bsScalability ='{1}', bsConsistency ='{2}', bsRWLatency ='{3}' WHERE pID={0};",
-                                                        rModel.cSection.PaperID, rModel.ResearchQuestion6.Scalability, rModel.ResearchQuestion6.Consistency, rModel.ResearchQuestion6.RWLAtency);
-                    MySqlCommand cmd6 = new MySqlCommand(rq6.ToString(), conn);
-                    cmd6.Transaction = myTrans;
-                    cmd6.ExecuteNonQuery();
-                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    int count4 = 0;
+                    string rq6_1 = string.Format("SELECT count(*) from rq6 where pID={0}", rModel.cSection.PaperID);
+                    MySqlCommand cmd6_1 = new MySqlCommand(rq6_1.ToString(), conn);
+                    MySqlDataReader rdr6 = cmd6_1.ExecuteReader();
+                    while (rdr6.Read())
+                    {
+                        count4 = Int32.Parse(rdr6[0].ToString());
+                    }
+                    rdr6.Close();
+                    cmd6_1 = null;
 
+                    if (count4 != 0)
+                    {
+                        string rq6 = string.Format("UPDATE rq6 SET bsScalability ='{1}', bsConsistency ='{2}', bsRWLatency ='{3}' WHERE pID={0};",
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion6.Scalability, rModel.ResearchQuestion6.Consistency, rModel.ResearchQuestion6.RWLAtency);
+                        MySqlCommand cmd6 = new MySqlCommand(rq6.ToString(), conn);
+                        cmd6.Transaction = myTrans;
+                        cmd6.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }
+                    else
+                    {
+                        string rq6 = string.Format("INSERT INTO rq6 (pID,   bsScalability, bsConsistency, bsRWLatency) VALUES ({0},'{1}','{2}','{3}');",
+                                                       rModel.cSection.PaperID, rModel.ResearchQuestion6.Scalability, rModel.ResearchQuestion6.Consistency, rModel.ResearchQuestion6.RWLAtency);
+                        MySqlCommand cmd6 = new MySqlCommand(rq6.ToString(), conn);
+                        cmd6.Transaction = myTrans;
+                        cmd6.ExecuteNonQuery();
+                        System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    }                   
                 }
 
                 string rq7 = string.Format("UPDATE notes SET paperNotes='{1}' WHERE pID={0};", rModel.cSection.PaperID, rModel.PNotes.Notes);

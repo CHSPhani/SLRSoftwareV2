@@ -753,6 +753,14 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             {
                 newValue = "Messaging Model";
             }
+            else if (existingvalue.Trim().ToLower().Equals(("Layered").ToLower()))
+            {
+                newValue = "Layered";
+            }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -821,8 +829,13 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             { newValue = "Not Mentioned"; }
             else if (existingValue.Trim().ToLower().Equals(("NotApplicable:").ToLower())
                     || existingValue.Trim().ToLower().Equals(("Not Applicable").ToLower())
-                    || existingValue.Trim().ToLower().Equals(("NA").ToLower()))
+                    || existingValue.Trim().ToLower().Equals(("NA").ToLower())
+                    || existingValue.Trim().ToLower().Equals(("Tierion API to validate the blockchain receipt.").ToLower())) //right now this is not applicable as it is in a tech review
             { newValue = "Not Applicable"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -898,6 +911,10 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             else if (existingValue.Trim().ToLower().Equals(("Proof-of-work, Proof-of-stake").ToLower()) ||
                      existingValue.Trim().ToLower().Equals(("Consensus in all above").ToLower()))
             { newValue = "Multiple"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -968,6 +985,10 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             else if (existingValue.Trim().ToLower().Equals(("IoTA network").ToLower()) ||
                  existingValue.Trim().ToLower().Equals(("IoTA").ToLower()))
              { newValue = "IoTA"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -1019,6 +1040,10 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             { newValue = "Custom Calculation"; }
             else if (existingValue.Trim().ToLower().Equals(("No GAS charges").ToLower()))
             { newValue = "No GAS charges"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -1050,6 +1075,10 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             { newValue = "New"; }
             else if (existingValue.Trim().ToLower().Equals(("nework simulator").ToLower()))
             { newValue = "Nework simulator"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
 
@@ -1063,7 +1092,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             string newValue = string.Empty;
             if (existingValue.Trim().ToLower().Equals(("Blockchain is added as a layer at server end").ToLower()) ||
                 existingValue.Trim().ToLower().Equals(("Existing.Layered").ToLower()) ||
-                existingValue.Trim().ToLower().Equals(("").ToLower()))
+                existingValue.Trim().ToLower().Equals(("Layered").ToLower()))
             { newValue = "Existing.Layered"; }
             else if (existingValue.Trim().ToLower().Equals(("Existing.SoA").ToLower()) ||
                      existingValue.Trim().ToLower().Equals(("SoA having Blockchain as a component.").ToLower()) ||
@@ -1106,8 +1135,13 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
                  existingValue.Trim().ToLower().Equals(("Yes using gateways").ToLower()) ||
                  existingValue.Trim().ToLower().Equals(("Yes Data flow pipelined architecture and Verilog").ToLower()) ||
                  existingValue.Trim().ToLower().Equals(("Aggregator Architecture").ToLower()) ||
-                 existingValue.Trim().ToLower().Equals(("Messaging Model").ToLower()))
+                 existingValue.Trim().ToLower().Equals(("Messaging Model").ToLower()) ||
+                 existingValue.Trim().ToLower().Equals(("Yes. Block structure is replaced by DAG in blockchain.").ToLower()))
             { newValue = "New Architecture"; }
+            else
+            {
+                newValue = "Not Found";
+            }
             return newValue;
         }
     }
