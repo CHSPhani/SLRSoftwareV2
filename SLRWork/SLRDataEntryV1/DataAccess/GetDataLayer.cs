@@ -546,25 +546,26 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
         public static List<IDQueryModel> GetIDQueryDetails(MySqlConnection conn)
         {
             List<IDQueryModel> idQueries = new List<IDQueryModel>();
-            idQueries.Add(new IDQueryModel("PID", "AAId", "Citation",  "ApplicationArea", "SubArea", "PaperTitle", "Notes"));
-            try
-            {
-                string sql = string.Empty;
-                sql = string.Format("SELECT rq1.pID, applicationarea.aaId, commonparams.pCitation, applicationarea.applicationArea, rq1.sareaName,commonparams.pTitle, notes.paperNotes " +
-                                    "FROM commonparams, applicationarea, rq1, notes " +
-                                    "WHERE rq1.aaID= applicationarea.aaID AND rq1.pID= commonparams.pID AND rq1.pID = notes.pID;");
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    idQueries.Add(new IDQueryModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(),
-                                                       rdr[4].ToString(), rdr[5].ToString(), rdr[6].ToString()));
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(string.Format("Exception while getting ID Model. Details are {0}", ex.Message));
-            }
+            //Need to revisit logic
+            //idQueries.Add(new IDQueryModel("PID", "AAId", "Citation",  "ApplicationArea", "SubArea", "PaperTitle", "Notes"));
+            //try
+            //{
+            //    string sql = string.Empty;
+            //    sql = string.Format("SELECT rq1_r.pID, applicationarea.aaId, commonparams.pCitation, applicationarea.applicationArea, rq1_r.sareaName,commonparams.pTitle, notes.paperNotes " +
+            //                        "FROM commonparams, applicationarea, rq1, notes " +
+            //                        "WHERE rq1.aaID= applicationarea.aaID AND rq1.pID= commonparams.pID AND rq1.pID = notes.pID;");
+            //    MySqlCommand cmd = new MySqlCommand(sql, conn);
+            //    MySqlDataReader rdr = cmd.ExecuteReader();
+            //    while (rdr.Read())
+            //    {
+            //        idQueries.Add(new IDQueryModel(rdr[0].ToString(), rdr[1].ToString(), rdr[2].ToString(), rdr[3].ToString(),
+            //                                           rdr[4].ToString(), rdr[5].ToString(), rdr[6].ToString()));
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    Console.WriteLine(string.Format("Exception while getting ID Model. Details are {0}", ex.Message));
+            //}
             return idQueries;
         }
 
@@ -701,7 +702,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     //Rq1
                     sql = string.Empty;
                     cmd = null;
-                    sql = string.Format("select * from rq1 where pID ={0};", pid);
+                    sql = string.Format("select * from rq1_r where pID ={0};", pid);
                     cmd = new MySqlCommand(sql, conn);
                     rdr = cmd.ExecuteReader();
                     int aaid = -1;
@@ -1411,7 +1412,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     sql = string.Format("SELECT pID FROM commonparams;");
 
                 else
-                    sql = string.Format("select commonparams.pID from commonparams, rq1 where commonparams.pID = rq1.pID and commonparams.pAccepted='{0}' and rq1.aaID={1};", accepted, aAreaId);
+                    sql = string.Format("select commonparams.pID from commonparams, rq1_r where commonparams.pID = rq1_r.pID and commonparams.pAccepted='{0}' and rq1_r.aaID={1};", accepted, aAreaId);
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -1443,7 +1444,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                     //Rq1
                     sql = string.Empty;
                     cmd = null;
-                    sql = string.Format("select * from rq1 where pID ={0};", pid);
+                    sql = string.Format("select * from rq1_r where pID ={0};", pid);
                     cmd = new MySqlCommand(sql, conn);
                     rdr = cmd.ExecuteReader();
                     int aaid = -1;

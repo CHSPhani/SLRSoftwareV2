@@ -158,12 +158,13 @@
             // btnSpQry
             // 
             this.btnSpQry.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSpQry.Location = new System.Drawing.Point(30, 22);
+            this.btnSpQry.Location = new System.Drawing.Point(30, 12);
             this.btnSpQry.Name = "btnSpQry";
             this.btnSpQry.Size = new System.Drawing.Size(141, 36);
             this.btnSpQry.TabIndex = 10;
             this.btnSpQry.Text = "Special Query";
             this.btnSpQry.UseVisualStyleBackColor = true;
+            this.btnSpQry.Visible = false;
             this.btnSpQry.Click += new System.EventHandler(this.btnSpQry_Click);
             // 
             // cmbAA
@@ -222,7 +223,7 @@
             // btnND
             // 
             this.btnND.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnND.Location = new System.Drawing.Point(177, 22);
+            this.btnND.Location = new System.Drawing.Point(30, 12);
             this.btnND.Name = "btnND";
             this.btnND.Size = new System.Drawing.Size(190, 36);
             this.btnND.TabIndex = 16;

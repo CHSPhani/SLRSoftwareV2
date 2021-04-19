@@ -150,6 +150,7 @@
             this.btnNormalize.TabIndex = 9;
             this.btnNormalize.Text = "Normalize Data";
             this.btnNormalize.UseVisualStyleBackColor = true;
+            this.btnNormalize.Visible = false;
             this.btnNormalize.Click += new System.EventHandler(this.btnNormalize_Click);
             // 
             // button7
