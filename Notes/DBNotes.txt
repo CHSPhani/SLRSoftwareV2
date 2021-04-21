@@ -130,6 +130,16 @@ CREATE TABLE `slrv1`.`rq1Reason` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+CREATE TABLE `slrv1`.`rq1nReason` (
+ `pID` INT NOT NULL,
+ `MainReason` VARCHAR(1500) NOT NULL,
+ PRIMARY KEY (`pID`),
+ CONSTRAINT `rq1nreaComp1r`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 
 3. //RQ2: Effect on System Architecture									
 //	What S/W architecture

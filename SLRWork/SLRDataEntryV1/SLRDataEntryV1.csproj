@@ -151,6 +151,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReasonSearch\KMPSearch.cs" />
+    <Compile Include="ReasonSearch\SearchPreparation.cs" />
     <EmbeddedResource Include="DataEdit.resx">
       <DependentUpon>DataEdit.cs</DependentUpon>
     </EmbeddedResource>

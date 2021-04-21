@@ -376,9 +376,20 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             // Start a local transaction
             myTrans = conn.BeginTransaction();
             MySqlCommand cmd = null;
+            MySqlCommand cmd3 = null;
+
             try
             {
-                foreach(Rq2N rq2n in rq2Ns)
+                //delete existing data
+                string dSection = string.Format("Delete from rq2n");
+                cmd3 = new MySqlCommand(dSection.ToString(), conn);
+                cmd3.Transaction = myTrans;
+                cmd3.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                cmd3 = null;
+                //continue;
+
+                foreach (Rq2N rq2n in rq2Ns)
                 {
                     string cSection = string.Format("INSERT INTO rq2n (pID,pCitation, swArchType, blockchainchoice, consensus, network, gas, bcSolution, newArchitecture) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}');", 
                                                         rq2n.Pid, rq2n.Citation,
@@ -399,8 +410,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return false; 
         }
-
-
+        
         public static bool SaveRq1NData(List<Rq1N> rq1Ns, MySqlConnection conn)
         {
             MySqlTransaction myTrans;
@@ -411,8 +421,18 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             // Start a local transaction
             myTrans = conn.BeginTransaction();
             MySqlCommand cmd = null;
+            MySqlCommand cmd1 = null;
             try
             {
+                //delete existing data
+                string dSection = string.Format("Delete from rq1n");
+                cmd1 = new MySqlCommand(dSection.ToString(), conn);
+                cmd1.Transaction = myTrans;
+                cmd1.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                cmd1 = null;
+                //continue;
+
                 foreach (Rq1N rq1n in rq1Ns)
                 {
                     string cSection = string.Format("INSERT INTO rq1n (pID, pCitation, AreaName, SubAreaName) VALUES ({0},'{1}','{2}','{3}');",
@@ -444,8 +464,19 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             // Start a local transaction
             myTrans = conn.BeginTransaction();
             MySqlCommand cmd = null;
+            MySqlCommand cmd2 = null;
+
             try
             {
+                //delete existing data    
+                string dSection = string.Format("Delete from rq1reason");
+                cmd2 = new MySqlCommand(dSection.ToString(), conn);
+                cmd2.Transaction = myTrans;
+                cmd2.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                cmd2 = null;
+                //continue;
+
                 foreach (Reason reason in reasons)
                 {
                     string cSection = string.Format("INSERT INTO rq1reason (pID, Reason) VALUES ({0},'{1}');",
@@ -497,6 +528,49 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 myTrans.Rollback();
                 Console.WriteLine(string.Format("Exception while inserting RQ2 Normalized data. Details are {0}", ex.Message));
             }
+            return false;
+        }
+
+        public static bool SaveNormalizedReason(Dictionary<long, string> reasons, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            if (reasons == null)
+            {
+                return false;
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            MySqlCommand cmd4;
+
+            try
+            {
+                //delete existing data
+                string dNReason = string.Format("Delete from rq1nreason");
+                cmd4 = new MySqlCommand(dNReason.ToString(), conn);
+                cmd4.Transaction = myTrans;
+                cmd4.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                cmd4 = null;
+                //continue;
+                foreach (KeyValuePair<long,string> kvPair in reasons)
+                {
+                    string cSection = string.Format("INSERT INTO rq1nreason (pID, mainreason) VALUES ({0},'{1}');", kvPair.Key, kvPair.Value);
+                    MySqlCommand cmd = new MySqlCommand(cSection.ToString(), conn);
+                    cmd.Transaction = myTrans;
+                    cmd.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                }
+                myTrans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while inserting normalized reason data. Details are {0}", ex.Message));
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+
             return false;
         }
 
@@ -1292,6 +1366,53 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
             }
             return id;
+        }
+
+        public static List<ReasonModel> GetNormalizedReasons(MySqlConnection conn)
+        {
+            List<ReasonModel> rModels = new List<ReasonModel>();
+            try
+            {
+                string sql = string.Format("SELECT rq1nreason.pid,commonparams.pCitation, rq1nreason.mainreason FROM commonparams,rq1nreason WHERE commonparams.pid=rq1reason.pid;");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ReasonModel rModel = new ReasonModel();
+                    rModel.PCitation = rdr[1].ToString();
+                    rModel.Reason = rdr[2].ToString();
+
+                    rModels.Add(rModel);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
+            }
+            return rModels;
+        }
+
+        public static List<Reason> GetAllReasons(MySqlConnection conn)
+        {
+            List<Reason> Reasons = new List<Reason>();
+            try
+            {
+                string sql = string.Format("SELECT * FROM rq1reason");
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Reason rea = new Reason() { Pid = long.Parse(rdr[0].ToString()), Rq1Reason = rdr[1].ToString() };
+                    Reasons.Add(rea);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while inserting data. Details are {0}", ex.Message));
+            }
+            return Reasons;
         }
 
         public static List<string> GetAllAAreas(MySqlConnection conn)

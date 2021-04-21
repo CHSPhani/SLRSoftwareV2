@@ -39,14 +39,16 @@
             this.btnReadPdf = new System.Windows.Forms.Button();
             this.btnNormalize = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.btnSReason = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(296, 93);
+            this.button1.Location = new System.Drawing.Point(282, 62);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 40);
+            this.button1.Size = new System.Drawing.Size(188, 40);
             this.button1.TabIndex = 0;
             this.button1.Text = "New Entry";
             this.button1.UseVisualStyleBackColor = true;
@@ -56,7 +58,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(124, 34);
+            this.label1.Location = new System.Drawing.Point(123, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(532, 25);
             this.label1.TabIndex = 1;
@@ -77,9 +79,9 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(296, 385);
+            this.button3.Location = new System.Drawing.Point(282, 398);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(162, 40);
+            this.button3.Size = new System.Drawing.Size(188, 40);
             this.button3.TabIndex = 3;
             this.button3.Text = "Exit";
             this.button3.UseVisualStyleBackColor = true;
@@ -88,9 +90,9 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(296, 274);
+            this.button4.Location = new System.Drawing.Point(282, 231);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(162, 40);
+            this.button4.Size = new System.Drawing.Size(188, 40);
             this.button4.TabIndex = 4;
             this.button4.Text = "Extract Data";
             this.button4.UseVisualStyleBackColor = true;
@@ -111,9 +113,9 @@
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(296, 152);
+            this.button6.Location = new System.Drawing.Point(282, 119);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(162, 40);
+            this.button6.Size = new System.Drawing.Size(188, 40);
             this.button6.TabIndex = 6;
             this.button6.Text = "Edit Data";
             this.button6.UseVisualStyleBackColor = true;
@@ -122,9 +124,9 @@
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(296, 216);
+            this.btnDelete.Location = new System.Drawing.Point(282, 174);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(162, 40);
+            this.btnDelete.Size = new System.Drawing.Size(188, 40);
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Delete Data";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -133,20 +135,21 @@
             // btnReadPdf
             // 
             this.btnReadPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReadPdf.Location = new System.Drawing.Point(296, 329);
+            this.btnReadPdf.Location = new System.Drawing.Point(637, 270);
             this.btnReadPdf.Name = "btnReadPdf";
             this.btnReadPdf.Size = new System.Drawing.Size(162, 40);
             this.btnReadPdf.TabIndex = 8;
             this.btnReadPdf.Text = "Read PDFs";
             this.btnReadPdf.UseVisualStyleBackColor = true;
+            this.btnReadPdf.Visible = false;
             this.btnReadPdf.Click += new System.EventHandler(this.btnReadPdf_Click);
             // 
             // btnNormalize
             // 
             this.btnNormalize.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNormalize.Location = new System.Drawing.Point(637, 303);
+            this.btnNormalize.Location = new System.Drawing.Point(282, 286);
             this.btnNormalize.Name = "btnNormalize";
-            this.btnNormalize.Size = new System.Drawing.Size(162, 40);
+            this.btnNormalize.Size = new System.Drawing.Size(188, 40);
             this.btnNormalize.TabIndex = 9;
             this.btnNormalize.Text = "Normalize Data";
             this.btnNormalize.UseVisualStyleBackColor = true;
@@ -155,7 +158,7 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(637, 243);
+            this.button7.Location = new System.Drawing.Point(637, 316);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(162, 40);
             this.button7.TabIndex = 10;
@@ -164,12 +167,37 @@
             this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // btnSReason
+            // 
+            this.btnSReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSReason.Location = new System.Drawing.Point(282, 341);
+            this.btnSReason.Name = "btnSReason";
+            this.btnSReason.Size = new System.Drawing.Size(188, 40);
+            this.btnSReason.TabIndex = 11;
+            this.btnSReason.Text = "Normalize Reasons";
+            this.btnSReason.UseVisualStyleBackColor = true;
+            this.btnSReason.Click += new System.EventHandler(this.btnSReason_Click);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(594, 224);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(205, 40);
+            this.button8.TabIndex = 12;
+            this.button8.Text = "Process Reason Data";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.btnSReason);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnNormalize);
             this.Controls.Add(this.btnReadPdf);
@@ -202,5 +230,7 @@
         private System.Windows.Forms.Button btnReadPdf;
         private System.Windows.Forms.Button btnNormalize;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnSReason;
+        private System.Windows.Forms.Button button8;
     }
 }

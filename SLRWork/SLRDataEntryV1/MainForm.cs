@@ -14,6 +14,7 @@ using UglyToad.PdfPig.Content;
 using UoB.SLR.SLRDataEntryV1.CSVReader;
 using UoB.SLR.SLRDataEntryV1.DAModel;
 using UoB.SLR.SLRDataEntryV1.DataAccess;
+using UoB.SLR.SLRDataEntryV1.ReasonSearch;
 using Excel = Microsoft.Office.Interop.Excel;
 
 
@@ -153,16 +154,18 @@ namespace UoB.SLR.SLRDataEntryV1
             #endregion
 
             #region Rq1 Normalize Data used once
-            //Rq1OriginalToNormalizeConverter Rq1Converter = new Rq1OriginalToNormalizeConverter(conn);
-            //Rq1Converter.Normalize();
-            //Rq1Converter.SaveNormalized();
+            Rq1OriginalToNormalizeConverter Rq1Converter = new Rq1OriginalToNormalizeConverter(conn);
+            Rq1Converter.Normalize();
+            if (Rq1Converter.SaveNormalized())
+                MessageBox.Show("Rq1 Data normalized properly");
             #endregion
 
+            #region Rq2 Normalize Data used once
             Rq2OriginalToNormalizedConverter Rq2Converter = new Rq2OriginalToNormalizedConverter(conn);
             Rq2Converter.Normalize();
             if (Rq2Converter.SaveNormalized())
                 MessageBox.Show("Rq2 Data normalized properly");
-
+            #endregion
         }
 
         //Restore AAID
@@ -196,6 +199,23 @@ namespace UoB.SLR.SLRDataEntryV1
             //if (SaveData.UpdateAAID(aaidModels, conn))
             //    MessageBox.Show("update all yes rows");
         }
-        
+
+        /// <summary>
+        /// Search Reasons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSReason_Click(object sender, EventArgs e)
+        {
+            SearchPreparation sPreparation = new SearchPreparation(conn);
+            Dictionary<long,string> reasons =  sPreparation.SearchForWords();
+            if (SaveData.SaveNormalizedReason(reasons, conn))
+                MessageBox.Show("Normalized reasons are saved");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

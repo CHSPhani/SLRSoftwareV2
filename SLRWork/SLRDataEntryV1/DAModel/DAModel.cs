@@ -52,6 +52,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             return Param1 + "^" + Param2 + "^" + Param3 + "^" + Param4 + "^" + Param5 + "^" + Param6 + "^" + Param7;
         }
     }
+
     public class SearchResultModel
     {
         public string Param1 { get; set; }
@@ -109,6 +110,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             return Param1 + "^" + Param2 + "^" + Param3;
         }
     }
+
     public class ExcelModel
     {
         public string Param1 { get; set; }
@@ -200,6 +202,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
                     Param31 + "^" + Param32 + "^" + Param33 + "^" + Param34 + "^" + Param35 + "^" + Param36 + "^" + Param37;
         }
     }
+
     public class ReviewModel
     {
         private static ReviewModel instance = null;
@@ -276,6 +279,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Saved = false;
         }
     }
+
     public class PaperNotes
     {
         public string Notes { get; set; }
@@ -285,6 +289,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Notes = string.Empty;
         }
     }
+
     public class CommonSection
     {
         public long PaperID { get; set; }
@@ -309,7 +314,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Purpose = -1;
         }
     }
-    
+
     public class Rq2NModel
     {
         public string Pid { get; set; }
@@ -378,7 +383,6 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         }
     }
 
-
     public class Rq1R
     {
         public long pID { get; set; }
@@ -393,6 +397,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             Rq1Reason = string.Empty;
         }
     }
+
     public class Rq1A
     {
         public long pID { get; set; }
@@ -656,6 +661,35 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             AAName = aaName;
             SAreaName = saName;
         }
+    }
+
+    public class ReasonModel
+    {
+        public string PCitation { get; set; }
+        public string Reason { get; set; }
+
+        public ReasonModel() { }
+
+        public ReasonModel(string cite, string reason)
+        {
+            this.PCitation = cite;
+            this.Reason = reason;
+        }
+    }
+
+    public class Constants
+    {
+        public static List<string> BCR_Distributed_System = new List<string>() { "Distributed", "network", };
+        public static List<string> BCR_Data_Store = new List<string>() { "Store" , "Data", "Storage", "Fog", "Cloud", "edge", "meters", "Grid", "smart", "home", "system", "sharding", "provenance",
+                                                                            "caching", "integrate", "iot", "internet", "of", "things", "CPS" };
+        public static List<string> BCR_Trust = new List<string>() { "Trust", "Trusted", "certificate"};
+        public static List<string> BCR_Peer_Trade = new List<string>() { "Trade", "Trading", "local","energy", "market", "transactive", "P2P", "demand", "side"};
+        public static List<string> BCR_Coin_Feature = new List<string>() { "Coin", "micropayments" };
+        public static List<string> BCR_Others = new List<string>() { "cybersecurity", "log", "standad", "book", "Formuation", "report" }; 
+        public static List<string> BCR_Technology = new List<string>() { "BLOAT", "technology", "tech", "review", "theoritical", "model", "new", "proposal", "proposed", "Block", "allocation", "architecture",
+                                                                         "consensus", "protocol", "scalability","scalable", "assignment","secure", "latency", "shared"
+                                                                          };
+        public static List<string> BCR_Survey = new List<string>() { "survey","appropriate", "compare", "studies", "investigates", "evaluation", "metrics", "comparitive", "Specification", "Paxos", "analyzes"};
     }
 }
 
