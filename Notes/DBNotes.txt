@@ -189,6 +189,7 @@ CREATE TABLE `slrv1`.`rq2N` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+
 4.// RQ3: Data in Blochcian		
 //	Data Format
 //	Data Store
@@ -237,6 +238,30 @@ CREATE TABLE `slrv1`.`rq4` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+CREATE TABLE `slrv1`.`rq34N` (
+`pID` INT NOT NULL,
+`pCitation` VARCHAR(100) NOT NULL,
+`AreaName` varchar(100) NOT NULL,
+`SubAreaName` varchar(100) NOT NULL, 
+`bcDataFormat` varchar(1000) NOT NULL, 
+`dataStore` varchar(1000) NOT NULL, 
+`datamodel` varchar(1000) NOT NULL, 
+`dataintegrity` varchar(1000) NOT NULL,  
+`dataaccess` varchar(1000) NOT NULL, 
+`dataindexing` varchar(1000) NOT NULL,  
+`datarelations` varchar(1000) NOT NULL, 
+`datasharding` varchar(1000) NOT NULL, 
+`dataprovenance` varchar(1000) NOT NULL,  
+`datalineage` varchar(1000) NOT NULL, 
+`dataownership` varchar(1000) NOT NULL,  
+`ownershiptowards` varchar(1000) NOT NULL,  
+`dataauthorization` varchar(1000) NOT NULL,
+PRIMARY KEY (`pID`),
+ CONSTRAINT `rq34nComp1`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 6.// RDistirbuted Systems Aspect			
 //	Network Type

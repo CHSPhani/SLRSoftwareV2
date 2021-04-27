@@ -155,6 +155,43 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return false;
         }
 
+        public static bool UpdateRq34Model(List<Rq34Model> rq34Models, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            if (rq34Models == null || rq34Models.Count == 0)
+            {
+                return false;
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            MySqlCommand cmd = null;
+            try
+            {
+                foreach (Rq34Model rq34m in rq34Models)
+                {
+                    string cSection = string.Format("INSERT INTO rq34n (pID, pCitation, AreaName, SubAreaName,bcDataFormat, dataStore, datamodel, dataintegrity, dataaccess, " +
+                                                        "dataindexing, datarelations, datasharding, dataprovenance, datalineage, dataownership, ownershiptowards, dataauthorization) VALUES " +
+                                                        "({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}');",
+                                                        rq34m.pID, rq34m.pCitation, rq34m.AreaName, rq34m.SubAreaName, rq34m.bcDataFormat, rq34m.dataStore, rq34m.datamodel,
+                                                        rq34m.dataintegrity, rq34m.dataaccess, rq34m.dataindexing, rq34m.datarelations, rq34m.datasharding, rq34m.dataprovenance, rq34m.datalineage, 
+                                                        rq34m.dataownership, rq34m.ownershiptowards, rq34m.dataauthorization);
+                    cmd = new MySqlCommand(cSection.ToString(), conn);
+                    cmd.Transaction = myTrans;
+                    cmd.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    cmd = null;
+                }
+                myTrans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while inserting RQ34 Normalized data. Details are {0}", ex.Message));
+            }
+            return false;
+        }
+
         public static bool UpdateDetails(ReviewModel rModel, MySqlConnection conn)
         {
             MySqlTransaction myTrans;

@@ -677,6 +677,36 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         }
     }
 
+    public class Rq34Model
+    {
+        public int pID { get; set; }
+        public string pCitation { get; set; }
+        public string AreaName { get; set; }
+        public string SubAreaName { get; set; }
+        public string bcDataFormat { get; set; }
+        public string dataStore { get; set; }
+        public string datamodel { get; set; }
+        public string dataintegrity { get; set; }
+        public string dataaccess { get; set; }
+        public string dataindexing { get; set; }
+        public string datarelations { get; set; }
+        public string datasharding { get; set; }
+        public string dataprovenance { get; set; }
+        public string datalineage { get; set; }
+        public string dataownership { get; set; }
+        public string ownershiptowards { get; set; }
+        public string dataauthorization { get; set; }
+
+        public Rq34Model() { }
+
+        public override string ToString()
+        {
+            return pID + "^" + pCitation + "^" + AreaName + "^" + SubAreaName + "^" + bcDataFormat + "^" + dataStore + "^" + datamodel + "^" + dataintegrity + "^" + 
+                        dataaccess + "^" + dataindexing + "^" + datarelations + "^" + datasharding + "^" + dataprovenance + "^" + datalineage + "^" + dataownership + "^" + ownershiptowards + "^" + 
+                        dataauthorization;
+        }
+    }
+
     public class Constants
     {
         public static List<string> BCR_Distributed_System = new List<string>() { "Distributed", "network", };

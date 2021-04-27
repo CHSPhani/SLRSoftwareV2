@@ -41,6 +41,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.btnSReason = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.btnData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -188,7 +189,18 @@
             this.button8.Text = "Process Reason Data";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Visible = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // btnData
+            // 
+            this.btnData.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnData.Location = new System.Drawing.Point(594, 178);
+            this.btnData.Name = "btnData";
+            this.btnData.Size = new System.Drawing.Size(205, 40);
+            this.btnData.TabIndex = 13;
+            this.btnData.Text = "Load Data for Data";
+            this.btnData.UseVisualStyleBackColor = true;
+            this.btnData.Visible = false;
+            this.btnData.Click += new System.EventHandler(this.btnData_Click);
             // 
             // MainForm
             // 
@@ -196,6 +208,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.btnData);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.btnSReason);
             this.Controls.Add(this.button7);
@@ -232,5 +245,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnSReason;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnData;
     }
 }

@@ -213,9 +213,51 @@ namespace UoB.SLR.SLRDataEntryV1
                 MessageBox.Show("Normalized reasons are saved");
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void btnData_Click(object sender, EventArgs e)
         {
+            List<Rq34Model> rq34Models = new List<Rq34Model>();
 
+            Excel._Application oApp = new Excel.Application();
+            oApp.Visible = true;
+
+            Excel.Workbook oWorkbook = oApp.Workbooks.Open(@"C:\Users\sc18092\OneDrive - University of Bristol\Desktop\Revised_Work\SLR_Document_Notes\Queries and Figures\DataForData.xlsx");
+            Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Sheet1"];
+
+            int colNo = oWorksheet.UsedRange.Columns.Count;
+            int rowNo = oWorksheet.UsedRange.Rows.Count;
+
+            // read the value into an array.
+            object[,] array = oWorksheet.UsedRange.Value;
+
+            for (int i = 2; i <= rowNo; i++)
+            {
+                Rq34Model rq34Model = new Rq34Model();
+
+                rq34Model.pID = Int32.Parse(array[i, 1].ToString());
+                rq34Model.pCitation = array[i, 3].ToString();
+
+                rq34Model.bcDataFormat = array[i, 4].ToString();
+                rq34Model.dataStore = array[i, 5].ToString();
+                rq34Model.datamodel = array[i, 6].ToString();
+                rq34Model.dataintegrity = array[i, 7].ToString();
+                rq34Model.dataaccess = array[i, 8].ToString();
+                rq34Model.dataindexing = array[i, 9].ToString();
+                rq34Model.datarelations = array[i, 10].ToString();
+                rq34Model.datasharding = array[i, 11].ToString();
+                rq34Model.dataprovenance = array[i, 12].ToString();
+                rq34Model.datalineage = array[i, 13].ToString();
+                rq34Model.dataownership = array[i, 14].ToString();
+                rq34Model.ownershiptowards = array[i, 15].ToString();
+                rq34Model.dataauthorization = array[i, 16].ToString();
+                
+                rq34Model.AreaName = array[i, 17].ToString();
+                rq34Model.SubAreaName = array[i, 18].ToString();
+
+                rq34Models.Add(rq34Model);
+            }
+
+            if (SaveData.UpdateRq34Model(rq34Models, conn))
+                MessageBox.Show("update all rq 34 rows");
         }
     }
 }
