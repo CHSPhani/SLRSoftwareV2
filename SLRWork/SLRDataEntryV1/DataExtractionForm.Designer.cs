@@ -45,6 +45,9 @@
             this.cmbAAc = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnND = new System.Windows.Forms.Button();
+            this.txtQuery = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -231,12 +234,44 @@
             this.btnND.UseVisualStyleBackColor = true;
             this.btnND.Click += new System.EventHandler(this.btnND_Click);
             // 
+            // txtQuery
+            // 
+            this.txtQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQuery.Location = new System.Drawing.Point(101, 591);
+            this.txtQuery.Name = "txtQuery";
+            this.txtQuery.Size = new System.Drawing.Size(557, 31);
+            this.txtQuery.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(25, 591);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 25);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Query";
+            // 
+            // btnQuery
+            // 
+            this.btnQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuery.Location = new System.Drawing.Point(517, 647);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(141, 36);
+            this.btnQuery.TabIndex = 19;
+            this.btnQuery.Text = "Create Excel";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
             // DataExtractionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 532);
+            this.ClientSize = new System.Drawing.Size(674, 695);
             this.ControlBox = false;
+            this.Controls.Add(this.btnQuery);
+            this.Controls.Add(this.txtQuery);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnND);
             this.Controls.Add(this.cmbAAc);
             this.Controls.Add(this.label5);
@@ -281,5 +316,8 @@
         private System.Windows.Forms.ComboBox cmbAAc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnND;
+        private System.Windows.Forms.TextBox txtQuery;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnQuery;
     }
 }

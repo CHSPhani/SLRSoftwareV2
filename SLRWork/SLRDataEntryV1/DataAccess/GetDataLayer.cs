@@ -1676,6 +1676,172 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
         }
 
+
+        public static List<ExcelModel> GetDataModelForQuery(string qry, MySqlConnection conn)
+        {
+            List<ExcelModel> exModel = new List<ExcelModel>();
+            List<long> Pids = new List<long>();
+            exModel.Add(GetDataLayer.CreateLabelRow());
+            try
+            {
+                string sql = qry;
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Pids.Add(long.Parse(rdr[0].ToString()));
+                }
+                rdr.Close();
+                sql = string.Empty;
+                cmd = null;
+                foreach (long pid in Pids)
+                {
+                    ExcelModel eModel = new ExcelModel();
+
+                    //Common section
+                    sql = string.Format("select * from commonparams where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param1 = rdr[0].ToString();
+                        eModel.Param2 = rdr[1].ToString();
+                        eModel.Param3 = rdr[2].ToString();
+                        eModel.Param4 = rdr[3].ToString();
+                        eModel.Param5 = rdr[4].ToString();
+                    }
+                    rdr.Close();
+
+                    //Rq1
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq1_r where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    int aaid = -1;
+                    while (rdr.Read())
+                    {
+                        aaid = Int32.Parse(rdr[1].ToString());
+                        eModel.Param7 = rdr[2].ToString();
+                        string reason = rdr[3].ToString();
+                        StringBuilder mReason = new StringBuilder();
+                        foreach (char c in reason)
+                        {
+                            if (c == '\n')
+                                continue;
+                            mReason.Append(c);
+                        }
+                        eModel.Param8 = mReason.ToString();
+                    }
+                    rdr.Close();
+                    eModel.Param6 = GetDataLayer.GETAAreaName(aaid, conn);
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+
+                    //Rq2
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq2 where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param9 = rdr[1].ToString();
+                        eModel.Param10 = rdr[2].ToString();
+                        eModel.Param11 = rdr[3].ToString();
+                        eModel.Param12 = rdr[4].ToString();
+                        eModel.Param13 = rdr[5].ToString();
+                        eModel.Param14 = rdr[6].ToString();
+                        eModel.Param15 = rdr[7].ToString();
+                        eModel.Param16 = rdr[8].ToString();
+                        eModel.Param17 = rdr[9].ToString();
+                    }
+                    rdr.Close();
+
+                    //Rq3
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq3 where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param18 = rdr[1].ToString();
+                        eModel.Param19 = rdr[2].ToString();
+                    }
+                    rdr.Close();
+
+                    //Rq4
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq4 where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param20 = rdr[1].ToString();
+                        eModel.Param21 = rdr[2].ToString();
+                        eModel.Param22 = rdr[3].ToString();
+                        eModel.Param23 = rdr[4].ToString();
+                        eModel.Param24 = rdr[5].ToString();
+                        eModel.Param25 = rdr[6].ToString();
+                        eModel.Param26 = rdr[7].ToString();
+                        eModel.Param27 = rdr[8].ToString();
+                        eModel.Param28 = rdr[9].ToString();
+                        eModel.Param29 = rdr[10].ToString();
+                        eModel.Param30 = rdr[11].ToString();
+                    }
+                    rdr.Close();
+
+                    //Rq5
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq5 where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param31 = rdr[1].ToString();
+                        eModel.Param32 = rdr[2].ToString();
+                        eModel.Param33 = rdr[3].ToString();
+                    }
+                    rdr.Close();
+
+                    //Rq6
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from rq6 where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param34 = rdr[1].ToString();
+                        eModel.Param35 = rdr[2].ToString();
+                        eModel.Param36 = rdr[3].ToString();
+                    }
+                    rdr.Close();
+
+                    //notes
+                    sql = string.Empty;
+                    cmd = null;
+                    sql = string.Format("select * from notes where pID ={0};", pid);
+                    cmd = new MySqlCommand(sql, conn);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        eModel.Param37 = rdr[1].ToString();
+                    }
+                    rdr.Close();
+                    exModel.Add(eModel);
+                    System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(string.Format("Exception while getting Excel Model. Details are {0}", ex.Message));
+            }
+            return exModel;
+        }
         public static List<ExcelModel> GetDataForAAExcel(int aAreaId, string accepted, MySqlConnection conn)
         {
             List<ExcelModel> exModel = new List<ExcelModel>();
