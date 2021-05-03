@@ -33,6 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbPName = new System.Windows.Forms.ComboBox();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.lblPid = new System.Windows.Forms.Label();
+            this.txtPid = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnExtract
@@ -87,12 +90,43 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // lblPid
+            // 
+            this.lblPid.AutoSize = true;
+            this.lblPid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPid.Location = new System.Drawing.Point(139, 116);
+            this.lblPid.Name = "lblPid";
+            this.lblPid.Size = new System.Drawing.Size(39, 24);
+            this.lblPid.TabIndex = 5;
+            this.lblPid.Text = "PID";
+            // 
+            // txtPid
+            // 
+            this.txtPid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPid.Location = new System.Drawing.Point(184, 111);
+            this.txtPid.Name = "txtPid";
+            this.txtPid.Size = new System.Drawing.Size(538, 29);
+            this.txtPid.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(387, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 24);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "OR";
+            // 
             // DataEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 386);
             this.ControlBox = false;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtPid);
+            this.Controls.Add(this.lblPid);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cbPName);
             this.Controls.Add(this.label1);
@@ -113,5 +147,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbPName;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Label lblPid;
+        private System.Windows.Forms.TextBox txtPid;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -355,6 +355,45 @@ CREATE TABLE `slrv1`.`Purpose` (
  PRIMARY KEY (`puID`));
 
 
+13. //Why questionnair
+
+CREATE TABLE `slrv1`.`Whyq` (
+`pID` INT ,
+`whyq1` TEXT ,
+`whyq2` TEXT ,
+`whyq3` TEXT ,
+`whyq4` TEXT ,
+`whyq5` TEXT ,
+`whyq6` TEXT ,
+`whyq7` TEXT ,
+`whyq8` TEXT ,
+`whyq9` TEXT ,
+`whyq10` TEXT ,
+`whyq11` TEXT ,
+`whyq12` TEXT ,
+`whyq13` TEXT ,
+`whyq14` TEXT ,
+`whyq15` TEXT ,
+`whyq16` TEXT ,
+`whyq17` TEXT ,
+`whyq18` TEXT ,
+`whyq19` TEXT ,
+`whyq20` TEXT ,
+`whyq21` TEXT ,
+`whyq22` TEXT ,
+`whyq23` TEXT ,
+`whyq24` TEXT ,
+`whyq25` TEXT ,
+`whyq26` TEXT ,
+`whyq27` TEXT ,
+`whyq28` TEXT ,
+`whyq29` TEXT ,
+PRIMARY KEY (`pID`),
+ CONSTRAINT `whyqComp1`
+    FOREIGN KEY (`pID`)
+    REFERENCES `slrv1`.`commonparams` (`pID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 //Alter Common Purpose
 ALTER TABLE commonparams

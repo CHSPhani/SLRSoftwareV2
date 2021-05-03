@@ -125,8 +125,7 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
             OldParams[29] = "Notes";
         }
     }
-
-
+    
     public class Rq1Revisited
     {
         List<Rq1A> ActualRq1 { get; set; }

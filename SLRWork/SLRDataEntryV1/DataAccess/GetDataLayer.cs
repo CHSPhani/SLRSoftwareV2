@@ -7,6 +7,8 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using UoB.SLR.SLRDataEntryV1.DAModel;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace UoB.SLR.SLRDataEntryV1.DataAccess
 {
@@ -104,7 +106,6 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
 
         public static bool UpdateAAID(List<AAIDModel> aaidModels, MySqlConnection conn)
         {
-            int rowsupdated = 0;
             MySqlTransaction myTrans;
             if (aaidModels == null)
             {
@@ -152,6 +153,63 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
                 myTrans.Rollback();
                 Console.WriteLine(string.Format("Exception while updating AAID data. Details are {0}", ex.Message));
             }
+            return false;
+        }
+
+        public static bool InsertWhyq(WhyModel whyModel, MySqlConnection conn)
+        {
+            try
+            {
+                // serialize JSON to a string and then write string to a file
+                string folderPath = string.Format(@"C:\Users\sc18092\OneDrive - University of Bristol\Desktop\Revised_Work\SLR_Document_Notes\Comments\");
+                string fileName = string.Format(@"{0}.json", whyModel.Pid);
+                //delete first
+                List<string> existingfiles = Directory.GetFiles(folderPath, fileName, SearchOption.AllDirectories).ToList<string>();
+                foreach (string fileDet in existingfiles)
+                {
+                    System.IO.FileInfo fInfo = new FileInfo(fileDet);
+                    fInfo.Delete();
+                }
+                //save then
+                File.WriteAllText(folderPath + fileName, JsonConvert.SerializeObject(whyModel));
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(string.Format("Exception while creating JSON for why questions."));
+            }
+
+            #region Insert code
+            //later we need to see where we can stoer this 
+            //Mysql or Mongo
+            //MySqlTransaction myTrans;
+            //if (whyModel == null)
+            //{
+            //    return false;
+            //}
+            //// Start a local transaction
+            //myTrans = conn.BeginTransaction();
+            //try
+            //{
+            //    string cSection = string.Format("INSERT INTO whyq (pID, whyq1, whyq2, whyq3, whyq4, whyq5, whyq6, whyq7, whyq8, whyq9, whyq10, whyq11, whyq12, whyq13, whyq14, whyq15, whyq16, whyq17, whyq18, whyq19, whyq20, whyq21, whyq22, whyq23, whyq24, whyq25, whyq26, whyq27, whyq28, whyq29) " +
+            //        "VALUES ({0},'{1}','{2}','{3}','{4}',{5},'{6}','{7}',{8},'{9}','{10}','{11}','{12}','{13}','{14}',{15},'{16}','{17}',{18},'{19}','{20}','{21}','{22}','{23}','{24}',{25},'{26}','{27}','{28}','{29}');", 
+            //                                         whyModel.Pid, whyModel.Whyq1, whyModel.Whyq2, whyModel.Whyq3, whyModel.Whyq4, whyModel.Whyq5, whyModel.Whyq6, whyModel.Whyq7, whyModel.Whyq8, whyModel.Whyq9, whyModel.Whyq10,
+            //                                         whyModel.Whyq11, whyModel.Whyq12, whyModel.Whyq13, whyModel.Whyq14, whyModel.Whyq15, whyModel.Whyq16, whyModel.Whyq17, whyModel.Whyq18, whyModel.Whyq19, whyModel.Whyq20,
+            //                                         whyModel.Whyq21, whyModel.Whyq22, whyModel.Whyq23, whyModel.Whyq24, whyModel.Whyq25, whyModel.Whyq26, whyModel.Whyq27, whyModel.Whyq28, whyModel.Whyq29);
+            //    MySqlCommand cmd = new MySqlCommand(cSection.ToString(), conn);
+            //    cmd.Transaction = myTrans;
+            //    cmd.ExecuteNonQuery();
+            //    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+            //    myTrans.Commit();
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    myTrans.Rollback();
+            //    Console.WriteLine(string.Format("Exception while updating AAID data. Details are {0}", ex.Message));
+            //}
+            #endregion
+
             return false;
         }
 
@@ -701,6 +759,7 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             }
             return false;
         }
+
     }
 
     public class GetDataLayer

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UoB.SLR.SLRDataEntryV1.DAModel;
 using UoB.SLR.SLRDataEntryV1.DataAccess;
-using UoB.SLR.SLRDataEntryV1.DAModel;
 
 namespace UoB.SLR.SLRDataEntryV1
 {
@@ -753,6 +752,13 @@ namespace UoB.SLR.SLRDataEntryV1
             {
                 this.Close();
             }
+        }
+
+        private void btnQ_Click(object sender, EventArgs e)
+        {
+            WhyModel wModel = new WhyModel();
+            Questionnaire qnaire = new Questionnaire(rModel.cSection.PaperID, wModel, conn);
+            qnaire.ShowDialog();
         }
     }
 }

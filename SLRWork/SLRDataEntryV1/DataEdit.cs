@@ -55,9 +55,17 @@ namespace UoB.SLR.SLRDataEntryV1
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            long pId = 0;
             //Get data from Data using PaperID and Paper Title. 
-            string pTitle = cbPName.SelectedItem.ToString();
-            long pId = eDetails[pTitle];
+            if (cbPName.SelectedItem != null &&  !string.IsNullOrEmpty(cbPName.SelectedItem.ToString()))
+            {
+                string pTitle = cbPName.SelectedItem.ToString();
+                pId = eDetails[pTitle];
+            }
+            if(!string.IsNullOrEmpty(txtPid.Text.Trim()))
+            {
+                pId = Int32.Parse(txtPid.Text);
+            }
             ReviewModel rModel = GetDataLayer.GetReviewModel(pId, conn);
             DataEntry deForm = new DataEntry(rModel, true);
             deForm.ShowDialog();

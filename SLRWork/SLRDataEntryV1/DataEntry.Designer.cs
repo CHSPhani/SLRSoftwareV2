@@ -42,6 +42,7 @@
             this.tbCitaton = new System.Windows.Forms.TextBox();
             this.tbPaperName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cmbSubArea = new System.Windows.Forms.ComboBox();
             this.cmdDecision = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -127,6 +128,7 @@
             this.tbScalability = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.btnQ = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
@@ -134,7 +136,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.cmbSubArea = new System.Windows.Forms.ComboBox();
             this.tbDataController.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -307,6 +308,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "RQ1 : Why Blockchain";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cmbSubArea
+            // 
+            this.cmbSubArea.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSubArea.FormattingEnabled = true;
+            this.cmbSubArea.Location = new System.Drawing.Point(339, 77);
+            this.cmbSubArea.Name = "cmbSubArea";
+            this.cmbSubArea.Size = new System.Drawing.Size(424, 33);
+            this.cmbSubArea.TabIndex = 21;
             // 
             // cmdDecision
             // 
@@ -1167,6 +1177,7 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.btnQ);
             this.tabPage8.Controls.Add(this.button1);
             this.tabPage8.Controls.Add(this.button18);
             this.tabPage8.Controls.Add(this.label40);
@@ -1178,10 +1189,21 @@
             this.tabPage8.Text = "Notes for Paper";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // btnQ
+            // 
+            this.btnQ.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQ.Location = new System.Drawing.Point(465, 414);
+            this.btnQ.Name = "btnQ";
+            this.btnQ.Size = new System.Drawing.Size(290, 41);
+            this.btnQ.TabIndex = 49;
+            this.btnQ.Text = "Why Questionnaire";
+            this.btnQ.UseVisualStyleBackColor = true;
+            this.btnQ.Click += new System.EventHandler(this.btnQ_Click);
+            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(997, 397);
+            this.button1.Location = new System.Drawing.Point(1001, 414);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 41);
             this.button1.TabIndex = 47;
@@ -1192,7 +1214,7 @@
             // button18
             // 
             this.button18.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button18.Location = new System.Drawing.Point(854, 397);
+            this.button18.Location = new System.Drawing.Point(858, 414);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(120, 41);
             this.button18.TabIndex = 48;
@@ -1204,7 +1226,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(189, 56);
+            this.label40.Location = new System.Drawing.Point(179, 38);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(58, 25);
             this.label40.TabIndex = 42;
@@ -1213,7 +1235,7 @@
             // tbNotes
             // 
             this.tbNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNotes.Location = new System.Drawing.Point(253, 56);
+            this.tbNotes.Location = new System.Drawing.Point(243, 38);
             this.tbNotes.Name = "tbNotes";
             this.tbNotes.Size = new System.Drawing.Size(865, 317);
             this.tbNotes.TabIndex = 0;
@@ -1248,15 +1270,6 @@
             this.button3.Text = "Return";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // cmbSubArea
-            // 
-            this.cmbSubArea.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbSubArea.FormattingEnabled = true;
-            this.cmbSubArea.Location = new System.Drawing.Point(339, 77);
-            this.cmbSubArea.Name = "cmbSubArea";
-            this.cmbSubArea.Size = new System.Drawing.Size(424, 33);
-            this.cmbSubArea.TabIndex = 21;
             // 
             // DataEntry
             // 
@@ -1403,5 +1416,6 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.ComboBox cmbPurpose;
         private System.Windows.Forms.ComboBox cmbSubArea;
+        private System.Windows.Forms.Button btnQ;
     }
 }

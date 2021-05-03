@@ -721,6 +721,50 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
                                                                           };
         public static List<string> BCR_Survey = new List<string>() { "survey","appropriate", "compare", "studies", "investigates", "evaluation", "metrics", "comparitive", "Specification", "Paxos", "analyzes"};
     }
+
+    public class WhyModel
+    {
+        public long Pid { get; set; }
+        public string Whyq1 { get; set; }
+        public string Whyq2 { get; set; }
+        public string Whyq3 { get; set; }
+        public string Whyq4 { get; set; }
+        public string Whyq5 { get; set; }
+        public string Whyq6 { get; set; }
+        public string Whyq7 { get; set; }
+        public string Whyq8 { get; set; }
+        public string Whyq9 { get; set; }
+        public string Whyq10 { get; set; }
+
+        public string Whyq11 { get; set; }
+        public string Whyq12 { get; set; }
+        public string Whyq13 { get; set; }
+        public string Whyq14 { get; set; }
+        public string Whyq15 { get; set; }
+        public string Whyq16 { get; set; }
+        public string Whyq17 { get; set; }
+        public string Whyq18 { get; set; }
+        public string Whyq19 { get; set; }
+        public string Whyq20 { get; set; }
+
+        public string Whyq21 { get; set; }
+        public string Whyq22 { get; set; }
+        public string Whyq23 { get; set; }
+        public string Whyq24 { get; set; }
+        public string Whyq25 { get; set; }
+        public string Whyq26 { get; set; }
+        public string Whyq27 { get; set; }
+        public string Whyq28 { get; set; }
+        public string Whyq29 { get; set; }
+
+        public WhyModel()
+        {
+            Pid = 0;
+            Whyq1 = Whyq2 = Whyq3 = Whyq4 = Whyq5 = Whyq6 = Whyq7 = Whyq8 = Whyq9 = Whyq10 = 
+                Whyq11 = Whyq12 = Whyq13 = Whyq14 = Whyq15 = Whyq16 = Whyq17 = Whyq18 = Whyq19 = Whyq20 = Whyq21 = Whyq22 = Whyq23 = 
+                Whyq24 = Whyq25 = Whyq26 = Whyq27 = Whyq28 = Whyq29 = string.Empty;
+        }
+    }
 }
 
 #region CommentetCode
