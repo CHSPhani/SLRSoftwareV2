@@ -6,9 +6,22 @@ using System.Threading.Tasks;
 using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using MongoDB.Driver;
 
 namespace UoB.SLR.SLRDataEntryV1.DataAccess
 {
+    public class MongoDBConnection
+    {
+        IMongoDatabase db;
+
+        public MongoDBConnection(string dbName)
+        {
+            var client = new MongoClient();
+            db = client.GetDatabase(dbName);
+        }
+
+    }
+
     public sealed class ConnectToDb
     {
         private static ConnectToDb instance = null;
