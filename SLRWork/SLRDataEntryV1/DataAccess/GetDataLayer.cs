@@ -213,7 +213,8 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             return false;
         }
 
-        public static bool UpdateRq34Model(List<Rq34Model> rq34Models, MySqlConnection conn)
+
+        public static bool UpdateRq1_r(List<Rq34Model> rq34Models, MySqlConnection conn)
         {
             MySqlTransaction myTrans;
             if (rq34Models == null || rq34Models.Count == 0)
@@ -225,6 +226,49 @@ namespace UoB.SLR.SLRDataEntryV1.DataAccess
             MySqlCommand cmd = null;
             try
             {
+                
+                foreach (Rq34Model rq34m in rq34Models)
+                {
+                    string cSection = string.Format("update notes set paperNotes ='{0}' where pID={1}", rq34m.notes, rq34m.pID); // , rq34m.notes Update rq1_r set aaId={0} where pID={2}; update rq1_r set saID={1} where pID={2};rq34m.SAid
+                    cmd = new MySqlCommand(cSection.ToString(), conn);
+                    cmd.Transaction = myTrans;
+                    cmd.ExecuteNonQuery();
+                    System.Threading.Thread.Sleep(100 * 1);//sleep for 2 ms just to ensure everything is OK..
+                    cmd = null;
+                }
+                myTrans.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                myTrans.Rollback();
+                Console.WriteLine(string.Format("Exception while updating Rq1_R Normalized data. Details are {0}", ex.Message));
+            }
+            return false;
+        }
+
+        public static bool UpdateRq34Model(List<Rq34Model> rq34Models, MySqlConnection conn)
+        {
+            MySqlTransaction myTrans;
+            if (rq34Models == null || rq34Models.Count == 0)
+            {
+                return false;
+            }
+            // Start a local transaction
+            myTrans = conn.BeginTransaction();
+            MySqlCommand cmd = null;
+            MySqlCommand cmd7 = null;
+            try
+            {
+                //delete existing data
+                string dRq34 = string.Format("Delete from rq34n");
+                cmd7 = new MySqlCommand(dRq34.ToString(), conn);
+                cmd7.Transaction = myTrans;
+                cmd7.ExecuteNonQuery();
+                System.Threading.Thread.Sleep(100 * 2);//sleep for 2 ms just to ensure everything is OK..
+                cmd7 = null;
+                //continue;
+
                 foreach (Rq34Model rq34m in rq34Models)
                 {
                     string cSection = string.Format("INSERT INTO rq34n (pID, pCitation, AreaName, SubAreaName,bcDataFormat, dataStore, datamodel, dataintegrity, dataaccess, " +

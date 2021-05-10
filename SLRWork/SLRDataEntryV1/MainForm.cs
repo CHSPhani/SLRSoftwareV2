@@ -147,7 +147,7 @@ namespace UoB.SLR.SLRDataEntryV1
         /// <param name="e"></param>
         private void btnNormalize_Click(object sender, EventArgs e)
         {
-            #region Rq1 REvised Data and hence used only once.
+            #region Rq1 Revised Data and hence used only once. DO NOT USE AGAIN
             //Rq1Revisited rq1Rev = new Rq1Revisited(conn);
             //rq1Rev.ReviewRq1();
             //rq1Rev.SaveReviewedData();
@@ -221,7 +221,7 @@ namespace UoB.SLR.SLRDataEntryV1
             oApp.Visible = true;
 
             Excel.Workbook oWorkbook = oApp.Workbooks.Open(@"C:\Users\sc18092\OneDrive - University of Bristol\Desktop\Revised_Work\SLR_Document_Notes\Queries and Figures\DataForData.xlsx");
-            Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Sheet1"];
+            Excel.Worksheet oWorksheet = oWorkbook.Worksheets["Sheet3"];
 
             int colNo = oWorksheet.UsedRange.Columns.Count;
             int rowNo = oWorksheet.UsedRange.Rows.Count;
@@ -253,10 +253,18 @@ namespace UoB.SLR.SLRDataEntryV1
                 rq34Model.AreaName = array[i, 17].ToString();
                 rq34Model.SubAreaName = array[i, 18].ToString();
 
+                rq34Model.AAid = GetDataLayer.GetAreaID(rq34Model.AreaName, conn);
+                rq34Model.SAid = GetDataLayer.GetSubAreaID(rq34Model.SubAreaName, conn);
+
+                if (array[i, 19] == null)
+                    rq34Model.notes = string.Empty;
+                else
+                    rq34Model.notes = array[i, 19].ToString();
+
                 rq34Models.Add(rq34Model);
             }
 
-            if (SaveData.UpdateRq34Model(rq34Models, conn))
+            if (SaveData.UpdateRq34Model(rq34Models, conn)) //if (SaveData.UpdateRq1_r(rq34Models, conn))
                 MessageBox.Show("update all rq 34 rows");
         }
     }

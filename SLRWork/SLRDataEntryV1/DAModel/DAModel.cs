@@ -697,7 +697,12 @@ namespace UoB.SLR.SLRDataEntryV1.DAModel
         public string ownershiptowards { get; set; }
         public string dataauthorization { get; set; }
 
-        public Rq34Model() { }
+        public int AAid { get; set; }
+
+        public int SAid { get; set; }
+
+        public string notes { get; set; }
+        public Rq34Model() { AAid = SAid = 0; notes = string.Empty; }
 
         public override string ToString()
         {
